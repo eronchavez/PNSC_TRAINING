@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import "./../styles/dashboard.css"
 import {
   Calendar,
@@ -12,17 +13,25 @@ import { useState, useEffect } from "react"
 
 function Dashboard() {
   const navigate = useNavigate()
-  const [summary, setSummary] = useState({})
+
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
-  const [today_count, setTodayCount] = useState("")
-  const [overdue_count, setOverDueCount] = useState("")
-  const [completed_count, setCompletedCount] = useState("")
-  const [tip_title, setTipTitle] = useState("")
-  const [tip_content, setTipContent] = useState("")
-  const [user, setUser] = useState("")
   const token = localStorage.getItem("token")
 
+  
+  const [summary, setSummary] = useState({
+    todayCount: 0,
+    overdueCount: 0,
+    completedCount: 0,
+    tipTitle: "",
+    tipContent: "",
+    user: ""
+
+  })
+
+
+
+// Set time for greeting
   function getGreeting() {
     const hour = new Date().getHours();
 
@@ -58,34 +67,37 @@ function Dashboard() {
            
            
           }
-        );
-        const data = await response.json();
+        )
+        const data = await response.json()
+        setSummary({
+          todayCount: data.summary.today_count,
+          overdueCount: data.summary.overdue_count,
+          completedCount: data.summary.completed_count,
+          tipTitle: data.tip.title,
+          tipContent: data.tip.content,
+          user: data.user
 
-        setSummary(data.summary)
-        setTodayCount(data.summary.today_count)
-        setOverDueCount(data.summary.overdue_count)
-        setCompletedCount(data.summary.completed_count)
+        })
 
-        setTipTitle(data.tip.title)
-        setTipContent(data.tip.content)
 
-        setUser(data.user)
       } catch (e) {
-        setError(e.message);
+        setError(e.message)
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     }
 
-    fetchSummary();
-  }, []);
+    fetchSummary()
+
+
+  }, [])
 
   if (loading) {
-    return <h2>Loading Dashboard...</h2>;
+    return <h2>Loading Dashboard...</h2>
   }
 
   if (error) {
-    return <h2>{error}</h2>;
+    return <h2>{error}</h2>
   }
 
   return (
@@ -93,19 +105,19 @@ function Dashboard() {
       <section className="upper-dashboard">
         <div className="greeting">
           <h1>WELCOME BACK</h1>
-          <p>{getGreeting()}, {user}!</p>
+          <p>{getGreeting()}, {summary.user}!</p>
         </div>
 
         <div className="cards">
           <div className="card">
             <Calendar color="blue" />
-            <p>{today_count}</p>
+            <p>{summary.todayCount}</p>
             <p>TODAY</p>
           </div>
 
           <div className="card">
             <ClockAlert color="red" />
-            <p>{overdue_count}</p>
+            <p>{summary.overdueCount}</p>
             <p>OVERDUE</p>
           </div>
         </div>
@@ -116,7 +128,7 @@ function Dashboard() {
               <CircleCheck color="green" />
               <p>COMPLETED TASKS</p>
             </div>
-            <p>{completed_count}</p>
+            <p>{summary.completedCount}</p>
           </div>
 
           <div
@@ -151,14 +163,14 @@ function Dashboard() {
 
           <div id="tip">
 
-            <p id="tip-title">{tip_title}</p>
-            <p id="tip-content">{tip_content}</p>
+            <p id="tip-title">{summary.tipTitle}</p>
+            <p id="tip-content">{summary.tipContent}</p>
           </div>
 
         </div>
       </section>
     </main>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard
