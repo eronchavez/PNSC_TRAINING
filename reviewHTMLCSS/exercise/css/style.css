@@ -1,0 +1,280 @@
+/* *
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+}
+
+main
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.card 
+{   
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    width: 800px;
+    height: 500px;
+    border: 1px solid black;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    background-color: royalblue;
+    gap: 2em;
+    border-radius: 1.5em;
+}
+
+.overlay 
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-size: cover;
+    background-image: url('sunset.jpg');
+    height: 100%;
+    width: 100%;
+    mix-blend-mode: overlay;
+    border-radius: 1.5em;
+    
+}
+
+
+h1 , p
+{
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+
+button 
+{
+    height: 3em;
+    width: 10em;
+    border-radius: 5px;
+} */
+
+
+/* 
+ 
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+ }
+
+
+main
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+}
+form
+{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    width: 80%;
+    gap: 0.5em;
+    max-width: 800px;
+}
+
+h1 
+{
+    text-align: center;
+} 
+
+.inputField 
+{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.5em;
+    padding: 0.5em;
+    
+}
+
+@media (max-width: 620px)
+{
+    .inputField {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 1em;
+    }
+}
+
+
+ */
+
+.clickMe 
+{
+    display: inline-block;
+    width: 30%;
+    margin: 2em;
+    padding: 2em;
+    border-radius: 0.5em;
+    background-color: beige;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+   
+}
+ 
+
+button.clickMe:hover 
+{
+    transform:translateY(-45px) scale(1.1);
+    background-color: red;
+    box-shadow: 5px 5px 3px rgba(0,0,0,0.3);
+}
+
+
+#second 
+{
+    display: block;
+    width: 30%;
+    margin: 2em;
+    padding: 2em;
+    border-radius: 0.5em;
+    background-color: royalblue;
+    animation: jump 1s ease-in-out 2;
+    transform-origin: left top;
+    animation-direction: alternate;
+
+    
+    
+    
+    /* animation-direction: alternate; */
+}
+
+@keyframes jump {
+     from 
+     {
+        transform:  scale(1);
+        background-color: royalblue;
+        box-shadow: 0 0 0 rgba(0,0,0,0.3);
+     }
+     to 
+     {
+        transform: scale(1.5);
+        background-color: red;
+        box-shadow: 5px 5px 3px rgba(0,0,0,0.3);
+     }
+}
+
+.clicked 
+{
+    animation: jump 1s ease-in-out ;
+}
+
+
+.card 
+{
+    border: 1px solid black;
+    background-color: beige;
+    height: 300px;
+    width: 300px;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-in-out;
+   
+
+}
+
+.front , .back
+{
+
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    backface-visibility: hidden;
+
+}
+
+.front
+{
+    background-color: aqua;
+}
+
+.back 
+{
+    background: red;
+    transform: rotateY(180deg);
+}
+/* 
+.card:hover 
+{
+    transform: rotateY(180deg);
+} */
+
+main 
+{
+    perspective: 1000px;
+}
+
+body 
+{
+    background-color: red;
+}
+
+@view-transition
+{
+    navigation: auto;
+    /* types: pixelate */
+    
+}
+
+/* html:active-view-transition-type(pixelate)::view-transition-old(root)
+{
+    animation:pixelate-out 2s ease forwards;
+    
+}
+html:active-view-transition-type(pixelate)::view-transition-new(root)
+{
+    animation:pixelate-in 2s ease forwards;
+    
+} */
+
+@keyframes pixelate-out {
+    from
+    {
+        filter: blur(0px);
+        opacity: 1;
+    } to 
+    {
+        filter: blur(40px);
+        opacity: 0;
+    }        
+}
+@keyframes pixelate-in {
+    from
+    {
+        filter: blur(40px);
+        opacity: 0;
+    } to 
+    {
+        filter: blur(0);
+        opacity: 1;
+    }        
+}
+
+::view-transition-old(title)
+{
+      animation:pixelate-out 2s ease forwards;
+}
+::view-transition-new(title)
+{
+      animation:pixelate-in 2s ease forwards;
+}
+h1{
+    view-transition-name: title;
+}

@@ -1,0 +1,283 @@
+{
+  "info": {
+    "name": "StudySprint",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/login",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "login"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"demo@pnsc2026.com\",\n  \"password\": \"Pnsc@2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Retrieve Dashboard Data",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/dashboard",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "dashboard"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get All Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/tasks?completed=1&priority=High",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "tasks?completed=1&priority=High"
+          ],
+          "query": [
+            {
+              "key": "completed",
+              "value": "1"
+            },
+            {
+              "key": "priority",
+              "value": "High"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Get Task",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/tasks/3",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "tasks",
+            "3"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "Create New Task",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/tasks",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "tasks"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Review fetch error handling\",\n  \"subject\": \"Web Technologies\",\n  \"due_date\": \"2026-05-03\",\n  \"priority\": \"Medium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Update Task",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/tasks/11",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "tasks",
+            "11"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Review JSON response structures\",\n  \"subject\": \"Web Technologies\",\n  \"due_date\": \"2026-06-03\",\n  \"priority\": \"Medium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Delete Task",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/tasks/23",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "tasks",
+            "23"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Review JSON response structures\",\n  \"subject\": \"Web Technologies\",\n  \"due_date\": \"2026-06-03\",\n  \"priority\": \"Medium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "key": "token",
+            "value": "1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28",
+            "type": "string"
+          }
+        },
+        "description": "",
+        "url": {
+          "raw": "{{BASE_URL}}/logout",
+          "protocol": "",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "logout"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+
+    <main>
+
+        <h1>Hello world </h1>
+<!-- 
+        <div class="card">
+            <h1>Title</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <button>Test</button>
+            
+            <div class="overlay"></div>
+        </div>
+
+
+         -->
+
+         <!-- title,register , fields username, email , password , confirm password, resgister button  -->
+
+         <!-- <form action="#" method="POST">
+            <h1>Register</h1>
+            <div class="inputField">
+                <label for="userName">User Name: </label>
+                <input type="text" name="userName" id="userName">
+                <label for="email">Email:</label>
+                <input type="email" name="email"  id="email">
+                <label for="password">Password: </label>
+                <input type="password" name="password"  id="password">
+                <label for="confirmPassword">Confirm Password: </label>
+                <input type="password" name="confirmPassword"  id="confirmPassword">
+            </div>
+
+            <button type="submit">register</button>
+         </form> -->
+         <button id="second">Second button</button>
+         <button class="clickMe">Click me!</button>
+         
+         <span>test</span>
+
+
+         <div class="card">
+            <div class="front"></div>
+            <div class="back"></div>
+         </div>
+
+         <a href="second.html">Click me po</a>
+    </main>
+    
+    <script>
+
+        const click = document.querySelector('#second');
+
+        click.addEventListener('click', () => {
+            click.classList.add('clicked');
+        });
+
+        const card = document.querySelector('.card');
+
+        card.addEventListener('mousemove', (e) => {
+            const {
+                left, top, width, height
+            } = card.getBoundingClientRect();
+
+            const x = ((e.clientX - left) / width - 0.5) ; // Scale the rotation to a reasonable degree
+            const y = ((e.clientY - top) / height - 0.5) ;
+            
+            card.style.transform = `rotateY(${y * 200}deg) rotateX(${x  * 200}deg)`;
+        })
+
+
+
+    </script>
+
+</body>
+</html>

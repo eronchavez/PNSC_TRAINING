@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySprint - API Documentation</title>
+    <style>
+        body { margin: 0; padding: 0; }
+        #opencollection-container { width: 100vw; height: 100vh; }
+    </style>
+    <link rel="stylesheet" href="https://cdn.opencollection.com/docs.css">
+    <script src="https://cdn.opencollection.com/docs.js"></script>
+</head>
+<body>
+    <div id="opencollection-container"></div>
+    <script>
+        const collectionData = "opencollection: 1.0.0\ninfo:\n  name: StudySprint\nconfig:\n  proxy:\n    inherit: true\n    config:\n      protocol: http\n      hostname: ''\n      port: ''\n      auth:\n        username: ''\n        password: ''\n      bypassProxy: ''\n  environments:\n    - name: Development\n      variables:\n        - name: BASE_URL\n          value: http://localhost/studysprint/api\nitems:\n  - info:\n      name: Login\n      type: http\n      seq: 1\n    http:\n      method: POST\n      url: '{{BASE_URL}}/login'\n      body:\n        type: json\n        data: |-\n          {\n            \"email\": \"demo@pnsc2026.com\",\n            \"password\": \"Pnsc@2026\"\n          }\n      auth: inherit\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Retrieve Dashboard Data\n      type: http\n      seq: 3\n    http:\n      method: GET\n      url: '{{BASE_URL}}/dashboard'\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Get All Tasks\n      type: http\n      seq: 4\n    http:\n      method: GET\n      url: '{{BASE_URL}}/tasks?completed=1&priority=High'\n      params:\n        - name: completed\n          value: '1'\n          type: query\n        - name: priority\n          value: High\n          type: query\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Get Task\n      type: http\n      seq: 5\n    http:\n      method: GET\n      url: '{{BASE_URL}}/tasks/3'\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Create New Task\n      type: http\n      seq: 6\n    http:\n      method: POST\n      url: '{{BASE_URL}}/tasks'\n      body:\n        type: json\n        data: |-\n          {\n            \"title\": \"Review fetch error handling\",\n            \"subject\": \"Web Technologies\",\n            \"due_date\": \"2026-05-03\",\n            \"priority\": \"Medium\"\n          }\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Update Task\n      type: http\n      seq: 6\n    http:\n      method: PATCH\n      url: '{{BASE_URL}}/tasks/11'\n      body:\n        type: json\n        data: |-\n          {\n            \"title\": \"Review JSON response structures\",\n            \"subject\": \"Web Technologies\",\n            \"due_date\": \"2026-06-03\",\n            \"priority\": \"Medium\"\n          }\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Delete Task\n      type: http\n      seq: 7\n    http:\n      method: DELETE\n      url: '{{BASE_URL}}/tasks/23'\n      body:\n        type: json\n        data: |-\n          {\n            \"title\": \"Review JSON response structures\",\n            \"subject\": \"Web Technologies\",\n            \"due_date\": \"2026-06-03\",\n            \"priority\": \"Medium\"\n          }\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\n  - info:\n      name: Logout\n      type: http\n      seq: 2\n    http:\n      method: POST\n      url: '{{BASE_URL}}/logout'\n      auth:\n        type: bearer\n        token: 1YSCtkD83hQW3V3NIYqR8JxsdbW7AsSAQy9SKK8R76aa8e28\n    settings:\n      encodeUrl: true\n      timeout: 0\n      followRedirects: true\n      maxRedirects: 5\nbundled: true\nextensions:\n  bruno:\n    ignore:\n      - node_modules\n      - .git\n    exportedAt: '2026-04-28T22:16:04.671Z'\n    exportedUsing: Bruno/3.1.4\n";
+        new window.OpenCollection({
+            target: document.getElementById('opencollection-container'),
+            opencollection: collectionData,
+            theme: 'light'
+        });
+    </script>
+</body>
+</html>

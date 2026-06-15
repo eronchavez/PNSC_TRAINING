@@ -1,0 +1,16 @@
+{
+  "name": "Lyon Mobile Web Service",
+  "short_name": "Lyon Service",
+  "start_url": "./index.html",
+  
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1b81ef",
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}

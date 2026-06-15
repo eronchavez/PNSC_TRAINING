@@ -1,0 +1,3 @@
+[submodule "CompetitionProject/01_module_c"]
+	path = CompetitionProject/01_module_c
+	url = https://github.com/eronchavez/01_module_c

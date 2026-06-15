@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyon Mobile Web Service: Paano Ito Buuin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lyon-course.css">
+  <script src="lyon-course.js" defer></script>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <img src="../images/logo.svg" alt="Lyon logo" class="nav-logo">
+        <span class="nav-title">Lyon Mobile Web Service: Development Guide</span>
+      </div>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="Foundation" role="tab" aria-label="Module 1: Foundation"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="State and Router" role="tab" aria-label="Module 2: State and Router"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="Features" role="tab" aria-label="Module 3: Features"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="Persistence and PWA" role="tab" aria-label="Module 4: Persistence and PWA"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Development Guide</span>
+        <h1>Gagawa tayo ng Lyon Mobile Web Service mula umpisa, step by step.</h1>
+        <p>Ang goal ng course na ito ay hindi lang ipakita kung ano ang nasa code ngayon. Ang gusto natin ay maintindihan mo kung paano mo siya bubuuin as a beginner: mula sa app shell, hanggang state, navigation, API views, planner CRUD, settings, local storage, at PWA setup.</p>
+        <p>Isipin mo na nasa classroom tayo. Ako ang instructor mo, at ang target natin ay hindi memorization kundi malinaw na mental model. Sa bawat part, sasagutin natin ang tanong na: <strong>"Bakit ito kailangan, at saan ito dapat ilagay sa code?"</strong></p>
+        <div class="hero-actions">
+          <a class="btn" href="#module-1">Simulan ang Course</a>
+          <a class="btn btn-secondary" href="../index.html">Buksan ang Actual App</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="poster-shell">
+          <div class="poster-top">
+            <span class="poster-chip">One HTML shell</span>
+            <span class="poster-chip">One main JS brain</span>
+            <span class="poster-chip">Five feature views</span>
+          </div>
+          <div class="poster-grid">
+            <div class="poster-card">
+              <strong>App Shell</strong>
+              <p>Nandito ang header, back button, bottom navigation, at ang isang main container kung saan ipapakita ang kasalukuyang view.</p>
+            </div>
+            <div class="poster-card">
+              <strong>State</strong>
+              <p>May isang shared <span class="term" data-term="state">state</span> object na naghahawak ng current view, history, filters, planner data, at settings.</p>
+            </div>
+            <div class="poster-card">
+              <strong>Features</strong>
+              <p>Carparks, Events, Weather, Travel Planner, at Settings ay magkakahiwalay na render functions pero iisang app pa rin.</p>
+            </div>
+            <div class="poster-card">
+              <strong>Persistence</strong>
+              <p>Kapag may gustong maalala ang app kahit i-refresh, isinusulat natin iyon sa <span class="term" data-term="localstorage">localStorage</span>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="module-1">
+      <div class="module-content">
+        <header class="module-header">
+          <span class="module-number">01</span>
+          <h2 class="module-title">Foundation: Unang Itatayo</h2>
+          <p class="module-subtitle">Bago ka maglagay ng features, kailangan malinaw muna ang shell ng application.</p>
+        </header>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 1: Ayusin muna ang file structure</h3>
+          <div class="inspector" data-inspector="files">
+            <div class="inspector-tabs" role="tablist">
+              <button class="inspector-tab is-active" data-panel="files-html">index.html</button>
+              <button class="inspector-tab" data-panel="files-js">js/app.js</button>
+              <button class="inspector-tab" data-panel="files-css">css/main.css</button>
+              <button class="inspector-tab" data-panel="files-pwa">manifest.json</button>
+            </div>
+            <div class="inspector-panel is-active" id="files-html">
+              <p><strong>Dito nagsisimula ang shell.</strong> Sa <code>index.html</code> mo ilalagay ang fixed header, main content area, at bottom nav. Huwag mo munang isipin ang API or planner. Scaffold muna bago feature.</p>
+            </div>
+            <div class="inspector-panel" id="files-js">
+              <p><strong>Dito titira ang logic.</strong> Sa <code>js/app.js</code> mo ilalagay ang state, render functions, event listeners, at boot sequence. Ito ang magiging utak ng app.</p>
+            </div>
+            <div class="inspector-panel" id="files-css">
+              <p><strong>Dito naman ang presentation.</strong> Sa <code>css/main.css</code> mo i-aayos ang mobile layout, cards, theme colors, spacing, at scroll behavior.</p>
+            </div>
+            <div class="inspector-panel" id="files-pwa">
+              <p><strong>Optional sa simula, pero magandang ihanda agad.</strong> Ang <code>manifest.json</code> ang nagsasabi sa browser na puwedeng i-install ang app sa phone home screen.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 2: Gumawa ng app shell sa HTML</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>&lt;div class="app"&gt;
+  &lt;header&gt;
+    &lt;button id="backBtn" disabled&gt;&lt;&lt;/button&gt;
+    &lt;h1 id="viewTitle"&gt;Carparks&lt;/h1&gt;
+  &lt;/header&gt;
+
+  &lt;main id="mainContent"&gt;&lt;/main&gt;
+
+  &lt;nav&gt;
+    &lt;button class="nav-btn active" data-view="carparks"&gt;Carparks&lt;/button&gt;
+    &lt;button class="nav-btn" data-view="events"&gt;Events&lt;/button&gt;
+    &lt;button class="nav-btn" data-view="weather"&gt;Weather&lt;/button&gt;
+    &lt;button class="nav-btn" data-view="planner"&gt;Travel&lt;/button&gt;
+    &lt;button class="nav-btn" data-view="settings"&gt;Settings&lt;/button&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Ito ang pinaka-frame ng buong app. Kahit anong view ang buksan mo, ito pa rin ang outer structure.</p>
+                <p class="tl">Ang <code>mainContent</code> ang palaging papalitan gamit ang JavaScript. Ibig sabihin, single-page style ang app.</p>
+                <p class="tl">Magandang habit ito para sa beginners: isang container muna, saka ka mag-inject ng iba't ibang screens.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 3: Intindihin ang startup flow</h3>
+          <div class="flow-animation" data-steps='[
+            {"highlight":"flow-actor-1","label":"Una, i-load ng browser ang index.html, css/main.css, at js/app.js."},
+            {"highlight":"flow-actor-2","label":"Pagbukas ng JS, ire-restore muna ang saved settings at planner data kung meron.","packet":true,"from":"actor-1","to":"actor-2"},
+            {"highlight":"flow-actor-3","label":"Susunod, ia-apply ang theme para tama agad ang look ng app."},
+            {"highlight":"flow-actor-4","label":"Kukunin ang user location mula sa URL params o geolocation API.","packet":true,"from":"actor-3","to":"actor-4"},
+            {"highlight":"flow-actor-5","label":"Kapag ready na ang initial data, tatawagin ang render() para ipakita ang first screen."}
+          ]'>
+            <div class="flow-actors">
+              <div class="flow-actor" id="flow-actor-1"><div class="flow-actor-icon accent-a">1</div><span>Load Files</span></div>
+              <div class="flow-actor" id="flow-actor-2"><div class="flow-actor-icon accent-b">2</div><span>Restore Data</span></div>
+              <div class="flow-actor" id="flow-actor-3"><div class="flow-actor-icon accent-c">3</div><span>Apply Theme</span></div>
+              <div class="flow-actor" id="flow-actor-4"><div class="flow-actor-icon accent-d">4</div><span>Resolve Location</span></div>
+              <div class="flow-actor" id="flow-actor-5"><div class="flow-actor-icon accent-e">5</div><span>Render Screen</span></div>
+            </div>
+            <div class="flow-packet"></div>
+            <div class="flow-step-label">Pindutin ang next para masundan ang startup sequence.</div>
+            <div class="flow-controls">
+              <button class="btn flow-next-btn">Next Step</button>
+              <button class="btn flow-reset-btn">Restart</button>
+              <span class="flow-progress"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 4: Bakit kailangan ng central state?</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>const state = {
+  history: [],
+  current: "carparks",
+  userLocation: null,
+  settings: {
+    theme: "system",
+    carparkSorting: "alphabetical"
+  },
+  pinnedCarparks: [],
+  focusedCarpark: null,
+  events: [],
+  eventFilters: {
+    beginningDate: "",
+    endingDate: ""
+  },
+  planner: {
+    plans: [],
+    ui: { mode: "list", editingId: null }
+  }
+};</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Ito ang notebook ng app. Dito nakalagay ang kasalukuyang status ng bawat major feature.</p>
+                <p class="tl">Kapag may feature kang idadagdag, isipin mo muna: <strong>"Anong bagong data ang dapat isama sa state?"</strong></p>
+                <p class="tl">Kapag maayos ang state, mas madali ang <span class="term" data-term="render">render</span>, debugging, at future updates.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Subukan mo nga</h3>
+          <div class="quiz-container" id="quiz-module1">
+            <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Tama. Sa simula, app shell at central state muna bago ka mag-focus sa individual features." data-explanation-wrong="Sa ganitong app, mas safe na unahin ang shell at state. Kapag iyon ang malinaw, mas maayos mong maidudugtong ang features.">
+              <h3 class="quiz-question">Kung beginner ka at bubuuin mo itong app from scratch, ano ang pinakamagandang unahin?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Diretsong gumawa ng planner delete button at image upload</span></button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Ayusin muna ang HTML shell, navigation layout, at central state object</span></button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Gumawa agad ng maraming API calls kahit wala pang render structure</span></button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answer</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="module-2">
+      <div class="module-content">
+        <header class="module-header">
+          <span class="module-number">02</span>
+          <h2 class="module-title">State, Router, at Shared Rendering</h2>
+          <p class="module-subtitle">Ngayong may shell na, tuturuan natin ang app kung paano lumipat ng screens.</p>
+        </header>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 5: Gumawa ng title map at navigation state</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>const titleMap = {
+  carparks: "Carparks",
+  events: "Events",
+  weather: "Weather",
+  planner: "Travel Planner",
+  settings: "Settings"
+};
+
+function setHeader(view) {
+  viewTitle.textContent = titleMap[view] ?? "Carparks";
+  backBtn.disabled = state.history.length === 0;
+}</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Simple lang pero important: hindi hardcoded ang title sa header. Nakabase ito sa current view.</p>
+                <p class="tl">Sa beginner projects, malaking tulong ang ganitong mapping para hindi paulit-ulit ang strings sa iba-ibang functions.</p>
+                <p class="tl">Nadadamay rin dito ang back button state, kaya isang place lang ang inaalagaan mo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 6: Gumawa ng mini router gamit lang ang state</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>function pushView(view) {
+  if (view === state.current) return;
+  state.history.push(state.current);
+  state.current = view;
+  render();
+}
+
+function goBack() {
+  if (state.history.length === 0) return;
+  const previousView = state.history.pop();
+  state.current = previousView;
+  render();
+}</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Ito ang pinakasimpleng router. Wala tayong framework dito, plain JavaScript lang.</p>
+                <p class="tl">Kapag pinindot ang nav button, isi-save muna natin ang lumang view sa history, saka papalitan ang current.</p>
+                <p class="tl">Pag pinindot ang back, babalikan natin ang last view sa stack. Very practical ito para maintindihan ng beginners ang navigation flow.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Subukan ang router simulator</h3>
+          <div class="router-sim" id="router-sim">
+            <div class="router-controls">
+              <button class="btn router-view-btn" data-view="carparks">Carparks</button>
+              <button class="btn router-view-btn" data-view="events">Events</button>
+              <button class="btn router-view-btn" data-view="weather">Weather</button>
+              <button class="btn router-view-btn" data-view="planner">Travel</button>
+              <button class="btn router-view-btn" data-view="settings">Settings</button>
+              <button class="btn btn-secondary" id="router-focus-btn">Focus Carpark</button>
+              <button class="btn btn-secondary" id="router-back-btn">Back</button>
+            </div>
+            <div class="router-output">
+              <div class="router-state-card">
+                <p><strong>state.current</strong></p>
+                <p id="router-current">carparks</p>
+              </div>
+              <div class="router-state-card">
+                <p><strong>state.history</strong></p>
+                <p id="router-history">[]</p>
+              </div>
+              <div class="router-state-card">
+                <p><strong>focusedCarpark</strong></p>
+                <p id="router-focused">null</p>
+              </div>
+              <div class="router-state-card">
+                <p><strong>header title</strong></p>
+                <p id="router-title">Carparks</p>
+              </div>
+            </div>
+            <p class="router-note" id="router-note">Magsimula tayo sa carparks view na may empty history stack.</p>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 7: Gumawa ng main render dispatcher</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>async function render() {
+  setActiveNav(state.current);
+  setHeader(state.current);
+
+  switch (state.current) {
+    case "carparks":
+      renderCarparks();
+      break;
+    case "events":
+      renderEvents();
+      break;
+    case "weather":
+      renderWeather();
+      break;
+    case "planner":
+      renderPlanner();
+      break;
+    case "settings":
+      renderSettings();
+      break;
+  }
+}</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Ito ang traffic enforcer ng app. Siya ang nagsasabing: "Base sa current state, aling screen ang dapat ipakita?"</p>
+                <p class="tl">Kapag gusto mong magdagdag ng bagong tab, dito mo siya karaniwang isasaksak.</p>
+                <p class="tl">Importanteng maintindihan ito ng beginner dahil dito umiikot ang buong architecture ng app.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Subukan mo nga</h3>
+          <div class="quiz-container" id="quiz-module2">
+            <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Tama. Ganyan gumagana ang simple router ng app: update state muna, tapos i-render ang tamang view." data-explanation-wrong="Hindi naglo-load ng bagong HTML page kada tab. Single shell pa rin ito. Ang nagpapalit lang ay ang state at ang content sa main area.">
+              <h3 class="quiz-question">Ano ang tamang description ng navigation ng app?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Bawat tab ay may sariling hiwalay na HTML page na nilo-load ng browser</span></button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>CSS lang ang nagpapalit ng screen, walang kinalaman ang JavaScript state</span></button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Pinapalitan ng JavaScript ang current view sa state, saka nire-render ang tamang content sa shared main container</span></button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answer</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="module" id="module-3">
+      <div class="module-content">
+        <header class="module-header">
+          <span class="module-number">03</span>
+          <h2 class="module-title">Pagbuo ng Mga Feature Views</h2>
+          <p class="module-subtitle">Dito na papasok ang tunay na laman ng app: carparks, events, weather, at travel planner.</p>
+        </header>
+
+        <div class="screen">
+          <h3 class="screen-heading">Feature map: hindi pare-pareho ang style ng bawat view</h3>
+          <div class="inspector" data-inspector="feeds">
+            <div class="inspector-tabs" role="tablist">
+              <button class="inspector-tab is-active" data-panel="feeds-carparks">Carparks</button>
+              <button class="inspector-tab" data-panel="feeds-events">Events</button>
+              <button class="inspector-tab" data-panel="feeds-weather">Weather</button>
+              <button class="inspector-tab" data-panel="feeds-planner">Planner</button>
+            </div>
+            <div class="inspector-panel is-active" id="feeds-carparks">
+              <p><strong>Carparks</strong> ang pinaka-magandang simulan sa feature layer. May fetch, may data transformation, may sorting, may pinning, at may focus mode pa.</p>
+            </div>
+            <div class="inspector-panel" id="feeds-events">
+              <p><strong>Events</strong> ay magandang example ng filterable list. Kumuha ka ng data, lagyan ng inputs, tapos i-filter mo gamit ang state.</p>
+            </div>
+            <div class="inspector-panel" id="feeds-weather">
+              <p><strong>Weather</strong> ang example ng data + asset composition. Hindi lang JSON ang kinukuha mo, pati matching SVG per weather status.</p>
+            </div>
+            <div class="inspector-panel" id="feeds-planner">
+              <p><strong>Planner</strong> ang mini app sa loob ng app. May sariling UI mode, sariling validation, sariling save/load flow, at local CRUD behavior.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 8: Carparks view muna dahil complete ang flow nito</h3>
+          <div class="flow-animation" data-steps='[
+            {"highlight":"flow-actor-1","label":"I-fetch muna ang carparks.json mula sa API endpoint."},
+            {"highlight":"flow-actor-2","label":"Kunin ang user location para makapag-compute ng distance.","packet":true,"from":"actor-1","to":"actor-2"},
+            {"highlight":"flow-actor-3","label":"I-map ang raw data into a cleaner array of carpark objects."},
+            {"highlight":"flow-actor-4","label":"Ihiwalay ang pinned at unpinned carparks, saka i-sort base sa settings.","packet":true,"from":"actor-3","to":"actor-4"},
+            {"highlight":"flow-actor-5","label":"I-render ang cards at ikabit ang click handlers para sa pin at focus behavior."}
+          ]'>
+            <div class="flow-actors">
+              <div class="flow-actor" id="flow-actor-1"><div class="flow-actor-icon accent-a">API</div><span>Fetch Data</span></div>
+              <div class="flow-actor" id="flow-actor-2"><div class="flow-actor-icon accent-b">GPS</div><span>Get Location</span></div>
+              <div class="flow-actor" id="flow-actor-3"><div class="flow-actor-icon accent-c">MAP</div><span>Transform Data</span></div>
+              <div class="flow-actor" id="flow-actor-4"><div class="flow-actor-icon accent-d">SORT</div><span>Group + Sort</span></div>
+              <div class="flow-actor" id="flow-actor-5"><div class="flow-actor-icon accent-e">UI</div><span>Render Cards</span></div>
+            </div>
+            <div class="flow-packet"></div>
+            <div class="flow-step-label">Ito ang complete thinking process ng carparks feature.</div>
+            <div class="flow-controls">
+              <button class="btn flow-next-btn">Next Step</button>
+              <button class="btn flow-reset-btn">Restart</button>
+              <span class="flow-progress"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Bakit mahalaga ang derived data sa carparks?</h3>
+          <p>Ang distance ng bawat carpark ay hindi naka-save sa localStorage at hindi rin kasama sa raw API response bilang final answer. Kino-compute natin ito mula sa latitude at longitude ng user at ng carpark. Ibig sabihin, <strong>derived data</strong> siya.</p>
+          <div class="callout callout-info">
+            <div class="callout-icon">TIP</div>
+            <div>
+              <span class="callout-title">Instructor note</span>
+              <div class="callout-content">
+                <p>Kapag may student na gustong magdagdag ng "nearest first" feature, ang tamang sagot ay hindi "mag-save ng distance sa localStorage." Ang tamang sagot ay "i-compute muli ang distance habang bina-build ang view."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 9: Events at Weather bilang dalawang ibang pattern</h3>
+          <div class="pattern-cards">
+            <div class="pattern-card">
+              <div class="pattern-icon accent-a">E</div>
+              <h4 class="pattern-title">Events: fetch tapos filter</h4>
+              <p class="pattern-desc">I-save mo muna ang fetched events sa state, tapos gumamit ng date inputs para i-filter ang list every time na may change ang user.</p>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-icon accent-b">W</div>
+              <h4 class="pattern-title">Weather: fetch tapos compose</h4>
+              <p class="pattern-desc">Bukod sa JSON, kailangan mo ring i-fetch ang tamang SVG icon per status. Magandang example ito ng pag-combine ng data at assets.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 10: Planner ang huling major feature dahil mas mabigat ang logic</h3>
+          <div class="translation-block animate-in">
+            <div class="translation-code">
+              <span class="translation-label">CODE</span>
+              <pre><code>if (mode === "create" || mode === "edit") {
+  main.innerHTML = buildPlannerForm();
+} else {
+  main.innerHTML = buildPlannerList();
+}
+
+plannerForm.addEventListener("submit", async (e) =&gt; {
+  e.preventDefault();
+  const formData = new FormData(plannerForm);
+  const imageFile = formData.get("imageFile");
+  if (imageFile && imageFile.size &gt; 0) {
+    imageValue = await fileToBase64(imageFile);
+  }
+  savePlanner();
+  renderPlanner();
+});</code></pre>
+            </div>
+            <div class="translation-english">
+              <span class="translation-label">EXPLANATION</span>
+              <div class="translation-lines">
+                <p class="tl">Ang planner ay hindi simpleng list lang. May dalawang malaking mode siya: form mode at list mode.</p>
+                <p class="tl">Sa create/edit mode, kailangan mong mag-validate ng inputs, basahin ang file gamit ang <span class="term" data-term="formdata">FormData</span>, at i-convert ang image to base64.</p>
+                <p class="tl">Pagkatapos nito, ise-save mo ang plans, isosort mo sila, at ibabalik ang UI sa list mode.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Recommended build order para hindi ka malito</h3>
+          <div class="step-cards">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <strong>Carparks muna</strong>
+                <p>Makukuha mo rito ang fetch, rendering, sorting, event handling, at location logic sa isang feature pa lang.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <strong>Events at Weather next</strong>
+                <p>Mas madali na sila pagkatapos ng carparks kasi variation na lang sila ng fetch-and-render pattern.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <strong>Planner last</strong>
+                <p>Mas maraming moving parts ang planner: form state, edit mode, delete, sorting, image handling, at persistence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Subukan mo nga</h3>
+          <div class="quiz-container" id="quiz-module3">
+            <div class="quiz-question-block" data-correct="option-b" data-explanation-right="Tama. Planner ang pinaka-CRUD-heavy na feature dahil may create, edit, delete, validation, sorting, at persistence." data-explanation-wrong="Events at weather ay important, pero mas simple sila kaysa planner. Ang planner ang pinaka-malapit sa full client-side CRUD module.">
+              <h3 class="quiz-question">Aling feature ang pinakamabigat ang local logic at pinakamainam na gawin after mo ma-master ang basic render pattern?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Weather, dahil may SVG animation</span></button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Travel Planner, dahil may form modes, validation, sorting, at persistence</span></button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Settings, dahil may radio buttons</span></button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answer</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="module" id="module-4">
+      <div class="module-content">
+        <header class="module-header">
+          <span class="module-number">04</span>
+          <h2 class="module-title">Persistence, Settings, at PWA Finish</h2>
+          <p class="module-subtitle">Kapag gumagana na ang features, saka mo palalakasin ang memory at mobile-app feel ng project.</p>
+        </header>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 11: I-save ang user preferences at planner data</h3>
+          <div class="pattern-cards">
+            <div class="pattern-card">
+              <div class="pattern-icon accent-a">S</div>
+              <h4 class="pattern-title">Settings</h4>
+              <p class="pattern-desc">Theme at carpark sorting ang ise-save mo sa <code>settings</code> key para bumalik ang preferred behavior kapag ni-refresh ang page.</p>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-icon accent-b">P</div>
+              <h4 class="pattern-title">Pinned Carparks</h4>
+              <p class="pattern-desc">Dahil user choice ito, hindi puwedeng mawala after reload. Kaya gumagamit tayo ng hiwalay na key para sa pinned names.</p>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-icon accent-c">T</div>
+              <h4 class="pattern-title">Travel Planner</h4>
+              <p class="pattern-desc">Plans at planner UI mode ay parehong local-first. Hindi kailangan ng backend para sa basic persistence nito.</p>
+            </div>
+            <div class="pattern-card">
+              <div class="pattern-icon accent-d">R</div>
+              <h4 class="pattern-title">Restore on boot</h4>
+              <p class="pattern-desc">Saving is only half the story. Dapat may matching load functions ka rin sa startup sequence para bumalik ang data sa state.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 12: Theme switching para app-like ang pakiramdam</h3>
+          <div class="theme-lab" id="theme-lab">
+            <div class="theme-controls">
+              <button class="btn theme-btn is-active" data-theme="light">Light</button>
+              <button class="btn theme-btn" data-theme="dark">Dark</button>
+              <button class="btn theme-btn" data-theme="system">System</button>
+            </div>
+            <div class="theme-preview light-theme" id="theme-preview">
+              <div class="theme-preview-header">Sample Shell Preview</div>
+              <div class="theme-preview-body">
+                <div class="theme-panel">Header and nav colors change here</div>
+                <div class="theme-panel">Cards and body background change here</div>
+              </div>
+            </div>
+            <p class="router-note" id="theme-note">Sa real app, ang theme setting ay kino-convert into body classes para ma-control ng CSS ang buong visual look.</p>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Step 13: PWA layer para maging installable</h3>
+          <div class="callout callout-success">
+            <div class="callout-icon">PWA</div>
+            <div>
+              <span class="callout-title">Hindi ito cosmetic lang</span>
+              <div class="callout-content">
+                <p>Kapag may <code>manifest.json</code>, theme color, touch icon, at mobile web app meta tags ka, nagiging mas app-like ang web project. Puwede itong lumabas sa home screen at mag-open in standalone mode depende sa platform.</p>
+              </div>
+            </div>
+          </div>
+          <p>Bilang beginner, magandang tandaan ito: ang PWA ay <strong>outer packaging</strong>. Hindi nito pinapalitan ang state, render, o feature logic. Pinapaganda lang nito ang delivery ng app sa mobile device.</p>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Final summary: paano mo ito bubuuin sa tamang order</h3>
+          <div class="step-cards">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <strong>Scaffold</strong>
+                <p>Gawin muna ang HTML shell, CSS layout, shared header, at bottom nav.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <strong>State + Router</strong>
+                <p>Gumawa ng central state object, header helpers, nav listeners, back logic, at render dispatcher.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <strong>Core Features</strong>
+                <p>Idagdag ang carparks, events, weather, at planner one by one, starting from the simplest repeatable pattern.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <strong>Persistence + Polish</strong>
+                <p>I-save ang settings at plans, i-restore sa startup, at saka idagdag ang PWA manifest at mobile polish.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen">
+          <h3 class="screen-heading">Final check</h3>
+          <div class="quiz-container" id="quiz-module4">
+            <div class="quiz-question-block" data-correct="option-c" data-explanation-right="Magaling. Iyan ang tamang high-level order: shell muna, state/router next, features pagkatapos, at persistence plus polish sa huli." data-explanation-wrong="Balikan ang architecture order. Kapag inuna mo ang advanced feature details nang wala pang shell at state, mas mabilis kang malilito at mas mahirap i-debug ang app.">
+              <h3 class="quiz-question">Ano ang pinaka-practical na build order para sa isang beginner na gagawa ng app na ito?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Planner image upload, then manifest, then weather, saka pa lang state</span></button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>Theme toggle muna, tapos lahat ng API calls, tapos saka gagawa ng HTML shell</span></button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)"><div class="quiz-option-radio"></div><span>HTML shell and CSS layout first, then state/router, then feature views, then localStorage and PWA polish</span></button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answer</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+          </div>
+        </div>
+
+        <div class="screen final-screen">
+          <h3 class="screen-heading">Huling paalala ng instructor</h3>
+          <p>Kung naiintindihan mo na ngayon ang course na ito, kaya mo nang gawin ang dalawang importanteng bagay. Una, kaya mong buuin ang parehong app in the correct order. Pangalawa, kaya mo nang kausapin ang AI or ibang developer nang mas malinaw, dahil alam mo na kung saan nakatira ang shell, state, router, feature logic, persistence, at PWA setup.</p>
+          <p>Sa madaling salita: hindi ka na basta tumitingin sa code. Naiintindihan mo na kung paano siya planuhin, buuin, at palawakin.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

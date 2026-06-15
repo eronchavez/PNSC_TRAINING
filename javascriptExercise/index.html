@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Practice</title>
+    <style>
+        .active{
+          text-decoration: underline;
+        }
+
+
+
+       
+    </style>
+</head>
+<body>
+<!--     
+        <h1>Hello world</h1>
+        <h2>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.</h2>
+        <p>lorem ipsum</p>
+        <p>lorem ipsum</p>
+        <p>lorem ipsum</p>
+
+        <button class="deleteBtn">Delete</button> -->
+
+
+
+<!-- 
+        <p>lorem ipsum</p> -->
+        <!-- <button id="red">Red</button>
+        <button id="blue">Blue</button>
+        <button id="green">Green</button> -->
+<!-- 
+        <form>
+
+            <input type="text" name="name" id="name">
+            <button>Add</button>
+            <ul></ul>
+        </form> -->
+
+
+
+        <ul>
+            <li>Aaron</li>
+            <li>James</li>
+            <li>Javascript</li>
+            <li>Laravel</li>
+            <li>React</li>
+            <li>Developer</li>
+            <li>PHP</li>
+            <li>Computer</li>
+            <li>Monitor</li>
+            <li>Ghost</li>
+        </ul>
+
+
+        <input type="text" placeholder="search" name="search" id="search">
+    <script>
+
+
+
+
+
+
+// name, price, stock 
+
+  const products = [
+    
+         {
+            name: "Computer",
+            price: 200,
+            stocK: 5
+        },
+        
+         {
+            name: "Laptop",
+            price: 50,
+            stocK: 15
+        },
+        
+         {
+            name: "Keyboard",
+            price: 900,
+            stocK: 56
+        },
+        
+         {
+            name: "Mouse",
+            price: 73,
+            stocK: 19
+        },
+        
+         {
+            name: "Mouse Pad",
+            price: 90,
+            stocK: 255
+        },
+        
+         {
+            name: "Headset",
+            price: 1200,
+            stocK: 6
+        }
+        
+
+
+]
+
+function searchProduct(search)
+{
+
+
+
+    result = products.filter((product) => product.name.includes(search));
+    return result;
+}
+
+function lowStock(low)
+{
+    result = products.filter((product) =>  product.stocK < low );
+    return result;
+}
+
+
+function sortPrice()
+{
+    result = products.sort((a,b) => a.price - b.price);
+    return result;
+}
+
+// 10-12-2009
+
+// const date = new Date('2009-10-12 1:12:1');
+// console.log(date.toLocaleTimeString("en-US"));
+
+
+// + one month
+// const today = new Date();
+
+// const nextWeek = new Date(today);
+
+// nextWeek.setMonth(today.getMonth() + 1);
+
+// console.log(nextWeek);
+
+// compare 2 dates. ex: overdue
+
+// const dateNow = new Date();
+// const dueDate = new Date('2025-12-25');
+
+
+// if(dateNow > dueDate)
+// {
+//     console.log("overdue");
+// }else
+// {
+//     console.log("all goods");
+// }
+
+
+// difference between two dates
+// how many days left before a date
+
+const birthday = new Date();
+const christmas = new Date('2026-6-10');
+
+
+const timeDifference = christmas - birthday;
+
+const msPerDay = 24 * 60 * 60 * 1000;
+
+const totalDaysLeft = Math.ceil(timeDifference / msPerDay);
+
+console.log(`${totalDaysLeft} days left.`);
+
+
+
+
+// console.log(date.getFullYear());
+// console.log(date.getDate());
+// console.log(date.getDay());
+// console.log(date.getHours());
+// console.log(date.getMinutes());
+// console.log(date.getSeconds());
+
+
+
+// console.log(sortPrice());
+
+
+
+
+// console.log(lowStock(20));
+
+// console.log(searchProduct("Mouse"));
+
+
+
+
+
+
+
+
+
+
+        // const search = document.querySelector("#search");
+        // const items = document.querySelectorAll("li");
+      
+        // search.addEventListener("input", () => {
+           
+        //     const searchText = search.value;
+
+
+
+        //     items.forEach((item) => {
+        //         // create a variable that holds a boolean value
+        //         // whether the searchText is 'included' in the item or not
+                
+                
+        //         const isIncluded = item.textContent.includes(searchText);
+        //         console.log(isIncluded);
+                 
+
+        //         if(isIncluded === false)
+        //         {
+        //             item.style.display = "none";
+        //         }else 
+        //         {
+        //             item.style.display = "list-item";
+        //         }
+
+        //      });
+        // });
+
+
+
+
+
+
+        // const name = document.querySelector("#name");
+        // const add = document.querySelector("button");
+        // const ul = document.querySelector("ul");
+       
+        
+        // add.addEventListener("click", () => {
+        
+   
+
+
+
+        //     addName = name.value;
+        //     ul.innerHTML += `
+        //         <li> 
+        //             ${addName}
+        //         </li>
+        //     `;
+            
+        //     name.value = "";
+
+
+        //     lists = document.querySelectorAll("li");
+        //     lists.forEach((li) => {
+        //         li.addEventListener("click", () => {
+        //             li.classList.toggle("active");
+        //         });
+        //     });
+            // const lists = document.querySelectorAll("li");
+
+            // lists.forEach((list,index) => {
+                
+            // }); 
+            
+
+        // });
+        
+        // add active class sa na click na li
+        // target li 
+
+
+
+
+        // list.forEach((li, index)=> {
+        //     li.addEventListener("click", () => {
+        //         index.classList.add = ".active";
+        //     });
+        // }) 
+
+       
+   
+
+        // document.querySelector("p");
+        // document.querySelectorAll("p");
+        // let headlines = document.querySelectorAll("h1");
+        // headlines.innerHTML = "sdwsrfw qv543t65346";
+        // const deleteBtn = document.querySelectorAll(".deleteBtn");
+        // deleteBtn.addEventListener("click", function() {
+        //     console.log("Deleted");
+        // });
+        // const title = document.querySelectorAll("h1");
+        // title.classList.add("active");
+
+
+        // const red = document.querySelector("#red");
+        // const blue = document.querySelector("#blue");
+        // const green = document.querySelector("#green");
+        // const p = document.querySelector("p");
+        
+        // red.addEventListener("click", () => {
+        //     p.style.color = "red";
+        // });
+        
+        // blue.addEventListener("click", () => {
+        //     p.style.color = "blue";
+        // });
+        
+        // green.addEventListener("click", () => {
+        //     p.style.color = "green";
+        // });
+
+        // const password = document.querySelector("#password");
+        // const btn = document.querySelector("button");
+
+        // btn.addEventListener("click", () => {
+         
+
+        //    if (password.type === "password")
+        //    {
+        //       password.type = "text";
+        //       btn.textContent = "Hide"
+        //    }
+        //    else
+        //    {
+        //         password.type = "password";
+        //         btn.textContent = "Show"
+        //    }
+        // });
+
+
+
+
+
+    </script>
+</body>
+</html>

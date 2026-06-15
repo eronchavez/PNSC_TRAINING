@@ -1,0 +1,154 @@
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+  
+#main-task
+{
+    width: 100%;
+    max-width: 1100px;   
+    margin: 0 auto;      
+    position: relative;  
+    height: 100vh;  
+}
+
+/* Header */
+.task-header 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* Search Bar */
+.search-bar input
+{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    font-size: 15px;
+}
+
+.search-bar
+{
+    border: 1px solid silver;
+    width: 100%;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 2em;
+
+    display: flex;
+    gap: 1em;
+}
+
+/* Categories */
+.categories 
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    align-items: center;
+    font-size: 15px;
+}
+
+.category 
+{
+    background-color: #cee1fd;
+    padding: 0.5em;
+    border-radius: 15px;
+    width: 30%;
+    text-align: center;
+    margin-top: 1em;
+}
+
+#due-date 
+{
+    display: flex;
+    width: 50%;
+    gap: 0.5em;
+}
+
+/* To do cards */
+.task-card
+{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid silver;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    height: 100px;
+}
+
+.sub-task 
+{
+    display: flex;
+    font-size: 12px;
+    gap: 1em;
+}
+
+#subject 
+{
+    background-color: rgb(221, 221, 221);
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+#level 
+{
+    background-color: rgb(255, 217, 146);
+    padding: 0.5em;
+    border-radius: 5px;
+}
+#circle-check {
+  opacity: 0;
+  position: absolute;
+}
+
+#circle-check + label {
+  width: 20px;
+  height: 20px;
+  border: 2px solid gray;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+#circle-check:checked + label::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+#circle-check:checked + label 
+{
+    background-color: green;
+}
+
+#no-task 
+{
+    border: 1px solid rgb(231, 228, 228);
+    text-align: center;
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 5px;
+    background-color: #fff;
+
+}

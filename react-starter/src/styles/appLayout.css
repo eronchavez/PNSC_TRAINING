@@ -1,0 +1,55 @@
+#main-app{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: clip;
+}
+
+
+header 
+{   
+    position: sticky;
+    top: 0;
+    display: flex;
+    background-color: #fff;
+    padding: 1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+h1 
+{
+    font-size: 1em;
+    margin-left: -13em;
+    color: blue;
+}
+
+
+
+a 
+{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav 
+{
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+    padding: 1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+  
+}
+

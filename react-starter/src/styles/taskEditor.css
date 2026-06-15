@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   
+}
+
+.main-editor
+{
+    width: 80%;
+    height: 100vh;
+    margin-top: 2em;
+}
+
+
+.addTask 
+{
+    border: 1px solid silver;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 10px;
+    max-height: 100%;
+    height: 400px;
+    
+
+  
+}
+
+
+h2
+{
+    font-size: 0.8em;
+    line-height: 1.5;
+    padding: 0.5em 0;
+
+  
+}
+
+#prio-level 
+{
+    background-color: beige;
+    border-radius: 10px;
+    padding: 1em;
+    width: 92%;
+    
+}
+#prio-level ul
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 2em;
+    font-weight: bold;
+}
+
+form 
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 100%;
+    padding: 0 1em;
+ 
+  
+}
+
+.createBtn 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+input 
+{
+    padding: 1em;
+    width: 90%;
+    border-radius: 10px;
+    border: 1px solid silver;
+
+  
+}
