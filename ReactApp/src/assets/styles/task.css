@@ -1,0 +1,210 @@
+*
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+  
+#main-task
+{
+    width: 100%;
+    max-width: 1100px;   
+    margin: 0 auto;      
+    position: relative;  
+    min-height: 100vh;  
+}
+
+/* Header */
+.task-header 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+/* Search Bar */
+.search-bar input
+{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    font-size: 15px;
+}
+
+.search-bar
+{
+    border: 1px solid silver;
+    width: 100%;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 2em;
+
+    display: flex;
+    gap: 1em;
+}
+
+
+
+#due-date 
+{
+    display: flex;
+    width: 50%;
+    gap: 0.5em;
+}
+
+/* To do cards */
+.task-card
+{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+    height: 100px;
+}
+
+.sub-task 
+{
+    display: flex;
+    font-size: 12px;
+    gap: 1em;
+}
+
+#subject 
+{
+    background-color: rgb(221, 221, 221);
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+/* Priority Level */
+.level 
+{
+    padding: 0.5em;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.priority-high 
+{
+    background-color: rgb(245, 192, 192);
+    color: rgb(202, 0, 0);
+
+}
+
+.priority-medium 
+{
+    background-color: #f7ddbe;
+    color: rgb(209, 136, 0);
+}
+
+.priority-low
+{
+    background-color: #ebf2ff;
+    color: #2f26ce
+}
+
+
+.circle-check {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid gray;
+    border-radius: 50%;
+    margin: 0;
+    
+    display: grid;
+    place-content: center;
+}
+
+.circle-check::before
+{
+    content: "";
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+
+    transform: scale(0) rotate(45deg);
+}
+
+.circle-check:checked 
+{
+    background-color: green;
+    border-color: green;
+    
+}
+
+/* Default color */
+.task-card {
+  border-left: 4px solid #2f26ce;
+}
+
+.task-title 
+{
+    color:  #2f26ce;
+}
+
+
+
+.task-card:has(.circle-check:checked) .task-title
+{
+    text-decoration:line-through;
+    color: gray;
+
+}
+
+.task-card:has(.circle-check:checked) {
+    border-left: 4px solid green;
+}
+
+.circle-check:checked::before
+{
+    transform: scale(1) rotate(45deg);
+}
+
+
+
+#no-task 
+{
+    border: 1px solid rgb(231, 228, 228);
+    text-align: center;
+    padding: 1em;
+    margin-top: 1em;
+    border-radius: 5px;
+    background-color: #fff;
+
+}
+
+
+/* task-control*/
+.task-controls 
+{
+    display: flex;
+    margin: 2em 0 2em;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+
+.task-card:has(.priority-medium)
+{
+    border-left: 4px #f59e0b solid;
+}
+
+
+.due-red 
+{
+    color: red;
+}

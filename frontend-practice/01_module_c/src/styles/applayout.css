@@ -52,7 +52,6 @@ main
 
 
 
-
 /* Footer */
 .layout-footer 
 {
@@ -97,7 +96,7 @@ li:has(:focus)
 
 .li-footer.active
 {
-    color: blue;
+    color: red;
     font-weight: 600;
 }
 
@@ -105,7 +104,7 @@ li:has(:focus)
 #fab {
     position: fixed;
     right: 20px;
-    bottom: 70px;
+    bottom: 0;
     z-index: 9999;
   
 }
