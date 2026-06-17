@@ -84,6 +84,8 @@ function Task() {
     });
 
     const isOverDue = date <= new Date(now.toDateString());
+
+    const isToday = date.toDateString() === now.toDateString()
     // Compare due date if the date is the same today
     const diffDays = Math.round((date - now) / (1000 * 60 * 60 * 24));
 
@@ -114,6 +116,7 @@ function Task() {
     return {
       text: `${dayLabel}, ${time}`,
       isOverDue,
+      isToday
     };
   }
 
@@ -221,7 +224,7 @@ function Task() {
         <div id="to-do-cards">
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              <div key={task?.id} className="task-card">
+              <div key={task?.id} className={formatDueDate(task.due_date, task.completed).isToday ? "task-card today" : "task-card"}>
                 <input
                   type="checkbox"
                   defaultChecked={task.completed}

@@ -1,0 +1,1 @@
+You may use these image icons or the provided Lucide icons.

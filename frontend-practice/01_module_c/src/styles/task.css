@@ -35,6 +35,11 @@
     font-size: 15px;
 }
 
+.search-bar:has(:focus)
+{
+    border-color: black;
+
+}
 .search-bar
 {
     border: 1px solid silver;
@@ -222,16 +227,23 @@
 }
 
 
-.task-card:has(.priority-medium)
-{
-    border-left: 4px #f59e0b solid;
+
+.task-card.today {
+  border-left: 4px solid orange;
 }
 
 
+
+.task-card:has(.due-red)
+{
+    border-left: 4px solid red;
+}
 .due-red 
 {
     color: red;
 }
+
+
 
 .completed-task 
 {

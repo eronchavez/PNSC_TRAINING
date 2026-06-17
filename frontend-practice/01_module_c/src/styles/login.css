@@ -152,7 +152,7 @@ label
     border-radius: 0 0 5px 5px ;
     border: 1px solid silver;
     border-top: none;
-    box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.5);
     width: 100%;
 
     display: flex;
