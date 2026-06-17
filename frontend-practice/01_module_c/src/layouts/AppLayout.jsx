@@ -12,9 +12,12 @@ function AppLayout() {
   
     function handleAdd()
     {
-        navigate("/taskEditor", {
-            state: {mode: "add"}
-        })
+        navigate("/tasks/new")
+    }
+
+    function handleEdit(taskId) 
+    {
+      navigate(`/tasks/${taskId}/edit`)
     }
 
     async function handleLogOut()
@@ -36,19 +39,12 @@ function AppLayout() {
     
 
   const getTitle = () => {
-    switch(location.pathname)
-    {
-      case "/":
-        return "Dashboard";
-      case "/taskEditor":
-        return "Task Editor";
-      case "/tasks":
-        return "Tasks"
-      case "/settings":
-        return "Settings"
-      default: 
-        return "My System"
-    }
+      if(location.pathname === "/") return "Dashboard"
+      if(location.pathname === "/tasks") return "Tasks"
+      if(location.pathname === "/tasks/new") return "New Tasks"
+      if(location.pathname === "/settings") return "Settings"
+      if(location.pathname.includes("/edit")) return "Edit Task"
+      return "StudySprint"
   }
 
   return (
@@ -63,7 +59,11 @@ function AppLayout() {
 
       <main>
         <Outlet />
-        <CirclePlus id="fab" size={50} color="blue" onClick={() => handleAdd()}/>
+        {
+          location.pathname === "/" || location.pathname === "/tasks" || location.pathname === "/settings" 
+          ? <CirclePlus id="fab" size={50} color="blue" onClick={() => handleAdd()}/> : null
+        }
+        
       </main>
 
       <footer className="layout-footer">

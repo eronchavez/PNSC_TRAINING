@@ -202,3 +202,21 @@
     font-weight: bold;
     margin-top: 2em;
 }
+
+
+
+#prio-level-ul li.selected 
+{
+    background-color: blue;
+    color: white;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+
+.errorMsg
+{
+    text-align: center;
+    margin-top: 1em;
+    font-size: bold;
+}

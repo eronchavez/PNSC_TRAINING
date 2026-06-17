@@ -25,8 +25,9 @@ function App() {
         </RequireAuth>
       }>
         <Route index element={<Dashboard/>}></Route> 
-        <Route element={<TaskEditor/>} path="/taskEditor"></Route>
-        <Route element={<Task/>} path="/tasks"></Route>
+        <Route path="/tasks/new" element={<TaskEditor/>}></Route>
+        <Route path="/tasks/:id/edit" element={<TaskEditor/>}></Route>
+        <Route path="/tasks" element={<Task/>}></Route>
         <Route element={<Settings/>} path="/settings"></Route>
       </Route>
     </Routes>

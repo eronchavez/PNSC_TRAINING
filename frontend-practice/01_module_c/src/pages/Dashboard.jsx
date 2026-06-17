@@ -41,9 +41,7 @@ function Dashboard() {
   }
 
   function handleEdit() {
-    navigate("/taskEditor", {
-      state: { mode: "edit" },
-    });
+    navigate("/tasks")
   }
 
   useEffect(() => {
