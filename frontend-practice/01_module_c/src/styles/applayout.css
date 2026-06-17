@@ -87,6 +87,7 @@ li
 li:has(:focus)
 {
     color: #1d4ed8;
+    
 }
 
 .li-footer 
@@ -96,15 +97,15 @@ li:has(:focus)
 
 .li-footer.active
 {
-    color: red;
+    color: blue;
     font-weight: 600;
 }
 
 /* FaB */
 #fab {
-    position: fixed;
+    position: sticky;
     right: 20px;
-    bottom: 0;
+    bottom: 20;
     z-index: 9999;
   
 }
