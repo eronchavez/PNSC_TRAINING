@@ -1,5 +1,5 @@
 import { LogOut, ArrowLeft, HomeIcon,ListChecks, Settings, CirclePlus} from "lucide-react";
-import { Outlet, useLocation } from "react-router";
+import { NavLink, Outlet, useLocation } from "react-router";
 import "../styles/applayout.css";
 import { useNavigate } from "react-router";
 
@@ -67,8 +67,8 @@ function AppLayout() {
       </main>
 
       <footer className="layout-footer">
-        <nav>
-            <ul id="ul-footer">
+        <nav id="ul-footer">
+            {/* <ul id="ul-footer">
                 <li className={`li-footer ${location.pathname === "/" ? "active" : ""} `} onClick={() => navigate("/")}>
                     <HomeIcon/>
                     Home
@@ -81,8 +81,26 @@ function AppLayout() {
                     <Settings/>
                     Settings
                 </li>
-            </ul>
-        </nav>
+            </ul> */}
+
+             <NavLink to={"/"} className="nav-footer">
+              <HomeIcon/>
+                home
+            </NavLink>
+
+             <NavLink to={"/tasks"} className="nav-footer">
+              <ListChecks/>
+                Tasks
+            </NavLink>
+            
+             <NavLink to={"/settings"} className="nav-footer">
+              <Settings/>
+                Settings
+            </NavLink>
+
+        </nav> 
+
+       
       </footer>
     </div>
   );

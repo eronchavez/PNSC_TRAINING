@@ -133,7 +133,7 @@
 {
     background-color: blue;
     color: white;
-    padding: 0.5em;
+    padding: 1em;
     border-radius: 5px;
 }
 
@@ -209,7 +209,8 @@
 {
     background-color: blue;
     color: white;
-    padding: 0.5em;
+    padding: 1em;
+    width: 10em;
     border-radius: 5px;
 }
 
@@ -219,4 +220,22 @@
     text-align: center;
     margin-top: 1em;
     font-size: bold;
+}
+
+
+#task-title, #subject
+{
+    width: 100%;
+}
+
+
+.nav-footer 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.5em;
+
 }

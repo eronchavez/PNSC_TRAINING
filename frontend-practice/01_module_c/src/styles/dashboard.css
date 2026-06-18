@@ -8,20 +8,12 @@
 
 
 #main-dashboard {
-    padding-top: 2em;
     min-height: 100vh;
 }
 
-/* FAB */
-#fab {
-    position: fixed;
-    right: 20px;
-    bottom: 70px;
-    z-index: 9999;
-  
-}
 
-/* Upper Dashboard */
+
+
 
 
 /* Greeting */
@@ -38,7 +30,7 @@
 
 .greeting h1 
 {
-    font-size: large;
+    font-size: medium;
     font-weight: 500;
 }
 
@@ -239,6 +231,7 @@
 {
     font-weight: 400;
     text-transform: uppercase;
+    margin-bottom: 1em;
 }
 
 /* Blank Arrow */
@@ -254,4 +247,18 @@
     background-color: rgb(235, 224, 205);
     padding: 0.5em;
     border-radius: 50%;
+}
+
+
+/* Add task  */
+#add-task 
+{
+    font-weight: 700;
+}
+
+/* plan better font */
+#plan-better > h2 
+{
+    font-weight: 700;
+    margin-bottom: 0.5em;
 }

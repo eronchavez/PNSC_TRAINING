@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font: 1em sans-serif;
 }
 
 
@@ -14,9 +15,14 @@ main
     max-width: 1100px;   
     margin: 0 auto;      
     position: relative;
-    padding: 0 2em;    
+    padding: 0 1em;    
     min-height: 100vh;  
     padding-top: 1em;
+}
+
+#main-app 
+{
+    background-color: #ebf2ff;
 }
 
 /* Header */
@@ -73,39 +79,46 @@ main
 
 }
 
-li 
-{
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5em;
-    
-}
+
 
 /* When Focus */
-li:has(:focus)
+ .nav-footer 
 {
-    color: #1d4ed8;
-    
-}
-
-.li-footer 
-{
+    flex: 1;
+    position: relative;
     color: gray;
+   
 }
 
-.li-footer.active
+.nav-footer.active 
 {
     color: blue;
     font-weight: 600;
+
 }
+
+.nav-footer.active::before 
+{
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10em;
+    height: 3px;
+    background-color: blue;
+}
+
+
+
+
+
 
 /* FaB */
 #fab {
-    position: sticky;
-    right: 20px;
-    bottom: 20;
+    position: fixed;
+    right: 1em;
+    bottom: 5em;
     z-index: 9999;
   
 }

@@ -38,16 +38,18 @@ function TaskEditor() {
         );
 
         const data = await response.json();
+        console.log(data)
 
         if (!response.ok) {
           setError(data.message || "Failed to load task");
           return;
         }
 
-        setTitle(data.data.title);
-        setSubject(data.data.subject);
-        setPriority(data.data.priority);
-        setDueDate(data.data.completed === 1);
+        setTitle(data.title);
+        setSubject(data.subject);
+        setPriority(data.priority);
+        setDueDate(data.due_date.replace(" ", "T").slice(0,16))
+        setCompleted(data.completed);
       } catch (e) {
         setError(e.message);
       } finally {
@@ -95,6 +97,7 @@ function TaskEditor() {
       setSubject("");
       setPriority("Medium");
       setDueDate("");
+      navigate("/tasks")
     } catch (e) {
       setError(e.message);
     } finally {
@@ -107,6 +110,7 @@ function TaskEditor() {
 
     setError("");
     setSuccessMessage("");
+    
 
     try {
       const response = await fetch(
@@ -234,7 +238,7 @@ function TaskEditor() {
                     <label className="switch">
                       <input
                         type="checkbox"
-                        checked={completed}
+                        defaultChecked={completed}
                         onChange={(e) => setCompleted(e.target.checked)}
                       />
                       <span className="slider round"></span>
@@ -253,7 +257,7 @@ function TaskEditor() {
                     ) : (
                       <p className="save">
                         {" "}
-                        <Save /> Create task
+                        <Save /> Create task 
                       </p>
                     )}
                   </button>
@@ -266,24 +270,26 @@ function TaskEditor() {
                 {successMessage && <p>{successMessage}</p>}
               </>
             )}
+
+             {mode === "edit" && (
+              <>
+                <div className="action-buttons">
+                  <button className="save" type="submit">
+                    <Save />
+                    <p>Save Changes</p>
+                  </button>
+                  <div className="delete" onClick={handleDeleteTask}>
+                    <Trash2 />
+                    <p>Delete Task</p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </form>
       </div>
 
-      {mode === "edit" && (
-        <>
-          <div className="action-buttons">
-            <div className="save" type="submit">
-              <Save />
-              <p>Save Changes</p>
-            </div>
-            <div className="delete">
-              <Trash2 />
-              <p>Delete Task</p>
-            </div>
-          </div>
-        </>
-      )}
+     
     </div>
   );
 }

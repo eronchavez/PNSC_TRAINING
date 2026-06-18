@@ -5,7 +5,7 @@ import {
   ClockAlert,
   CircleCheck,
   Lightbulb,
-  SquarePen,
+  CirclePlus,
 } from "lucide-react";
 import studyImg from "./../images/study.jpg"
 import { useNavigate } from "react-router"
@@ -40,8 +40,8 @@ function Dashboard() {
     return "Good Evening";
   }
 
-  function handleEdit() {
-    navigate("/tasks")
+  function handleAdd() {
+    navigate("/tasks/new")
   }
 
   useEffect(() => {
@@ -132,10 +132,10 @@ function Dashboard() {
           <div
             className="hori-card"
             id="edit-task"
-            onClick={() => handleEdit(true)}
+            onClick={() => handleAdd(true)}
           >
-            <SquarePen color="white" />
-            <p>Edit Task</p>
+            <CirclePlus color="white" />
+            <p id="add-task">Add Task</p>
           </div>
         </div>
       </section>

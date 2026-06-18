@@ -1,4 +1,4 @@
-import { Search, MoreVertical, Clock, Check } from "lucide-react"
+import { Search, MoreVertical, Clock, Check, Trash2 } from "lucide-react"
 import { useState, useEffect } from "react"
 import "./../styles/task.css"
 import { useNavigate } from "react-router"
@@ -6,10 +6,17 @@ import { useNavigate } from "react-router"
 function Task() {
   const navigate = useNavigate()
 
-  const [loading,   setLoading]   = useState(true)
-  const [error,     setError]     = useState("")
-  const [tasks,     setTasks]     = useState([])
+  const [loading,    setLoading]    = useState(true)
+  const [error,      setError]      = useState("")
+  const [tasks,      setTasks]      = useState([])
   const [openMenuId, setOpenMenuId] = useState(null)
+
+  // NEW: modal state
+  // null = modal closed
+  // when user clicks "Delete Task", we store that task's id and title here
+  // modal reads from this to show the task name in the confirmation text
+  const [deleteTarget, setDeleteTarget] = useState(null)
+  // deleteTarget will look like: { id: 5, title: "Create PWA manifest" }
 
   const token = localStorage.getItem("token")
 
@@ -20,46 +27,112 @@ function Task() {
   const [sort,      setSort]      = useState("")
   const [direction, setDirection] = useState("asc")
 
-  // derive unique filter options from fetched tasks
-  // [...new Set()] removes duplicates
-  const subjects   = [...new Set(tasks.map(t => t.subject))]
-  const priorities = [...new Set(tasks.map(t => t.priority))]
+  const subjects   = [...new Set(tasks.map(task => task.subject))]
+  const priorities = [...new Set(tasks.map(task => task.priority))]
 
   function handleEdit(taskId) {
     navigate(`/tasks/${taskId}/edit`)
   }
 
-  async function handleDelete(taskId) {
-    if (!window.confirm("Delete this task?")) return
+  // CONCEPT 1: PATCH completed + optimistic UI
+  async function handleTaskCompletion(isChecked, taskId) {
+
+    // OPTIMISTIC UI: update state BEFORE the API responds
+    // this makes the UI feel instant — no waiting for the server
+    // we update the specific task in the array whose id matches taskId
+    setTasks(prev => prev.map(task =>
+      // if this is the task being toggled, return a new object with completed updated
+      // if it's a different task, return it unchanged
+      task.id === taskId ? { ...task, completed: isChecked } : task
+    ))
+
     try {
       const response = await fetch(
-        // BUG 2 FIX: http:// not http:
+        `http://localhost/PNSC_TRAINING/studysprint/api/tasks/${taskId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ completed: isChecked ? 1 : 0 })
+        }
+      )
+
+      // FIX: was missing await — data was a Promise not an object
+      const data = await response.json()
+
+      if (!response.ok) {
+        // REVERT: if API failed, undo the optimistic update
+        // flip isChecked back to its previous value
+        setTasks(prev => prev.map(task =>
+          task.id === taskId ? { ...task, completed: !isChecked } : task
+        ))
+        setError(data.message || "Failed to update")
+      }
+
+    } catch (error) {
+      // REVERT on network error too
+      setTasks(prev => prev.map(task =>
+        task.id === taskId ? { ...task, completed: !isChecked } : task
+      ))
+      setError(error.message)
+    }
+  }
+
+  // CONCEPT 2: open modal — just sets deleteTarget, does NOT delete yet
+  // called when user clicks "Delete Task" in the dropdown
+  function openDeleteModal(taskId, taskTitle) {
+    setDeleteTarget({ id: taskId, title: taskTitle })
+    setOpenMenuId(null) // close the dropdown
+  }
+
+  // called when user clicks Cancel in the modal
+  function closeDeleteModal() {
+    setDeleteTarget(null)
+  }
+
+  // called when user clicks "Delete Task" button inside the modal
+  async function confirmDelete() {
+    // deleteTarget.id has the id we stored when modal was opened
+    const taskId = deleteTarget.id
+
+    // close modal immediately — don't wait for API
+    setDeleteTarget(null)
+
+    try {
+      const response = await fetch(
         `http://localhost/PNSC_TRAINING/studysprint/api/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
         }
       )
+
       if (!response.ok) {
         const data = await response.json()
-        alert(data.message || "Failed to delete")
+        setError(data.message || "Failed to delete")
         return
       }
-      // remove from state immediately — no need to re-fetch
-      setTasks(prev => prev.filter(t => t.id !== taskId))
-    } catch (e) { alert(e.message) }
+
+      // remove from state — no re-fetch needed
+      setTasks(prev => prev.filter(task => task.id !== taskId))
+
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
-  // Pattern B — defined outside useEffect so it can be called from anywhere
   async function fetchTasks() {
     try {
       const params = new URLSearchParams()
-      if (search)          params.append("search",    search)
-      if (subject)         params.append("subject",   subject)
-      if (priority)        params.append("priority",  priority)
+      if (search)           params.append("search",    search)
+      if (subject)          params.append("subject",   subject)
+      if (priority)         params.append("priority",  priority)
       if (completed !== "") params.append("completed", completed)
-      if (sort)            params.append("sort",      sort)
-      if (direction)       params.append("direction", direction)
+      if (sort)             params.append("sort",      sort)
+      if (direction)        params.append("direction", direction)
 
       const response = await fetch(
         `http://localhost/PNSC_TRAINING/studysprint/api/tasks?${params.toString()}`,
@@ -68,8 +141,8 @@ function Task() {
       const data = await response.json()
       if (!response.ok) { setError(data.message || "Server Error"); return }
       setTasks(data.data || [])
-    } catch (e) {
-      setError(e.message)
+    } catch (error) {
+      setError(error.message)
     } finally {
       setLoading(false)
     }
@@ -91,7 +164,7 @@ function Task() {
     }
 
     const dayLabel =
-      isToday        ? "Today"
+      isToday          ? "Today"
       : diffDays === 1 ? "Tomorrow"
       : diffDays >= -7 && diffDays <= 7
         ? date.toLocaleDateString("en-US", { weekday: "long" })
@@ -100,18 +173,17 @@ function Task() {
     return { text: `${dayLabel}, ${time}`, isOverDue, isToday }
   }
 
-  // BUG 1 FIX: two separate useEffects — one for click outside, one for fetch
   useEffect(() => {
-    function handleClickOutside(e) {
-      if (!e.target.closest(".menu-wrapper")) setOpenMenuId(null)
+    function handleClickOutside(event) {
+      if (!event.target.closest(".menu-wrapper")) setOpenMenuId(null)
     }
     document.addEventListener("click", handleClickOutside)
     return () => document.removeEventListener("click", handleClickOutside)
-  }, []) // runs once on mount
+  }, [])
 
   useEffect(() => {
     fetchTasks()
-  }, [search, subject, priority, completed, sort, direction]) // runs when filters change
+  }, [search, subject, priority, completed, sort, direction])
 
   if (loading) return <h2>Loading Tasks...</h2>
   if (error)   return <h2>{error}</h2>
@@ -119,6 +191,42 @@ function Task() {
   return (
     <>
       <div id="main-task">
+
+        {/* CONCEPT 2: DELETE MODAL */}
+        {/* deleteTarget !== null means modal is open */}
+        {/* renders on top of everything because of position:fixed in CSS */}
+        {deleteTarget !== null && (
+          <div className="modal-overlay">
+            <div className="modal">
+
+              {/* red trash icon circle — matches your reference image */}
+              <div className="modal-icon">
+                <Trash2 size={28} color="red" />
+              </div>
+
+              <h3 className="modal-title">Delete this task?</h3>
+
+              {/* shows the actual task name so user knows what they're deleting */}
+              <p className="modal-message">
+                Are you sure you want to delete <strong>{deleteTarget.title}</strong>? This action cannot be undone.
+              </p>
+
+              <div className="modal-buttons">
+                {/* Cancel — just closes the modal, nothing deleted */}
+                <button className="modal-cancel" onClick={closeDeleteModal}>
+                  Cancel
+                </button>
+
+                {/* Confirm — actually runs the delete */}
+                <button className="modal-confirm" onClick={confirmDelete}>
+                  Delete Task
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
+
         <div className="task-header">
           <div className="search-bar">
             <Search size={30} />
@@ -126,38 +234,40 @@ function Task() {
               type="text"
               placeholder="Search tasks by title or subject..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(event) => setSearch(event.target.value)}
             />
           </div>
         </div>
 
         <div className="task-controls">
-          {/* DYNAMIC subject filter — options come from fetched tasks */}
-          <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+          <select value={subject} onChange={(event) => setSubject(event.target.value)}>
             <option value="">All Subjects</option>
-            {subjects.map(s => <option key={s} value={s}>{s}</option>)}
+            {subjects.map(subject => (
+              <option key={subject} value={subject}>{subject}</option>
+            ))}
           </select>
 
-          {/* DYNAMIC priority filter */}
-          <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+          <select value={priority} onChange={(event) => setPriority(event.target.value)}>
             <option value="">All Priority</option>
-            {priorities.map(p => <option key={p} value={p}>{p}</option>)}
+            {priorities.map(priority => (
+              <option key={priority} value={priority}>{priority}</option>
+            ))}
           </select>
 
-          <select value={completed} onChange={(e) => setCompleted(e.target.value)}>
+          <select value={completed} onChange={(event) => setCompleted(event.target.value)}>
             <option value="">All</option>
             <option value="1">Completed</option>
             <option value="0">Not Completed</option>
           </select>
 
-          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <select value={sort} onChange={(event) => setSort(event.target.value)}>
             <option value="">Default</option>
             <option value="title">Title</option>
             <option value="priority">Priority</option>
             <option value="due_date">Due Date</option>
           </select>
 
-          <select value={direction} onChange={(e) => setDirection(e.target.value)}>
+          <select value={direction} onChange={(event) => setDirection(event.target.value)}>
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </select>
@@ -166,16 +276,20 @@ function Task() {
         <div id="to-do-cards">
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              // BUG 3 FIX: dropdown is INSIDE the card, inside menu-wrapper
               <div
                 key={task?.id}
                 className={`task-card ${formatDueDate(task.due_date, task.completed).isToday ? "today" : ""}`}
               >
                 <input
                   type="checkbox"
-                  defaultChecked={task.completed}
+                  // CHANGED: defaultChecked → checked
+                  // defaultChecked only works on first render — ignores state changes
+                  // checked={} keeps checkbox in sync with task.completed in state
+                  // this is required for optimistic UI to work visually
+                  checked={!!task.completed}
                   id={`circle-check-${task.id}`}
                   className="circle-check"
+                  onChange={(event) => handleTaskCompletion(event.target.checked, task.id)}
                 />
                 <label htmlFor={`circle-check-${task.id}`}></label>
 
@@ -204,7 +318,6 @@ function Task() {
                   </div>
                 </div>
 
-                {/* menu-wrapper contains trigger + dropdown together */}
                 <div className="menu-wrapper">
                   <div
                     className="menu-trigger"
@@ -215,11 +328,19 @@ function Task() {
 
                   {openMenuId === task.id && (
                     <div className="dropdown-menu">
-                      <div className="dropdown-item" onClick={() => { setOpenMenuId(null); handleEdit(task.id) }}>
+                      <div
+                        className="dropdown-item"
+                        onClick={() => { setOpenMenuId(null); handleEdit(task.id) }}
+                      >
                         Edit
                       </div>
-                      {/* BUG 4 FIX: calls handleDelete not handleEdit */}
-                      <div className="dropdown-item delete-item" onClick={() => { setOpenMenuId(null); handleDelete(task.id) }}>
+                      <div
+                        className="dropdown-item delete-item"
+                        // CHANGED: was handleDelete(task.id)
+                        // now opens modal instead — passes both id AND title
+                        // title is needed to show "delete Create PWA manifest?" in the modal
+                        onClick={() => openDeleteModal(task.id, task.title)}
+                      >
                         Delete Task
                       </div>
                     </div>

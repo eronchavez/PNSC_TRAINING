@@ -183,6 +183,7 @@
 .task-title 
 {
     color:  #2f26ce;
+    padding-bottom: 0.5em;
 }
 
 
@@ -318,4 +319,84 @@
 .delete-item:hover 
 {
     background-color: #fff0f0;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+}
+
+/* MODAL BOX */
+/* white card, centered, max width so it doesn't stretch on wide screens */
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2em 1.5em;
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}
+
+/* RED ICON CIRCLE */
+.modal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #fff0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111;
+}
+
+.modal-message {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* BUTTON ROW */
+.modal-buttons {
+  display: flex;
+  gap: 0.8em;
+  margin-top: 0.5em;
+}
+
+/* CANCEL BUTTON */
+.modal-cancel {
+  flex: 1;
+  padding: 0.6em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* DELETE CONFIRM BUTTON */
+.modal-confirm {
+  flex: 1;
+  padding: 0.6em;
+  border-radius: 8px;
+  border: none;
+  background: #dc2626;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
 }
