@@ -1,0 +1,97 @@
+.login-page 
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #ebf2ff;
+    gap: 1em;
+    padding-top: 10em;
+    
+}
+
+/* Header */
+.login-header, main
+{
+    width: 80%;
+    font-family: system-ui;
+}
+
+.login-header
+{
+    text-align: center;
+}
+
+/* zap icon */
+#zap 
+{
+    background-color: #1d4ed8;
+    color: white;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.login-form 
+{
+    background-color: white;
+    border: 1px solid silver;
+    border-top: 5px solid #1d4ed8;
+    border-radius: 5px 5px 0 0;
+    padding: 1.5em;
+}
+
+.input-container 
+{
+    margin-top: 1em;
+}
+
+.input-field 
+{
+    display: flex;
+    align-items: center;
+    background-color: #ebf2ff;
+    border: 1px solid silver;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.input-field, input 
+{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 100%;
+    padding-left: 1em;
+}
+
+.submit-container 
+{
+    margin-top: 1em;
+    background-color: #1d4ed8;
+    padding: 0.7em;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.submit-container button 
+{
+    background-color: transparent;
+    border: none;
+    color: white;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+   
+}
+
+.sign-up 
+{
+    background: #dce8ff;
+    padding: 1em;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+}

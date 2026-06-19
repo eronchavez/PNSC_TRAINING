@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router"
 import AppLayout from "./layouts/AppLayout"
 import Dashboard from "./pages/Dashboard"
+import Login from "./pages/Login"
 
 function RequireAuth({ children }) {
   const isLoggedIn = !!localStorage.getItem("token")
@@ -10,7 +11,7 @@ function RequireAuth({ children }) {
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<h1>Login</h1>} />
+      <Route path="/login" element={<Login/>} />
       <Route path="/" element={
         <RequireAuth>
           <AppLayout />
