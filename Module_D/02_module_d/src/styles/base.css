@@ -1,0 +1,72 @@
+#main-page 
+{
+    display: flex;
+    justify-content: space-between;
+  
+}
+
+
+#slide-show 
+{
+    width: 80%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+img 
+{
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    
+}
+
+figure 
+{
+    object-fit: cover;
+    position: relative;
+}
+
+
+#slide-show figcaption
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: aliceblue;
+    padding: 0.5em;
+    border: 1px solid black;
+    border-radius: 0 5px 0 0;
+}
+
+
+#drop-zone 
+{
+    border: 1px dashed black;
+    height: 300px;
+    width: 300px;
+    margin-right: 1em;
+    padding: 1em;
+
+
+}
+
+
+aside 
+{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    gap: 1em;
+}
+
+aside button 
+{
+    width: 50%;
+}
+
+aside select 
+{
+    width: 50%;
+}

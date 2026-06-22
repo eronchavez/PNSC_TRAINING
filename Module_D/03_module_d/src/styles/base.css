@@ -1,0 +1,45 @@
+#main-page 
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+#slide-show 
+{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+aside 
+{
+    margin-right: 5em;
+}
+
+#drop-zone 
+{
+    height: 200px;
+    width: 100%;
+    border: 1px dashed gray;
+    padding: 1em;
+}
+
+img 
+{
+    max-width: 100%;
+}
+
+#drop-zone 
+{
+    height: 200px;
+    width: 100%;
+    border: 1px dashed gray;
+}
+
+#drop-zone.dragging 
+{
+    
+    background: #e0f0ff;          /* light blue tint — signals the drop zone is active */
+    border-color: #4a90e2;   
+}
