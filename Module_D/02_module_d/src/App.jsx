@@ -16,6 +16,30 @@ function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const [operatingMode, setOperatingMode] = useState("manual")
   const [displayTime, setDisplayTime] = useState(2)
+
+
+  const [dragSlideIndex, setDragSlideIndex] = useState(null)
+  const [thumbnailDropIndex, setThumbnailDropIndex] = useState(null)
+
+
+  
+
+  function reorderSlides(fromIndex, toIndex)
+  {
+    const activeSlide = slides[currentSlideIndex]
+
+    const nextSlides = [...slides]
+
+    const [moveSlide] = nextSlides.splice(fromIndex, 1)
+
+    nextSlides.splice(toIndex, 0 , moveSlide)
+
+    setSlides(nextSlides)
+
+    setCurrentSlideIndex(Math.max(0, nextSlides.indexOf(activeSlide)))
+
+  }
+
   
   // upload image
   function handleSlidePhotos(e) {
@@ -169,6 +193,26 @@ function App() {
         >
           <input type="file" accept="image/*" multiple />
         </div>
+
+        <section id="draggable-image">
+        {
+          slides.length > 0 ?
+          slides.map((slide,index) => (
+            <img
+              key={slide.filename}
+              src={slide.src} 
+              alt={generateCaption(slide.filename)}
+              onClick={() => setCurrentSlideIndex(index)}
+              className={index === currentSlideIndex ? "active" : ""}
+            />
+          )) 
+          : (
+          <p>No Slides</p>
+        )
+          
+        }
+
+        </section>
     
         <button onClick={handleLoadSamplePhotos}>Load Sample photos</button>
 

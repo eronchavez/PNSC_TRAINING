@@ -1,0 +1,90 @@
+[data-theme="b"] #slide-show figcaption 
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: aliceblue;
+    padding: 0.5em;
+    border: 1px solid black;
+    border-radius: 0 5px 0 0;
+
+}
+
+@keyframes theme-b-pushImage-in {
+    from 
+    {
+        transform: translateX(-100%);
+    }
+    to 
+    {
+        transform: translateX(0);
+    }
+}
+
+@keyframes theme-b-pushImage-out {
+     from 
+    {
+        transform: translateX(0);
+    }
+    to 
+    {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes caption-in {
+     from 
+    {
+        transform: translateX(-100vw);
+    }
+    to 
+    {
+        transform: translateX(0);
+    }
+}
+
+@keyframes caption-out {
+     from 
+    {
+        transform: translateX(0);
+    }
+    to 
+    {
+        transform: translateX(100vw);
+    }
+}
+
+
+[data-theme = "b"] .slide-frame-incoming img 
+{
+    animation: theme-b-pushImage-in 1s ease-in-out both;
+}
+
+[data-theme = "b"] .slide-frame-outgoing img 
+{
+    animation: theme-b-pushImage-out 1s ease-in-out both;
+}
+
+[data-theme = "b"] .slide-frame-incoming figcaption 
+{
+    animation: caption-in 1s ease-in-out 300ms both;
+}
+
+[data-theme = "b"] .slide-frame-outgoing figcaption 
+{
+    animation: caption-out 1s ease-in-out both;
+}
+
+
+[data-theme = "b"] .slide-frame {
+    position: absolute;
+    inset: 0;
+}
+
+[data-theme = "b"] .slide-frame-outgoing {
+    z-index: 1;
+}
+
+[data-theme = "b"].slide-frame-incoming {
+    z-index: 2;
+}

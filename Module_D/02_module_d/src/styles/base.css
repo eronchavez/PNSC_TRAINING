@@ -2,9 +2,8 @@
 {
     display: flex;
     justify-content: space-between;
-  
+    
 }
-
 
 #slide-show 
 {
@@ -12,24 +11,43 @@
     height: 100vh;
     position: relative;
     overflow: hidden;
+
 }
 
-img 
+aside 
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 20%;
+}
+
+#drop-zone 
+{
+    border: 1px dashed black;
+    height: 300px;
+    width: 100%;
+    padding: 1em;
+}
+
+#slide-show img 
 {
     max-width: 100%;
     width: 100%;
     height: 100%;
-    
+    object-fit: cover;
+    padding-right: 1em;
 }
 
 figure 
 {
-    object-fit: cover;
     position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
 }
 
-
-#slide-show figcaption
+#slide-show figcaption 
 {
     position: absolute;
     bottom: 0;
@@ -38,35 +56,38 @@ figure
     padding: 0.5em;
     border: 1px solid black;
     border-radius: 0 5px 0 0;
-}
-
-
-#drop-zone 
-{
-    border: 1px dashed black;
-    height: 300px;
-    width: 300px;
-    margin-right: 1em;
-    padding: 1em;
-
 
 }
 
-
-aside 
-{
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    gap: 1em;
-}
-
-aside button 
+aside button, select 
 {
     width: 50%;
 }
 
-aside select 
+#drop-zone.dragging 
 {
-    width: 50%;
+    background-color: lightblue;
+}
+
+
+
+#draggable-image 
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 0.75em;
+}
+
+#draggable-image img 
+{
+    object-fit: cover;
+    aspect-ratio: 1;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+
+#draggable-image img.active 
+{
+    border: 2px solid blue;
 }

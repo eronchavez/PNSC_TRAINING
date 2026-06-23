@@ -1,17 +1,22 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+#root{
+  width: 100vw;
+  height: 100vh;
+}
 #main-page 
 {
     display: flex;
     justify-content: space-between;
+    gap: 1em;
     
 }
-
-#slide-show 
+img 
 {
-    width: 80%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-
+    max-width: 100%;
 }
 
 aside 
@@ -19,6 +24,7 @@ aside
     display: flex;
     flex-direction: column;
     gap: 1em;
+    width: 20%;
 }
 
 #drop-zone 
@@ -29,30 +35,46 @@ aside
     padding: 1em;
 }
 
-img 
+#drop-zone.dragging 
 {
-    max-width: 100%;
+    background-color: lightblue;
+}
+
+#main-page 
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    
+}
+
+
+#slide-show, #slides 
+{
     width: 100%;
-    height: 100%;
-}
-
-figure 
-{
+    height: 100vh;
     position: relative;
-    object-fit: cover;
+    overflow: hidden;
+
 }
 
-#slide-show figcaption 
+
+aside 
 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-color: aliceblue;
-    padding: 0.5em;
-    border: 1px solid black;
-    border-radius: 0 5px 0 0;
-
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 20%;
 }
+
+#drop-zone 
+{
+    border: 1px dashed black;
+    height: 10em;
+    width: 100%;
+    padding: 1em;
+}
+
 
 aside button, select 
 {
@@ -62,4 +84,33 @@ aside button, select
 #drop-zone.dragging 
 {
     background-color: lightblue;
+}
+
+#controlImage
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 0.75em
+}
+
+#controlImage img.active 
+{
+    cursor: grabbing;
+    border: 1px solid blue;
+}
+#controlImage img.drop-target{
+    border: 1px solid black
+}
+#controlImage img.dragging{
+    opacity: 0.5;
+
+}
+
+#controlImage img 
+{
+    object-fit: cover;
+    aspect-ratio: 1;
+    display: block;
+    height: 100%;
+   
 }
