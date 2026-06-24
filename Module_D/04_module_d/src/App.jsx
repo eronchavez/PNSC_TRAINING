@@ -231,7 +231,7 @@ function App() {
       if (normalizedIndex === currentSlideIndex) return;
 
       setOutGoingSlide(
-        theme === "b" || theme === "c" ? slides[currentSlideIndex] : null,
+        theme === "b" || theme === "c" || theme === "h" ? slides[currentSlideIndex] : null,
       );
       setCurrentSlideIndex(normalizedIndex);
       setTransitionKey((prev) => prev + 1);
@@ -348,6 +348,7 @@ function App() {
       .join(" ");
   }
 
+
   function handleLoadSamplePhotos() {
     setSlides(samplePhotos);
     setCurrentSlideIndex(0);
@@ -412,6 +413,12 @@ function App() {
     setCurrentSlideIndex(0);
   }, [slides]);
 
+ const currentSlide = slides[currentSlideIndex];
+
+const captionWords = currentSlide
+  ? generateCaption(currentSlide.filename).split(" ")
+  : [];
+
   return (
     <div id="main-page">
       <div id="slide-show">
@@ -439,10 +446,26 @@ function App() {
                 src={slides[currentSlideIndex].src}
                 alt={generateCaption(slides[currentSlideIndex].filename)}
               />
-              <figcaption>
-                {generateCaption(slides[currentSlideIndex].filename)}
-              </figcaption>
+              <figcaption key={transitionKey}>
+                {/* {generateCaption(slides[currentSlideIndex].filename)} */}
+                {
+                  captionWords.map((word,index) => (
+                    <span 
+                      key={`${transitionKey}-${index}`}
+                      style={{
+                          animationDelay: `${1000 + (index * 300)}ms`,
+                        }}
+                    >
+                      {word + " "}
+                    </span>
+                  ))
+                }
+              
+            </figcaption>
+
             </figure>
+
+            
           </div>
         ) : (
           <p>No photos loaded</p>
