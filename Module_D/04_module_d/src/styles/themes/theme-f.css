@@ -1,0 +1,74 @@
+[data-theme="f"] #main-page {
+    height: 100vh;
+    overflow: hidden;
+}
+
+[data-theme="f"] #slide-show,
+[data-theme="f"] #slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="f"] .room-perspective-f {
+    width: 100%;
+    height: 100%;
+    perspective: 900px;
+    overflow: hidden;
+    background: #000;
+}
+
+[data-theme="f"] .cube-track-f {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: room-spin-f 1300ms cubic-bezier(.3,1,.3,1) both;
+}
+
+[data-theme="f"] .cube-face-f {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+}
+
+[data-theme="f"] .cube-face-f img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* OLD IMAGE */
+[data-theme="f"] .face-left-f {
+    transform-origin: right center;
+
+    transform:
+        translateX(-60px)
+        translateZ(-8vw)
+        rotateY(60deg);
+}
+
+/* NEW IMAGE */
+[data-theme="f"] .face-right-f {
+    transform-origin: left center;
+
+    transform:
+        translateX(60px)
+        translateZ(-8vw)
+        rotateY(-60deg);
+}
+
+@keyframes room-spin-f {
+    0% {
+        transform: rotateY(-60deg);
+    }
+
+    50% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(60deg);
+    }
+}

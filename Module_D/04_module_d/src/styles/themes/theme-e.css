@@ -1,0 +1,76 @@
+[data-theme="e"] #main-page {
+  height: 100vh;
+  overflow: hidden;
+}
+
+[data-theme="e"] #slide-show,
+[data-theme="e"] #slides {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="e"] .slide-frame-e {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+}
+
+[data-theme="e"] .incoming-e {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+
+[data-theme="e"] .door {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  backface-visibility: hidden;
+}
+
+[data-theme="e"] .door img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+[data-theme="e"] .door-left {
+  clip-path: inset(0 50% 0 0);
+  transform-origin: left center;
+  animation: open-left 0.8s ease-in both;
+}
+
+[data-theme="e"] .door-right {
+  clip-path: inset(0 0 0 50%);
+  transform-origin: right center;
+  animation: open-right 0.8s ease-in both;
+}
+
+@keyframes open-left {
+  from {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(-90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes open-right {
+  from {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+  to {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+}

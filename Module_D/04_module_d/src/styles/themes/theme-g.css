@@ -1,0 +1,36 @@
+.cube-container-g {
+  width: 100%;
+  height: 100%;
+  perspective: 1500px; /* Adjust depth feel */
+  overflow: hidden;
+}
+
+.cube-g {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  /* The transition duration should match your logic */
+  animation: rotateCubeG 0.6s forwards ease-in-out;
+  transform-origin: 50% 50% -50vw; 
+}
+
+.face-front-g, .face-right-g {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.face-front-g {
+  transform: translateZ(50vw);
+}
+
+.face-right-g {
+  transform: rotateY(90deg) translateZ(50vw);
+}
+
+@keyframes rotateCubeG {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-90deg); }
+}

@@ -1,67 +1,100 @@
-[data-theme="h"] #main-page {
+[data-theme="c"] #main-page {
     height: 100vh;
     overflow: hidden;
 }
 
-[data-theme="h"] #slide-show,
-[data-theme="h"] #slides {
+[data-theme="c"] #slide-show,
+[data-theme="c"] #slides {
     width: 100%;
     height: 100%;
     position: relative;
     overflow: hidden;
 }
 
-[data-theme="h"] .slide-frame {
+[data-theme="c"] .slide-frame {
     position: absolute;
     inset: 0;
+    overflow: hidden;
 }
 
-[data-theme="h"] .slide-frame-incoming {
-    animation: zoom-in 1s ease-out both;
-    z-index: 2;
-}
-
-[data-theme="h"] .slide-frame-outgoing {
-    animation: zoom-out 1s ease-in both;
+[data-theme="c"] .slide-frame-outgoing {
     z-index: 1;
 }
 
-[data-theme="h"] .slide-frame img {
+[data-theme="c"] .slide-frame-incoming {
+    z-index: 2;
+}
+
+[data-theme="c"] .slide-frame-incoming {
+    animation: theme-c-pushImage-in 1s ease-in-out both;
+}
+
+[data-theme="c"] .slide-frame-outgoing {
+    animation: theme-c-pushImage-out 1s ease-in-out both;
+}
+
+[data-theme="c"] .slide-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-@keyframes zoom-in {
-    from { transform: scale(1.1); opacity: 0; }
-    to   { transform: scale(1);   opacity: 1; }
-}
-
-@keyframes zoom-out {
-    from { transform: scale(1);   opacity: 1; }
-    to   { transform: scale(0.9); opacity: 0; }
-}
-
-[data-theme="h"] #slides figcaption {
+[data-theme="c"] #slides figcaption {
     position: absolute;
-    bottom: 1em;
-    left: 1em;
-    background: rgba(0,0,0,0.55);
-    color: white;
-    padding: 0.4em 1em;
-    border-left: 3px solid white;
+    left: 0;
+    bottom: 0;
+
+    background-color: aliceblue;
+    padding: 0.5em;
+    border: 1px solid black;
+    border-radius: 0 5px 0 0;
+
     z-index: 10;
 }
 
-[data-theme="h"] #slides figcaption span {
+[data-theme="c"] #slides figcaption span 
+{
     display: inline-block;
     opacity: 0;
     margin-right: 0.3em;
     animation: caption-word-rise 0.5s ease forwards;
+    
 }
 
 @keyframes caption-word-rise {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from 
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to 
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+
+
+
+@keyframes theme-c-pushImage-in {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes theme-c-pushImage-out {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
