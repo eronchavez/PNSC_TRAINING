@@ -1,116 +1,147 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-#root{
+#root {
   width: 100vw;
   height: 100vh;
 }
-#main-page 
-{
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-    
+#main-page {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
 }
-img 
-{
-    max-width: 100%;
+img {
+  max-width: 100%;
 }
 
-aside 
-{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    width: 20%;
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 20%;
 }
 
-#drop-zone 
-{
-    border: 1px dashed black;
-    height: 300px;
-    width: 100%;
-    padding: 1em;
+#drop-zone {
+  border: 1px dashed black;
+  height: 300px;
+  width: 100%;
+  padding: 1em;
 }
 
-#drop-zone.dragging 
-{
-    background-color: lightblue;
+#drop-zone.dragging {
+  background-color: lightblue;
 }
 
-#main-page 
-{
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-    
+#main-page {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
 }
 
-
-#slide-show, #slides 
-{
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-
+#slide-show,
+#slides {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-
-aside 
-{
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    width: 20%;
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 20%;
 }
 
-#drop-zone 
-{
-    border: 1px dashed black;
-    height: 10em;
-    width: 100%;
-    padding: 1em;
+#drop-zone {
+  border: 1px dashed black;
+  height: 10em;
+  width: 100%;
+  padding: 1em;
 }
 
-
-aside button, select 
-{
-    width: 50%;
+aside button,
+select {
+  width: 50%;
 }
 
-#drop-zone.dragging 
-{
-    background-color: lightblue;
+#drop-zone.dragging {
+  background-color: lightblue;
 }
 
-#controlImage
-{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-    gap: 0.75em
+#controlImage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 0.75em;
 }
 
-#controlImage img.active 
-{
-    cursor: grabbing;
-    border: 1px solid blue;
+#controlImage img.active {
+  cursor: grabbing;
+  border: 1px solid blue;
 }
-#controlImage img.drop-target{
-    border: 1px solid black
+#controlImage img.drop-target {
+  border: 1px solid black;
 }
-#controlImage img.dragging{
-    opacity: 0.5;
-
+#controlImage img.dragging {
+  opacity: 0.5;
 }
 
-#controlImage img 
-{
-    object-fit: cover;
-    aspect-ratio: 1;
-    display: block;
-    height: 100%;
-   
+#controlImage img {
+  object-fit: cover;
+  aspect-ratio: 1;
+  display: block;
+  height: 100%;
+}
+
+.command-bar-backdrop {
+  display: flex;
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, 0.58);
+  inset: 0;
+  justify-content: center;
+  padding: 18vh 1rem 1rem;
+  position: fixed;
+  z-index: 1000;
+}
+
+.command-bar {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  max-width: 560px;
+  overflow: hidden;
+  width: min(560px, 100%);
+  padding: 1em;
+}
+
+.command-bar h2 {
+  font-size: large;
+  padding-left: 0.5em;
+}
+
+.command-bar input {
+  padding: 0.5em;
+  border-radius: 5px;
+  width: 100%;
+  margin: 0.5em;
+}
+
+.command-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+}
+
+.command-options button {
+  border: none;
+  background-color: transparent;
+  padding: 0.5em;
+}
+
+.command-bar .selected {
+  background-color: blue;
+  color: white;
 }
