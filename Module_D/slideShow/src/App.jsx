@@ -32,26 +32,53 @@ const availableThemes = new Set(
     .map((command) => command.value),
 )
 
+const storageKey = "photos_slideshow_state"
+const defaultSlideShowState = {
+  slides: [],
+  operatingMode: "manual",
+  currentSlideIndex: 0,
+  displayTime: 2,
+  theme: "a"
+}
+
 function App() {
-  const [slides, setSlides] = useState([])
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
+  const savedSlideShowState = useMemo(() => getSavedSlideShowState(),[])
+  const [slides, setSlides] = useState(savedSlideShowState.slides)
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(savedSlideShowState.currentSlideIndex)
   const [isDragging, setIsDragging] = useState(false)
-  const [operatingMode, setOperatingMode] = useState("manual")
-  const [displayTime, setDisplayTime] = useState(2)
+  const [operatingMode, setOperatingMode] = useState(savedSlideShowState.operatingMode)
+  const [displayTime, setDisplayTime] = useState(savedSlideShowState.displayTime)
   const [dragSlideIndex, setDragSlideIndex] = useState(null)
   const [thumbnailDropIndex, setThumbnailDropIndex] = useState(null)
-  const [theme, setTheme] = useState("a")
+  const [theme, setTheme] = useState(savedSlideShowState.theme)
   const [outGoingSlide, setOutGoingSlide] = useState(null)
   const [transitionKey, setTransitionKey] = useState(0)
   const [isCommandBarOpen, setIsCommandBarOpen] = useState(false)
   const [commandQuery, setCommandQuery] = useState("")
   const [selectedCommandIndex, setSelectedCommandIndex] = useState(0)
   const commandInputRef = useRef(null)
+  
+
+  useEffect(() => {
+    try{
+      localStorage.setItem(storageKey, JSON.stringify({
+        slides, 
+        operatingMode,
+        currentSlideIndex,
+        displayTime,
+        theme
+      }))
+    }catch(e)
+    { 
+      console.log(e)
+    }
+  },[slides,operatingMode,currentSlideIndex,displayTime,theme])
 
   const rotations = useMemo(() => 
     slides.map(() => Math.random() * 20 - 5), 
     [slides]
   )
+
 
   const filteredCommands = useMemo(() => {
     const normalizedQuery = commandQuery.trim().toLowerCase()
@@ -88,6 +115,40 @@ function App() {
     closeCommandBar()
   }
 
+  function getSavedSlideShowState()
+  {
+    try{
+      const savedState = JSON.parse(localStorage.getItem(storageKey))
+
+      if(!savedState) return  defaultSlideShowState
+      const slides = savedState.slides
+      const currentSlideIndex = savedState.currentSlideIndex
+
+      return {
+        slides,
+        operatingMode: savedState.operatingMode,
+        currentSlideIndex,
+        displayTime: savedState.displayTime,
+        theme: savedState.theme,
+
+      }
+    }catch(e)
+    {
+      console.log(e.error)
+      return defaultSlideShowState
+    }
+  }
+
+  function handleResetSlideShow()
+  {
+    setOutGoingSlide(null)
+    setTransitionKey((prev) => prev + 1)
+    setSlides([])
+    setCurrentSlideIndex(0)
+    setOperatingMode("manual")
+    setTheme("a")
+    setDisplayTime(2)
+  }
   useEffect(() => {
     if (!isCommandBarOpen) return
     commandInputRef.current?.focus()
@@ -295,6 +356,104 @@ function App() {
     setCurrentSlideIndex(0)
   }, [slides])
 
+
+  function readFileAsText(file)
+  {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener("load", () => resolve(reader.result))
+      reader.addEventListener("error", () => reject(reader.error))
+
+
+      reader.readAsText(file)
+    })
+  }
+
+  async function handleImportSlides(e)
+  {
+    const [file] = e.target.files 
+    if(!file) return 
+
+    try{
+      const importedData = JSON.parse(await readFileAsText(file))
+      const importedSlides = Array.isArray(importedData.slides)
+        ? importedData.slides.map((slide,index) => ({
+          filename: slide.filename,
+          src: slide.photo
+        }))
+
+        :  []
+
+      // const validSlides = importedSlides.filter()
+      setSlides(importedSlides)
+      setTheme(importedData.theme)
+      setOutGoingSlide(null)
+      setCurrentSlideIndex(0)
+      setTransitionKey(prev => prev + 1)
+    }catch(e)
+    {
+      console.log(e)
+    }finally{
+      e.target.value = ''
+    }
+  }
+
+
+  async function handleExportSlides()
+  {
+
+    const exportedAt = new Date()
+    // const exportTimeStamp = formatExportTimeStamp()
+
+    const exportData = {
+      exportedAt: exportedAt,
+      theme: theme, 
+      slides: await Promise.all(slides.map(
+        async(slide,index) => ({
+          index, 
+          filename: slide.filename,
+          caption: generateCaption(slide.filename),
+          photo: await imageSourceToDataURL(slide.src)
+        }))
+      )
+    }
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+      type: "application/json",
+    })
+
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement("a")
+    link.href=url
+    link.download=`${exportedAt}.json`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+
+  }
+
+  async function imageSourceToDataURL(source)
+  {
+    if(source.startsWith("data:")) return source 
+    const response = await fetch(source)
+    const blob = await response.blob()
+
+    return readFileAsDataURL(blob)
+  }
+
+  function readFileAsDataURL(blob)
+  {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.addEventListener("load", () => resolve(reader.result))
+      reader.addEventListener("error", () => reject(reader.error))
+
+      reader.readAsDataURL(blob)
+    })
+  }
+
   const currentSlide = slides[currentSlideIndex]
   const captionWords = currentSlide?.filename ? generateCaption(currentSlide.filename).split(" ") : []
 
@@ -466,6 +625,31 @@ function App() {
             <option value="h">theme-h</option>
           </select>
         </section>
+
+
+        <section>
+          <button id="export" onClick={handleExportSlides}>Export</button>
+          <label htmlFor="import">Import: </label>
+          <input 
+            type="file" id="import" 
+            accept="application/json" 
+            onChange={handleImportSlides}  
+          />
+          <button 
+            id="reset"
+            onClick={handleResetSlideShow}
+            >   
+            Reset
+          </button>
+
+          <button onClick={() => {
+            document.documentElement.requestFullscreen.call(
+              document.documentElement
+            )
+          }}>Set Full Screen</button>
+        </section>
+
+
       </aside>
 
       {isCommandBarOpen ? (
