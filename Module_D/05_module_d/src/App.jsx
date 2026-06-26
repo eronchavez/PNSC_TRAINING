@@ -32,6 +32,8 @@ function App() {
   const [dragIndex, setDragIndex] = useState(null)
   const [dropIndex, setDropIndex] = useState(null)
   const [operatingMode, setOperatingMode] = useState("manual")
+  const [displayTime, setDisplayTime] = useState(2)
+
   /**
    * This is for not overlapping slide, 
    * this function is to repeat the index when it surpassses the slide length
@@ -60,7 +62,7 @@ function App() {
 
 
   /**
-   * 
+   * This is for user can change operating mode
   */
   useEffect(() => {
     if(operatingMode == "manual" || slides.length === 0 ) return 
@@ -69,11 +71,11 @@ function App() {
         ? Math.floor(Math.random() * slides.length)
         : currentSlideIndex + 1
       showSlide(next)
-    }, 2000)
+    }, displayTime * 1000)
 
     return () => clearInterval(id)
 
-  },[operatingMode, slides.length, currentSlideIndex, showSlide])
+  },[operatingMode, slides.length, currentSlideIndex, showSlide, displayTime])
 
   /**
    * 
@@ -116,6 +118,11 @@ function App() {
     next.splice(to, 0, moved)
     setSlides(next)
     setCurrentSlideIndex(next.indexOf(active))
+  }
+
+  function toggleFullScreen()
+  {
+    document.documentElement.requestFullscreen()
   }
     
   
@@ -208,6 +215,20 @@ function App() {
               <option value="random">Random</option>
             </select>
           
+        </section>
+
+        <section>
+          <label htmlFor="displayTime">Display time: </label>
+          <input 
+            type="number" 
+            min={1}
+            value={displayTime}
+            onChange={(e) => setDisplayTime(Number(e.target.value))}
+          />
+        </section>
+
+        <section>
+          <button onClick={toggleFullScreen}>Full screen</button>
         </section>
 
       </aside>
