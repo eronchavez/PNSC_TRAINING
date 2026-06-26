@@ -31,7 +31,11 @@ function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const [dragIndex, setDragIndex] = useState(null)
   const [dropIndex, setDropIndex] = useState(null)
-
+  const [operatingMode, setOperatingMode] = useState("manual")
+  /**
+   * This is for not overlapping slide, 
+   * this function is to repeat the index when it surpassses the slide length
+   */
   const showSlide = useCallback((nextIndex) => {
     if(slides.length === 0) return 
     const validSlideIndex = (nextIndex + slides.length) % slides.length 
@@ -53,6 +57,23 @@ function App() {
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
   },[slides.length, currentSlideIndex, showSlide])
+
+
+  /**
+   * 
+  */
+  useEffect(() => {
+    if(operatingMode == "manual" || slides.length === 0 ) return 
+    const id = setInterval(() => {
+      const next = operatingMode === "random"
+        ? Math.floor(Math.random() * slides.length)
+        : currentSlideIndex + 1
+      showSlide(next)
+    }, 2000)
+
+    return () => clearInterval(id)
+
+  },[operatingMode, slides.length, currentSlideIndex, showSlide])
 
   /**
    * 
@@ -171,6 +192,22 @@ function App() {
 
           }
 
+        </section>
+
+        <section>
+          <label htmlFor="mode">
+            Mode: {" "}
+          </label>
+            <select
+              id="mode"
+              value={operatingMode}
+              onChange={(e) => setOperatingMode(e.target.value)}
+            >
+              <option value="manual">Manual</option>
+              <option value="auto">Auto</option>
+              <option value="random">Random</option>
+            </select>
+          
         </section>
 
       </aside>
