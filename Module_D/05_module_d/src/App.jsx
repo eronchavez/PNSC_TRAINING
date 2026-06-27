@@ -1,7 +1,12 @@
 
 import { useState, useEffect, useCallback } from 'react'
 
-
+/**
+ * 
+ * @param {*} filename 
+ * This function is for caption
+ * @returns 
+ */
 function generateCaption(filename)
 {
   const base = filename.replace(/\.[^/.]+$/, "")
@@ -33,6 +38,20 @@ function App() {
   const [dropIndex, setDropIndex] = useState(null)
   const [operatingMode, setOperatingMode] = useState("manual")
   const [displayTime, setDisplayTime] = useState(2)
+  const [theme, setTheme] = useState("a")
+  const [outgoingSlide, setOutgoingSlide] = useState(null)
+  const [transitionKey, setTransitionKey] = useState(0)
+
+  const themesWithOutgoing = new Set(["b", "c", "h"]) 
+
+
+  /**
+   * This is for theme a-h
+   */
+  useEffect(() => {
+    document.body.dataset.theme = theme
+  },[theme])
+
 
   /**
    * This is for not overlapping slide, 
@@ -41,41 +60,14 @@ function App() {
   const showSlide = useCallback((nextIndex) => {
     if(slides.length === 0) return 
     const validSlideIndex = (nextIndex + slides.length) % slides.length 
+    if(validSlideIndex === currentSlideIndex) return 
+    setOutgoingSlide(themesWithOutgoing.has(theme) ? slides[currentSlideIndex] : null)
     setCurrentSlideIndex(validSlideIndex)
-  },[slides])
+    setTransitionKey(prev => prev + 1)
+  },[slides, currentSlideIndex, theme])
 
-  /**
-   * This is for manual control using key
-   */
-  useEffect(() => {
-
-    function onKeyDown(e)
-    {
-      if (slides.length === 0) return 
-      if (e.key === "ArrowRight") showSlide(currentSlideIndex  + 1)
-      if (e.key === "ArrowLeft") showSlide(currentSlideIndex - 1)
-    }
-
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  },[slides.length, currentSlideIndex, showSlide])
-
-
-  /**
-   * This is for user can change operating mode
-  */
-  useEffect(() => {
-    if(operatingMode == "manual" || slides.length === 0 ) return 
-    const id = setInterval(() => {
-      const next = operatingMode === "random"
-        ? Math.floor(Math.random() * slides.length)
-        : currentSlideIndex + 1
-      showSlide(next)
-    }, displayTime * 1000)
-
-    return () => clearInterval(id)
-
-  },[operatingMode, slides.length, currentSlideIndex, showSlide, displayTime])
+  
+    
 
   /**
    * 
@@ -120,6 +112,9 @@ function App() {
     setCurrentSlideIndex(next.indexOf(active))
   }
 
+  /**
+   * This function is to toggle full screen
+   */
   function toggleFullScreen()
   {
     document.documentElement.requestFullscreen()
@@ -130,7 +125,47 @@ function App() {
     setCurrentSlideIndex(0)
   },[slides])
 
+  /**
+   * This is for manual control using key
+   */
+  useEffect(() => {
+
+    function onKeyDown(e)
+    {
+      if (slides.length === 0) return 
+      if (e.key === "ArrowRight") showSlide(currentSlideIndex  + 1)
+      if (e.key === "ArrowLeft") showSlide(currentSlideIndex - 1)
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  },[slides.length, currentSlideIndex, showSlide])
+
+
+  /**
+   * This is for user can change operating mode
+  */
+  useEffect(() => {
+    if(operatingMode == "manual" || slides.length === 0 ) return 
+    const id = setInterval(() => {
+      const next = operatingMode === "random"
+        ? Math.floor(Math.random() * slides.length)
+        : currentSlideIndex + 1
+      showSlide(next)
+    }, displayTime * 1000)
+
+    return () => clearInterval(id)
+
+  },[operatingMode, slides.length, currentSlideIndex, showSlide, displayTime])
+
+  useEffect(() => {
+    if(!outgoingSlide) return 
+    const id = setTimeout(() => setOutgoingSlide(null), 1000)
+    return () => clearTimeout(id)
+  },[outgoingSlide, transitionKey])reorderSlides
+
   const current = slides[currentSlideIndex] || null 
+  const captionWords = current ? generateCaption(current.filename).split(" ") : []
 
   return (
     <div id="main-page">
@@ -141,13 +176,31 @@ function App() {
               <p>No photos loaded</p>
             )
           : (
-            <figure className="slide-frame">
-              <img
-                src={current.src}
-                alt={generateCaption(current.filename)}
-              />
-              <figcaption>{generateCaption(current.filename)}</figcaption>
-            </figure>
+            <>
+              {outgoingSlide && (
+                <figure 
+                  key={`out-${transitionKey}`}
+                  className="slide-frame slide-frame-outgoing"
+                >
+                  <img 
+                    src={outgoingSlide.src} 
+                    alt={outgoingSlide.filename}  
+                  />
+                  <figcaption>{generateCaption(outgoingSlide.filename)}</figcaption>
+                </figure>
+              )}
+
+              <figure 
+                  key={`in-${transitionKey}`}
+                  className="slide-frame slide-frame-incoming"
+                >
+                  <img 
+                    src={current.src} 
+                    alt={current.filename}  
+                  />
+                  <figcaption>{generateCaption(current.filename)}</figcaption>
+                </figure>
+            </>
           )
         }
       </div>
@@ -231,8 +284,24 @@ function App() {
           <button onClick={toggleFullScreen}>Full screen</button>
         </section>
 
+        <section>
+          <label htmlFor="theme">Theme: </label>
+          <select 
+            name="theme"
+            id="theme"
+            value={theme}
+            onChange={(e) => setTheme(e.target.value)}
+          >
+            {["a","b","c","d","e","f","g","h"].map(letter => (
+              <option key={letter} value={letter}>
+                Theme:  {letter.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </section>
+
       </aside>
-    </div>
+    </div>   
   )
 }
 
