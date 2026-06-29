@@ -52,17 +52,41 @@ const commands = [
     type: "theme",
     value: letter,
   })),
-];
+]
+
+const storageKey = "photo_slideshow_state"
+const defaults = 
+{
+  slides: [],
+  operatingMode: "manual",
+  currentSlideIndex: 0,
+  displayTime: 2,
+  theme: "a"
+}
+
+function loadSavedState()
+{
+  try 
+  {
+    const raw = localStorage.getItem(storageKey)
+    const saved = raw ? JSON.parse(raw) : null 
+    return saved ? {...defaults, ...saved} : defaults
+  }catch 
+  {
+    return defaults
+  }
+}
 
 function App() {
-  const [slides, setSlides] = useState([]);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const initial = useMemo(loadSavedState, [])
+  const [slides, setSlides] = useState(initial.slides);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(initial.currentSlideIndex);
   const [dragIndex, setDragIndex] = useState(null);
   const [dropIndex, setDropIndex] = useState(null);
-  const [operatingMode, setOperatingMode] = useState("manual");
-  const [displayTime, setDisplayTime] = useState(2);
-  const [theme, setTheme] = useState("a");
-  const [outgoingSlide, setOutgoingSlide] = useState(null);
+  const [operatingMode, setOperatingMode] = useState(initial.operatingMode);
+  const [displayTime, setDisplayTime] = useState(initial.displayTime);
+  const [theme, setTheme] = useState(initial.theme);
+  const [outgoingSlide, setOutgoingslide] = useState(null);
   const [transitionKey, setTransitionKey] = useState(0);
 
   const themesWithOutgoing = new Set(["b", "c", "h", "e"]);
@@ -71,6 +95,16 @@ function App() {
   const [commandQuery, setCommandQuery] = useState("")
   const [selectedCommandIndex, setSelectedCommandIndex] = useState(0)
   const commandInputRef = useRef(null)
+
+  
+
+  useEffect(() => {
+    const state = {slides,operatingMode, currentSlideIndex,displayTime,theme}
+    try 
+    {
+      localStorage.setItem(storageKey, JSON.stringify(state))
+    }catch{}
+  },[slides,operatingMode,currentSlideIndex,displayTime,theme])
 
   useEffect(() => {
     if(isCommandBarOpen) commandInputRef.current?.focus()
@@ -86,6 +120,7 @@ function App() {
 
   function handleCommandKeyDown(e)
   {
+    if(filteredCommands.length === 0) return 
     const max = filteredCommands.length 
     if(e.key === "Escape") closeCommandBar()
     else if (e.key === "ArrowDown") setSelectedCommandIndex(index => (index + 1) % max )
@@ -97,7 +132,7 @@ function App() {
   const filteredCommands = useMemo(() => {
     const query = commandQuery.trim().toLowerCase()
     return query ? commands.filter(command => command.label.toLowerCase().includes(query)) : commands
-  })
+  }, [])
 
   function openCommandBar() {
     setIsCommandBarOpen(true);
@@ -125,7 +160,8 @@ function App() {
       if (slides.length === 0) return;
       const validSlideIndex = (nextIndex + slides.length) % slides.length;
       if (validSlideIndex === currentSlideIndex) return;
-      setOutgoingSlide(
+      setOutgoingslide
+      (
         themesWithOutgoing.has(theme) ? slides[currentSlideIndex] : null,
       );
       setCurrentSlideIndex(validSlideIndex);
@@ -133,6 +169,91 @@ function App() {
     },
     [slides, currentSlideIndex, theme],
   );
+
+  function readFile(file, asDataURL)
+  {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = () => reject(reader.error)
+      asDataURL ? reader.readAsDataURL(file) : reader.readAsText(file)
+    })
+  }
+
+  async function srcToDataURL(src)
+  {
+    if (src.startsWith("data: ")) return src
+    const blob = await(await fetch(src)).blob()
+    return readFile(blob, true)
+  }
+
+  async function handleImportSlides(e)
+  {
+    const [file] = e.target.files 
+    if(!file) return 
+
+    try{
+      const importedData = JSON.parse(await readFile(file, false))
+      const importedSlides = Array.isArray(importedData.slides)
+        ? importedData.slides.map((slide,index) => ({
+          filename: slide.filename,
+          src: slide.photo
+        }))
+
+        :  []
+
+      // const validSlides = importedSlides.filter()
+      setSlides(importedSlides)
+      setTheme(importedData.theme)
+     setOutgoingslide
+     (null)
+      setCurrentSlideIndex(0)
+      setTransitionKey(prev => prev + 1)
+    }catch(e)
+    {
+      console.log(e)
+    }finally{
+      e.target.value = ''
+    }
+  }
+
+  /**
+   * This function is to export slideshow and themes
+   */
+   async function handleExportSlides()
+  {
+
+    const exportedAt = new Date()
+    // const exportTimeStamp = formatExportTimeStamp()
+
+    const exportData = {
+      exportedAt: exportedAt,
+      theme: theme, 
+      slides: await Promise.all(slides.map(
+        async(slide,index) => ({
+          index, 
+          filename: slide.filename,
+          caption: generateCaption(slide.filename),
+          photo: await srcToDataURL(slide.src)
+        }))
+      )
+    }
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+      type: "application/json",
+    })
+
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement("a")
+    link.href=url
+    link.download=`${exportedAt}.json`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+
+  }
 
   /**
    *
@@ -218,9 +339,43 @@ function App() {
 
   useEffect(() => {
     if (!outgoingSlide) return;
-    const id = setTimeout(() => setOutgoingSlide(null), 1000);
+    const id = setTimeout(() =>setOutgoingslide
+    (null), 1000);
     return () => clearTimeout(id);
   }, [outgoingSlide, transitionKey]);
+
+  
+  useEffect(() => {
+    function onKeyDown(e)
+    {
+      const typingField = ["INPUT", "TEXTAREA", "SELECT"].includes(e.target.tagName)
+      if((e.ctrlKey) && e.key.toLowerCase() === "k")
+      {
+        e.preventDefault() 
+        
+        openCommandBar()
+      }else if (e.key === "/" && !typingField)
+      {
+        e.preventDefault()
+        openCommandBar()
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+
+  },[])
+
+  function handleReset()
+  {
+    setSlides([])
+    setCurrentSlideIndex(0)
+    setOperatingMode("manual")
+    setTheme("a")
+    setDisplayTime(2)
+    setOutgoingslide
+    (null)
+  }
 
   const current = slides[currentSlideIndex] || null;
   const captionWords = current
@@ -385,7 +540,20 @@ function App() {
           </select>
         </section>
         <section>
-          <button onClick={openCommandBar}>Open Command Bar</button>
+          <button onClick={handleExportSlides}>Export</button>
+        </section>
+        <section>
+          <label htmlFor="import">Import</label>
+          <input 
+            type="file" 
+            accept="application/json"
+            onChange={handleImportSlides}  
+          />
+        </section>
+        <section>
+          <button onClick={handleReset}>
+            Reset
+          </button>
         </section>
       </aside>
 
@@ -393,7 +561,7 @@ function App() {
         <div
           className="command-bar-backdrop"
           onMouseDown={(e) =>
-            e.target === e.currrentTarget && closeCommandBar()
+            e.target === e.currentTarget && closeCommandBar()
           }
         >
           <div className="command-bar" onKeyDown={handleCommandKeyDown}>
