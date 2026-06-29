@@ -1,0 +1,40 @@
+[data-theme="h"] #slide-show{
+    perspective:1000px;
+}
+
+[data-theme="h"] .slide-frame{
+    position:absolute;
+    inset:0;
+}
+
+[data-theme="h"] .slide-frame-incoming{
+    animation:card .7s ease-out both;
+    z-index:2;
+}
+
+[data-theme="h"] .slide-frame-outgoing{
+    opacity:0;
+}
+
+@keyframes card{
+    from{
+        opacity:0;
+        transform:rotateY(-35deg) translateZ(-150px);
+    }
+}
+
+[data-theme="h"] figcaption{
+    position:absolute;
+    inset:auto 0 0;
+    padding:.6em 1em;
+    color:#fff;
+    background:#0008;
+    animation:caption .4s .2s both;
+}
+
+@keyframes caption{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+}

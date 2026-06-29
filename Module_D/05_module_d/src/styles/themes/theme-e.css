@@ -1,0 +1,42 @@
+[data-theme="e"] .slide-frame-e 
+{
+    perspective: 1200px;
+}
+
+[data-theme="e"] .incoming-e 
+{
+    z-index: 1;
+}
+
+[data-theme="e"] .door 
+{
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    animation: open 0.8s ease-in both;
+    backface-visibility: hidden;
+}
+
+[data-theme="e"] .door-left 
+{
+    clip-path: inset(0 50% 0 0);
+    transform-origin: left;
+    --angle: -90deg;
+}
+
+[data-theme="e"] .door-right 
+{
+    clip-path: inset(0 0 0 50%);
+    transform-origin: right;
+    --angle: 90deg;
+}
+
+
+@keyframes open 
+{
+    to 
+    {
+        transform: rotateY(var(--angle));
+        opacity: 0;
+    }
+}

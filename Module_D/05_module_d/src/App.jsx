@@ -44,7 +44,7 @@ function App() {
   const [outgoingSlide, setOutgoingSlide] = useState(null)
   const [transitionKey, setTransitionKey] = useState(0)
 
-  const themesWithOutgoing = new Set(["b", "c", "h"]) 
+  const themesWithOutgoing = new Set(["b", "c", "h", "e"]) 
  
 
 
@@ -194,7 +194,27 @@ function App() {
                 </figcaption>
               </figure>
             ))
-          : (
+          : theme === "e" ? (
+            <div className='slide-frame-e' key={transitionKey}>
+              <img 
+                  className='incoming-a' 
+                  src={current.src}
+                  alt={current.filename}           
+              />
+              {outgoingSlide && 
+              <div className="door door-left"> 
+                <img src={outgoingSlide.src} alt={outgoingSlide.filename}/> 
+              </div>
+              }
+              {outgoingSlide && 
+              <div className="door door-right"> 
+                <img src={outgoingSlide.src} alt={outgoingSlide.filename}/> 
+              </div>
+              }
+
+
+            </div>
+          ):(
             <>
               {outgoingSlide && (
                 <figure 
