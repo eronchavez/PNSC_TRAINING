@@ -1,0 +1,27 @@
+[data-theme="d"] .slide-frame-d 
+{
+    position: absolute;
+    inset: 7.5%;
+    transform: rotate(var(--rotate, 0deg));
+    border: 3px solid white;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+[data-theme="d"] figcaption 
+{
+    right: 0;
+    text-align: center;
+}
+
+[data-theme="d"] .new-slide 
+{
+    animation: slide-in-left 1s ease-in-out;
+}
+
+@keyframes slide-in-left 
+{
+    from { transform: translateX(-120vw) rotate(var(--rotate, 0deg)); }
+}

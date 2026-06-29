@@ -18,6 +18,8 @@ function generateCaption(filename)
     .join(" ")
 }
 
+
+
 const sampleModules = import.meta.glob(
   "./assets/samplePhotos/*.{jpg,jpeg,png}",
   {eager: true}
@@ -43,6 +45,7 @@ function App() {
   const [transitionKey, setTransitionKey] = useState(0)
 
   const themesWithOutgoing = new Set(["b", "c", "h"]) 
+ 
 
 
   /**
@@ -162,7 +165,7 @@ function App() {
     if(!outgoingSlide) return 
     const id = setTimeout(() => setOutgoingSlide(null), 1000)
     return () => clearTimeout(id)
-  },[outgoingSlide, transitionKey])reorderSlides
+  },[outgoingSlide, transitionKey])
 
   const current = slides[currentSlideIndex] || null 
   const captionWords = current ? generateCaption(current.filename).split(" ") : []
@@ -175,12 +178,29 @@ function App() {
           ? (
               <p>No photos loaded</p>
             )
+          : theme === "d" ?
+            slides.slice(0, currentSlideIndex + 1).map((slide,index) => (
+              <figure 
+                key={slide.src}
+                className={`slide-frame-d ${index === currentSlideIndex ? "new-slide" : ""}`}
+                style={{"--rotate": `${(index * 37) % 11 - 5}deg`, zIndex: index}}
+              >
+                <img
+                  src={slide.src}
+                  alt={generateCaption(slide.filename)}
+                />
+                <figcaption>
+                    {generateCaption(slide.filename)}
+                </figcaption>
+              </figure>
+            ))
           : (
             <>
               {outgoingSlide && (
                 <figure 
                   key={`out-${transitionKey}`}
                   className="slide-frame slide-frame-outgoing"
+                 
                 >
                   <img 
                     src={outgoingSlide.src} 
@@ -198,7 +218,15 @@ function App() {
                     src={current.src} 
                     alt={current.filename}  
                   />
-                  <figcaption>{generateCaption(current.filename)}</figcaption>
+                  <figcaption>
+                    {captionWords.map((word,index) => (
+                    
+                      <span key={index} style={{animationDelay: `${1000 + index * 300}ms`}}>
+                        {word}&nbsp;
+                      </span>
+                      
+                    ))}
+                  </figcaption>
                 </figure>
             </>
           )
