@@ -62,3 +62,30 @@ aside
     padding: 0.5em;
     border-radius: 0 5px 0 0;
 }
+
+/* thumbnails */
+#thumbnails 
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px,1fr));
+    gap: 4px;
+}
+
+#thumbnails img 
+{
+    height: 60px;
+    width: 60px;
+    border: 2px solid transparent;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+#thumbnails img.active 
+{
+    border-color: blue;
+}
+
+aside section 
+{
+    margin-bottom: 2em;
+}
