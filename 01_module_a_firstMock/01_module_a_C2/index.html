@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Generator</title>
+    <style>
+        body 
+        {
+            font-family: 'Arial';
+            margin: 20px;
+        }
+
+        form 
+        {
+            display: flex;
+            gap: 1em;
+        }
+
+        #gradient-preview 
+        {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            background: linear-gradient(to right, #ff0000, #0000ff);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <form id="gradient-form">
+        <label for="color-1">Color 1</label>
+        <input type="color" id="color-1" value="#ff0000">
+
+        <br>
+
+        <label for="color-2">Color 2</label>
+        <input type="color" id="color-2" value="#0000ff">
+        <input type="submit" value="Generate Gradient">
+    </form>
+
+    <div id="selected-colors">
+        <p>Selected Color 1: <span id="color-1-display">#ff0000</span></p>
+        <p>Selected Color 1: <span id="color-2-display">#0000ff</span></p>
+    </div>
+
+    <div id="gradient-preview"></div>
+
+    <script>
+        document.getElementById('gradient-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const color1 = document.getElementById('color-1').value;
+            const color2 = document.getElementById('color-2').value;
+
+            document.getElementById("gradient-preview").style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+
+            document.getElementById("color-1-display").textContent = color1;
+            document.getElementById("color-2-display").textContent = color2;
+
+        })
+    </script>
+    
+</body>
+</html>

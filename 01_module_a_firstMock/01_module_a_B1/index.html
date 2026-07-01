@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <style>
+        #counter 
+        {
+            font-weight: bold;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <p id="counter"></p>
+    <p>Newspapers circulated today</p>
+
+    <script>
+        let counter = 0;
+        i = 10000000000;
+
+        function updateCounter()
+        {
+            let displayCounter = document.getElementById("counter");
+            displayCounter.textContent = counter;
+            counter++;
+            if( counter >= i)
+            {
+                clearInterval(interval)
+            }
+        }
+
+        let interval = setInterval(updateCounter, 1)
+    </script>
+</body>
+</html>

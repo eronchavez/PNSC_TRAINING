@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Image Split Effect</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+.image-container {
+  position: relative;
+  width: 50vw;
+  height: 50vw;
+  overflow: hidden;
+}
+.quadrant {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-image: url("image.png"); 
+  background-size: 200% 200%; 
+  transition: transform 0.3s ease-in-out;
+}
+.top-left {
+  top: 0;
+  left: 0;
+  background-position: 0 0;
+}
+.top-right {
+  top: 0;
+  right: 0;
+  background-position: 100% 0;
+}
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  background-position: 0 100%;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  background-position: 100% 100%;
+}
+</style>
+</head>
+<body>
+<div class="image-container">
+  <div class="quadrant top-left"></div>
+  <div class="quadrant top-right"></div>
+  <div class="quadrant bottom-left"></div>
+  <div class="quadrant bottom-right"></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.image-container');
+  const quadrants = document.querySelectorAll('.quadrant');
+
+  function applySplitEffect() {
+    quadrants.forEach(quadrant => {
+      if (quadrant.classList.contains('top-left')) {
+        quadrant.style.transform = 'translate(-20%, -20%) scale(1.2)';
+      } else if (quadrant.classList.contains('top-right')) {
+        quadrant.style.transform = 'translate(20%, -20%) scale(1.2)';
+      } else if (quadrant.classList.contains('bottom-left')) {
+        quadrant.style.transform = 'translate(-20%, 20%) scale(1.2)';
+      } else if (quadrant.classList.contains('bottom-right')) {
+        quadrant.style.transform = 'translate(20%, 20%) scale(1.2)';
+      }
+    });
+  }
+
+  function removeSplitEffect() {
+    quadrants.forEach(quadrant => {
+      quadrant.style.transform = 'scale(1)';
+    });
+  }
+
+  container.addEventListener('mouseenter', applySplitEffect);
+  container.addEventListener('mouseleave', removeSplitEffect);
+});
+</script>
+</body>
+</html>
