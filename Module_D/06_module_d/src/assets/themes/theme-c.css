@@ -1,22 +1,21 @@
-[data-theme="c"] .slide-frame-outgoing 
+[data-theme="c"] .slide-frame-outgoing
 {
     z-index: 1;
     animation: push-up-out 1s ease-in-out both;
 }
 
-[data-theme="c"] .slide-frame-incoming 
+[data-theme="c"] .slide-frame-incoming
 {
-    z-index: 1;
+    z-index: 2;
     animation: push-up-in 1s ease-in-out both;
 }
-
-[data-theme="c"] .slide-frame figcaption span 
+[data-theme="c"] .slide-frame-incoming figcaption span
 {
+    
+    animation: word-rise 0.5s ease-in-out both;
     display: inline-block;
     opacity: 0;
-    animation: word-rise 0.5s ease-in-out both;
 }
-
 
 @keyframes push-up-in {
     from 
@@ -28,10 +27,11 @@
         transform: translateY(0);
     }
 }
+
 @keyframes push-up-out {
     from 
     {
-        transform: translateY(0);
+        transform: translateY(0%);
     }
     to 
     {

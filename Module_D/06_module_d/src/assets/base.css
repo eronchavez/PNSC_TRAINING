@@ -1,8 +1,8 @@
 *
 {
-    box-sizing: border-box;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body 
@@ -10,7 +10,7 @@ body
     font-family: system-ui, sans-serif;
 }
 
-#main-page 
+#main-page
 {
     display: flex;
     height: 100vh;
@@ -18,9 +18,9 @@ body
 
 #slide-show 
 {
+    flex: 1;
     position: relative;
     overflow: hidden;
-    flex: 1;
 }
 
 aside 
@@ -29,18 +29,24 @@ aside
     padding: 1em;
 }
 
-/* Drop zone  */
+aside section 
+{
+    margin-bottom: 2em;
+}
+
+/* drop zone  */
 #drop-zone input[type="file"]
 {
     display: block;
-    width: 100%;
     height: 200px;
+    width: 200px;
     border: 2px dashed gray;
     background-color: lightgray;
+    border-radius: 5px;
 }
 
-/* slide show  */
-.slide-frame
+/* slide frame */
+.slide-frame 
 {
     position: absolute;
     inset: 0;
@@ -48,17 +54,17 @@ aside
 
 .slide-frame img 
 {
-    display: block;
     height: 100%;
     width: 100%;
+    display: block;
     object-fit: cover;
 }
 
 .slide-frame figcaption 
 {
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     background-color: white;
     padding: 0.5em;
     border-radius: 0 5px 0 0;
@@ -68,25 +74,18 @@ aside
 #thumbnails 
 {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px,1fr));
-    gap: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(80px,1fr));
 }
 
 #thumbnails img 
 {
-    height: 60px;
-    width: 60px;
-    border: 2px solid transparent;
+    height: 80px;
+    width: 80px;
     aspect-ratio: 1;
-    object-fit: cover;
+    border: 2px solid transparent;
 }
 
 #thumbnails img.active 
 {
     border-color: blue;
-}
-
-aside section 
-{
-    margin-bottom: 2em;
 }
