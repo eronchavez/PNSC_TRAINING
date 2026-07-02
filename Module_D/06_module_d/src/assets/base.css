@@ -19,6 +19,7 @@ body
 #slide-show 
 {
     position: relative;
+    overflow: hidden;
     flex: 1;
 }
 

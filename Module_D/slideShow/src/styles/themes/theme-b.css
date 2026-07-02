@@ -1,90 +1,72 @@
-[data-theme="b"] #slide-show figcaption 
-{
+[data-theme="b"] .slide-frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+[data-theme="b"] .slide-frame-outgoing {
+    z-index: 1;
+    animation: theme-b-push-out 1s ease-in-out both;
+}
+
+[data-theme="b"] .slide-frame-incoming {
+    z-index: 2;
+    animation: theme-b-push-in 1s ease-in-out both;
+}
+
+[data-theme="b"] .slide-frame figcaption {
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: aliceblue;
+    background: aliceblue;
     padding: 0.5em;
     border: 1px solid black;
     border-radius: 0 5px 0 0;
-
 }
 
-@keyframes theme-b-pushImage-in {
-    from 
-    {
+/* Caption only animates its opacity */
+[data-theme="b"] .slide-frame-incoming figcaption {
+    opacity: 0;
+    animation: caption-show .2s linear 300ms forwards;
+}
+
+[data-theme="b"] .slide-frame-outgoing figcaption {
+    opacity: 1;
+    animation: caption-hide .2s linear forwards;
+}
+
+@keyframes theme-b-push-in {
+    from {
         transform: translateX(-100%);
     }
-    to 
-    {
+    to {
         transform: translateX(0);
     }
 }
 
-@keyframes theme-b-pushImage-out {
-     from 
-    {
+@keyframes theme-b-push-out {
+    from {
         transform: translateX(0);
     }
-    to 
-    {
+    to {
         transform: translateX(100%);
     }
 }
 
-@keyframes caption-in {
-     from 
-    {
-        transform: translateX(-100vw);
+@keyframes caption-show {
+    from {
+        opacity: 0;
     }
-    to 
-    {
-        transform: translateX(0);
+    to {
+        opacity: 1;
     }
 }
 
-@keyframes caption-out {
-     from 
-    {
-        transform: translateX(0);
+@keyframes caption-hide {
+    from {
+        opacity: 1;
     }
-    to 
-    {
-        transform: translateX(100vw);
+    to {
+        opacity: 0;
     }
-}
-
-
-[data-theme = "b"] .slide-frame-incoming img 
-{
-    animation: theme-b-pushImage-in 1s ease-in-out both;
-}
-
-[data-theme = "b"] .slide-frame-outgoing img 
-{
-    animation: theme-b-pushImage-out 1s ease-in-out both;
-}
-
-[data-theme = "b"] .slide-frame-incoming figcaption 
-{
-    animation: caption-in 1s ease-in-out 300ms both;
-}
-
-[data-theme = "b"] .slide-frame-outgoing figcaption 
-{
-    animation: caption-out 1s ease-in-out both;
-}
-
-
-[data-theme = "b"] .slide-frame {
-    position: absolute;
-    inset: 0;
-}
-
-[data-theme = "b"] .slide-frame-outgoing {
-    z-index: 1;
-}
-
-[data-theme = "b"].slide-frame-incoming {
-    z-index: 2;
 }

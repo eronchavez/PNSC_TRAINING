@@ -1,20 +1,13 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
-// function generateCaption(filename)
-// {
-//    return filename
-//     .slice(0, filename.lastIndexOf("."))
-//     .replace(/[.-_]+/g, " ")
-//     .split(" ")
-//     .filter(Boolean)
-//     .map(word => word[0].toUpperCase() + word.slice(1).toLowerCase())
-//     .join(" ")
-// }
 
-function generateCaption(filename) {
+
+
+function generateCaption(filename)
+{
   return filename
     .slice(0, filename.lastIndexOf("."))
-    .replace(/[_-.]+/g, " ")
+    .replace(/[-_.]+/g, " ")
     .split(" ")
     .filter(Boolean)
     .map(word => word[0].toUpperCase() + word.slice(1).toLowerCase())
@@ -28,10 +21,12 @@ function App() {
   const [operatingMode, setOperatingMode] = useState("manual")
   const [displayTime, setDisplayTime] = useState(2)
 
-  const [theme, setTheme] = useState("a")
+  const [theme,setTheme] = useState("a")
   const [outgoingSlide, setOutgoingSlide] = useState(null)
   const [transitionKey, setTransitionKey] = useState(0)
-  const animated = new Set(["b", "c"])
+  const themesWithOutgoing = new Set(["b","c"])
+
+ 
 
 
   const showSlide = useCallback((nextIndex) => {
@@ -39,11 +34,10 @@ function App() {
 
     const validIndex = (nextIndex + slides.length) % slides.length
     if (validIndex === currentSlideIndex) return
-
-    setOutgoingSlide(animated.has(theme) ? slides[currentSlideIndex] : null)
+    setOutgoingSlide(themesWithOutgoing.has(theme) ? slides[currentSlideIndex] : null)
     setCurrentSlideIndex(validIndex)
     setTransitionKey(key => key + 1)
-  }, [slides.length, currentSlideIndex, theme])
+  }, [slides, currentSlideIndex, theme])
 
 
 
@@ -95,42 +89,75 @@ function App() {
     return () => clearInterval(id)
   }, [operatingMode, slides.length, showSlide, displayTime, currentSlideIndex])
 
-  useEffect(() => {
-    if (!outgoingSlide) return
+  useEffect(() => 
+  {
+    if(!outgoingSlide) return 
 
     const id = setTimeout(() => setOutgoingSlide(null), 1000)
     return () => clearTimeout(id)
-  }, [outgoingSlide, transitionKey])
+    
+  },[outgoingSlide,transitionKey])
 
 
   useEffect(() => {
     document.body.dataset.theme = theme
-  }, [theme])
+  },[theme])
+  
 
   const current = slides[currentSlideIndex] || null
+  const captionWords = current ? generateCaption(current.filename).split(" ") : []
 
 
   return (
     <div id='main-page'>
       <div id="slide-show">
-        {slides.length === 0 ? <p>No photos loaded yet</p> : (
-    <>
-      {outgoingSlide && (
-        <figure key={`out-${transitionKey}`} className="slide-frame slide-frame-outgoing">
-          <img src={outgoingSlide.src} alt="" />
-          <figcaption>{generateCaption(outgoingSlide.filename)}</figcaption>
-        </figure>
-      )}
-      <figure key={`in-${transitionKey}`} className="slide-frame slide-frame-incoming">
-        <img src={current.src} alt={generateCaption(current.filename)} />
-        <figcaption>
-          {generateCaption(current.filename).split(" ").map((word, index) => (
-            <span key={index} style={{ animationDelay: `${1000 + index  * 300}ms` }}>{w}&nbsp;</span>
-          ))}
-        </figcaption>
-      </figure>
-    </>
-  )}
+        {
+          current === null 
+            ? (<p>No photos loaded yet</p>)
+            : (
+                <>
+                  {
+                    outgoingSlide && 
+                    (
+                      <figure
+                        key={`out-${transitionKey}`}
+                        className="slide-frame slide-frame-outgoing"
+                      >
+                        <img 
+                          src={outgoingSlide.src}
+                          alt={generateCaption(outgoingSlide.filename)}
+                        />
+                        <figcaption>
+                            {generateCaption(outgoingSlide.filename)}
+                        </figcaption>
+                      </figure>
+                    )
+                  }
+
+                  <figure 
+                    key={`in-${transitionKey}`}
+                    className="slide-frame slide-frame-incoming"
+                  >
+                    <img 
+                      src={current.src}
+                      alt={generateCaption(current.filename)}
+                    />
+                    <figcaption>
+                      {
+                        captionWords.map((word,index) => (
+                          <span 
+                            key={index}
+                            style={{animationDelay: `${1000 + (index * 300)}ms `}}
+                          >
+                            {word}&nbsp;
+                          </span>
+                        ))
+                      }
+                    </figcaption>
+                  </figure>
+                </>
+              )
+        }
       </div>
       <aside>
         <section id="drop-zone">
@@ -166,11 +193,13 @@ function App() {
             />
           </label>
         </section>
-
+        
         <section>
           <label>
-            Operating Mode: {" "}
-            <select
+             Mode: {" "}  
+            <select 
+              name="operatingMode"
+              id="operatingMode"
               value={operatingMode}
               onChange={(e) => setOperatingMode(e.target.value)}
             >
@@ -183,14 +212,25 @@ function App() {
         </section>
 
         <section>
-          <label>Theme:{" "}
-            <select value={theme} onChange={e => setTheme(e.target.value)}>
-              <option value="a">Theme A</option>
-              <option value="b">Theme B</option>
-              <option value="c">Theme C</option>
+          <label>
+            Theme: {" "}
+            <select 
+              name="theme" 
+              id="theme"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+            >
+              {["a","b","c","d","e","f","g","h"].map(letter => 
+                <option value={letter}>{letter.toUpperCase()}</option>
+              )}
+
+
             </select>
+
           </label>
         </section>
+       
+       
       </aside>
     </div>
   )
