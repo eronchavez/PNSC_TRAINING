@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          
+        }
+        body
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5em;
+        }
+
+        #counter
+        {
+            font-size: 5em;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <p id="counter">0</p>
+    <p>Newspapers circulated today</p>
+
+    <script>
+
+        let counter = document.querySelector("#counter");
+        const number = 100000000000;
+        let currentCount = 0;
+
+        const interval = setInterval(() => {
+            if(currentCount < number)
+        {
+            currentCount++;
+            counter.textContent = currentCount;
+        }else 
+        {
+            clearInterval(interval)
+        }
+        },1)
+
+        
+
+        
+
+
+    </script>
+</body>
+</html>

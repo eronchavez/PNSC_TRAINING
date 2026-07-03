@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Split Effect</title>
+<style>
+    
+  .container {
+    position: relative;
+    width: 400px; 
+    height: 400px; 
+    overflow: hidden;
+
+  }
+
+  .quadrant {
+    position: absolute;
+    transition: transform 0.3s ease;
+  }
+
+  .top-left {
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+  }
+
+  .top-right {
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 50%;
+  }
+
+  .bottom-left {
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+  }
+
+  .bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 50%;
+  }
+
+  .container:hover .top-left {
+    transform: translate(-10%, -10%);
+  }
+
+  .container:hover .top-right {
+    transform: translate(10%, -10%);
+  }
+
+  .container:hover .bottom-left {
+    transform: translate(-10%, 10%);
+  }
+
+  .container:hover .bottom-right {
+    transform: translate(10%, 10%);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="quadrant top-left" style="background-image: url('image.png'); background-size: cover;"></div>
+  <div class="quadrant top-right" style="background-image: url('image.png'); background-size: cover;"></div>
+  <div class="quadrant bottom-left" style="background-image: url('image.png'); background-size: cover;"></div>
+  <div class="quadrant bottom-right" style="background-image: url('image.png'); background-size: cover;"></div>
+</div>
+
+
+
+</body>
+</html>

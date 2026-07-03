@@ -1,0 +1,144 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body 
+{
+    font-family: system-ui, sans-serif;
+}
+
+#main-page 
+{
+    display: flex;
+    height: 100vh;
+    
+}
+
+#slideshow 
+{
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+aside
+{
+    width: 300px;
+    padding: 1em;
+}
+
+/* Drop Zone */
+#drop-zone input[type="file"] 
+{   
+    display: block;
+    height: 200px;
+    width: 200px;
+    border: 2px dashed gray;
+    background-color: lightgray;
+}
+
+/* Slide frame */
+.slide-frame
+{
+    position: absolute;
+    inset: 0;
+}
+
+.slide-frame img 
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.slide-frame figcaption 
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 0 5px 0 0 ;
+}
+
+/* Thumbnails */
+#thumbnails 
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px,1fr));
+    gap: 1em;
+}
+
+#thumbnails img 
+{
+    height: 80px;
+    width: 80px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 2px solid transparent;
+}
+
+#thumbnails img.active 
+{
+    border-color: blue;
+}
+
+/* Space every section */
+section 
+{
+    margin-bottom: 2em;
+}
+
+/* Add this to your global stylesheet or within a <style> tag in your App component */
+
+#command-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#command-bar input {
+    width: 80%;
+    padding: 15px;
+    font-size: 24px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#command-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 80%;
+    max-height: 50vh;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#command-bar li {
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#command-bar li:hover,
+#command-bar li.selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,23 @@
+[data-theme="a"] .slide-frame
+{
+    position: absolute;
+    inset: 0;
+}
+
+[data-theme="a"] .slide-frame img 
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+[data-theme="a"] .slide-frame figcaption 
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    padding: 0.5em;
+    border-radius: 0 5px 0 0 ;
+}

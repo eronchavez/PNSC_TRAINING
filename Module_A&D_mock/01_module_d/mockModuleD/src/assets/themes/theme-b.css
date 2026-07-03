@@ -1,0 +1,56 @@
+[data-theme="b"] .slide-frame-incoming 
+{
+    animation: push-in 1s ease-in-out both;
+    z-index: 2;
+}
+
+[data-theme="b"] .slide-frame-outgoing 
+{
+    animation: push-out 1s ease-in-out both;
+    z-index: 1;
+}
+
+
+[data-theme="b"] .slide-frame-incoming figcaption 
+{
+    animation: caption-in 1s ease-in-out 300ms both;
+}
+
+
+@keyframes push-in 
+{
+    from 
+    {
+        transform: translateX(-100%)
+    }
+    to 
+    {
+        transform: translateX(0);
+    }
+}
+
+
+
+@keyframes push-out
+{
+    from 
+    {
+        transform: translateX(0)
+    }
+    to 
+    {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes caption-in {
+    from 
+    {
+        transform: translateX(-100vw);
+    }
+    to 
+    {
+        transform: translateX(0);
+    }
+}
+
