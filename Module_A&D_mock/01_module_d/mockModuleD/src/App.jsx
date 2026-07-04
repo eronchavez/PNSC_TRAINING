@@ -164,7 +164,7 @@ function App() {
           <p>No Photos Loaded Yet</p>
         ) : (
           <>
-            {outGoingSlide !== null && (
+            {outGoingSlide && (
               <figure 
                 className="slide-frame slide-frame-outgoing"
                 key={`out-${transitionKey}`}
