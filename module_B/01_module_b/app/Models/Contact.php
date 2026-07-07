@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     //
-    public $timestamp = false;
+    public $timestamps = false;
 
     public function companies()
     {

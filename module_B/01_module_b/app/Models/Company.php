@@ -9,7 +9,7 @@ class Company extends Model
     //
     public $timestamps = false;
 
-    public function products()
+    public function products() 
     {
         return $this->hasMany(Product::class);
     }

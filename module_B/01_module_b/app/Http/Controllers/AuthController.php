@@ -19,11 +19,7 @@ class AuthController extends Controller
         return redirect()->back()->withErrors(['error' => 'Invalid passphrase']);
     }
 
-    public function logout(Request $req)
-    {
-        session()->forget('is_admin');
-        return redirect('/login');
-    }
+   
 
 
 

@@ -98,9 +98,26 @@ class CompanyController extends Controller
         $company->owner->email = $validated['owner_email'];
         $company->owner->save();
 
-    
+        $company->contact->name = $validated['contact_name'];
+        $company->contact->mobile = $validated['contact_mobile'];
+        $company->contact->email = $validated['contact_email'];
+        $company->contact->save();
 
+        $company->owner_id = $company->owner->id;
+        $company->contact_id = $company->contact->id;
+        $company->save();
+        
 
+        return redirect("/companies")->with('success', 'Company successfully changed!');
+    }
+
+    public function deactivate(Company $company)
+    {
+        $company->active = 0;
+        $company->products()->update(['hidden' => 1]);
+        $company->save();
+     
+        return redirect('/companies')->with('success', 'Company Successfully Deactivated!');
     }
 
 
