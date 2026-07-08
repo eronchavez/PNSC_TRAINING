@@ -8,7 +8,7 @@
     @endif
 
     <a href="{{ url('/companies/' . $company->id . '/edit') }}">Edit Company</a>
-    <h4>{{$company->name}}</h4>
+    <h4>{{$company->name}} {{$company->active ? "(Active)" : "(Not Active)" }}</h4>
     <p>{{$company->address}}</p>
     <p>{{$company->email}}</p>
 
