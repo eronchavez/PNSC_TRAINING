@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminOnly::class,
+            'auth.401' => \App\Http\Middleware\RequireAuth401::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

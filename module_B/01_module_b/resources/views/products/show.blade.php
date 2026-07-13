@@ -12,8 +12,12 @@
         @csrf 
         @method('PUT')
 
-        <input type="file" name="image">
+        <input type="file" name="image" id="image">
+        <div id="img-preview"></div>
         <input type="submit" value="Change Image">
+        @error('image')
+            <p style="color: red">{{$message}}</p>
+        @enderror
     </form>
 
      <form action="{{ url('/products/' . $product->gtin . '/removeImage') }}"
@@ -48,7 +52,7 @@
     <h2>{{$product->name}} {{$product->hidden ? '(Hidden)' : '(Not Hidden)'}}</h1>
     <img src="{{ $product->image ? asset('public/images/' . $product->image) : 
         asset('/public/images/placeholder.jpg') }}" 
-        alt="Product Image"
+        alt={{ $product->name }}
         width="500"
     >
     <p>{{$product->french_name}}</p>
@@ -62,6 +66,64 @@
     <p>{{$product->gross_weight}} {{$product->weight_unit}}</p>
     <p>{{$product->net_weight}} {{$product->weight_unit}}</p>
     <p>{{$product->weight_unit}}</p>
+
+
+    <script>
+        //Show Image preview when a file is selected 
+        
+        // const input = document.getElementById('image');
+        // const preview = document.getElementById('img-preview');
+
+        // input.addEventListener('change', () => {
+        //     preview.innerHTML = '';
+
+        //     const file = input.files[0];
+        //     if(!file) return;
+
+        //     const img = document.createElement('img');
+        //     const cancelBtn = document.createElement('button');
+
+        //     img.src = URL.createObjectURL(file);
+        //     img.style.width = '200px';
+
+        //     cancelBtn.type = 'button';
+        //     cancelBtn.textContent = 'Cancel';
+
+        //     cancelBtn.onclick = () => {
+        //         input.value = '';
+        //         preview.innerHTML  = '';
+        //     };
+
+        //     preview.append(img, cancelBtn);
+
+        // });
+
+        const input = document.getElementById('image');
+        const preview = document.getElementById('img-preview');
+
+        input.addEventListener('change', () => {
+            preview.innerHTML = '';
+            const file = input.files[0];
+            if(!file) return;
+
+            const img = document.createElement('img');
+            const cancelBtn = document.createElement('button');
+
+            img.src = URL.createObjectURL(file);
+            img.style.width = '200px';
+
+            cancelBtn.type = 'button';
+            cancelBtn.textContent = 'Cancel';
+
+            cancelBtn.onclick = () => {
+                input.value = '';
+                preview.innerHTML = '';
+            };
+
+            preview.append(img, cancelBtn);
+        });
+
+    </script>
 
         
 </x-layout>

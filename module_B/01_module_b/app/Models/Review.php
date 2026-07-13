@@ -8,6 +8,14 @@ use Illuminate\Foundation\Auth\User;
 class Review extends Model
 {
     //
+
+    public $fillable = [
+        'product_id',
+        'rating',
+        'review',
+        'user_id'
+    ];
+
     public $timestamps = false;
 
     public function product()

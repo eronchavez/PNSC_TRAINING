@@ -9,25 +9,114 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    //
+ 
+
+   
 
 
-    public function getProductsJson(Request $request)
+    public function verifyGTINs(Request $req)
     {
-        $query = $request->input('query');
+        $validated = $req->validate([
+            'gtins' => 'required'
+        ]);
+
+        $gtins = explode("\n", $validated['gtins']);
+        $gtins = array_map('trim', $gtins);
+        $products = Product::whereIn('gtin', $gtins)->where('hidden',0)->get();
+
+        return view('public.result',compact('gtins', 'products'));
+    }
+
+
+
+    public function getProductPublic(Product $product)
+    {
+        if($product->hidden) abort(404);
+        return view('public.product', compact('product'));
+    }
+
+    
+    public function getProductsPublic(Request $req)
+    {
+        $company = $req->input('company');
+        $category = $req->input('category');
+        $productsQuery = Product::where('hidden', 0);
+
+        if($company)
+            {
+                $productsQuery->where('company_id', $company);
+            }
+        if($category)
+            {
+                $productsQuery->where('category_id', $category);
+            }
+
+        $products = $productsQuery->get();
+        $companies = Company::where('active', 1)->get();
+        $categories = Category::all();
+
+        return view('public.products', compact('products', 'companies', 'categories'));
+    }
+
+    public function getProductJson(Product $product)
+    {
+        if($product->hidden) abort(404);
+
+        return response()->json([
+            'name' => [
+                        'en' => $product->name,
+                        'fr' => $product->french_name
+                    ],
+                    'description' => [
+                        'en' => $product->description,
+                        'fr' => $product->french_description
+                    ],
+                    'gtin' => $product->gtin,
+                    'brand' => $product->brand,
+                    'category' => $product->category?->name,
+                    'countryOfOrigin' => $product->country,
+                    'weight' => [
+                        'gross' => $product->gross_weight,
+                        'net' => $product->net_weight,
+                        'unit' => $product->weight_unit
+                    ],
+                    'company' => [
+                        'companyName' => $product->company?->name,
+                        'companyAddress' => $product->company?->address,
+                        'companyTelephone' => $product->company?->telephone,
+                        'companyEmail' => $product->company?->email,
+                        'owner' => [
+                            'name' => $product->company?->owner?->name,
+                            'mobileNumber' => $product->company?->owner->mobile,
+                            'email' => $product->company?->owner?->email,
+                        ],
+                        'contact' => [
+                            'name' => $product->company?->contact?->name,
+                            'mobileNumber' => $product->company?->contact->mobile,
+                            'email' => $product->company?->contact?->email,
+                        ],
+                    ]
+        ]);
+    }
+
+
+    public function getProductsJson(Request $req)
+    {
+        $query = $req->input('query');
         $productsQuery = Product::where('hidden', 0);
 
         if($query)
             {
-                $productQuery->where(function($p) use ($query){
+                $productsQuery->where(function($p) use ($query){
                     $p->where('name', 'like', '%' . $query . '%')
                         ->orWhere('french_name', 'like', '%' . $query . '%')
                         ->orWhere('description', 'like', '%' . $query . '%')
                         ->orWhere('french_description', 'like', '%' . $query . '%');
                 });
             }
-        
+
         $products = $productsQuery->paginate(10);
+
 
         return response()->json([
             'data' => $products->map(function($product){
@@ -40,7 +129,6 @@ class ProductController extends Controller
                         'en' => $product->description,
                         'fr' => $product->french_description
                     ],
-
                     'gtin' => $product->gtin,
                     'brand' => $product->brand,
                     'category' => $product->category?->name,
@@ -53,26 +141,22 @@ class ProductController extends Controller
                     'company' => [
                         'companyName' => $product->company?->name,
                         'companyAddress' => $product->company?->address,
-                        'companyTelephone' => $product->compang?->telephone,
+                        'companyTelephone' => $product->company?->telephone,
                         'companyEmail' => $product->company?->email,
-
                         'owner' => [
                             'name' => $product->company?->owner?->name,
-                            'mobileNumber' => $product->company?->owner?->mobile,
-                            'email' => $product->company?->owner?->email
+                            'mobileNumber' => $product->company?->owner->mobile,
+                            'email' => $product->company?->owner?->email,
                         ],
-
                         'contact' => [
                             'name' => $product->company?->contact?->name,
-                            'mobileNumber' => $product->company?->contact?->mobile,
-                            'email' => $product->company?->contact?->email
+                            'mobileNumber' => $product->company?->contact->mobile,
+                            'email' => $product->company?->contact?->email,
                         ],
-
-
                     ]
                 ];
             }),
-
+            // put pagination here
             'pagination' => [
                 'current_page' => $products->currentPage(),
                 'total_pages' => $products->lastPage(),
@@ -80,58 +164,9 @@ class ProductController extends Controller
                 'next_page_url' => $products->nextPageUrl(),
                 'prev_page_url' => $products->previousPageUrl()
             ]
-
         ]);
     }
-
-
-    public function getProductJson(Product $product)
-    {
-       if($product->hidden) abort(404);
-
-        return response()->json([
-            
-                    'name' => [
-                        'en' => $product->name,
-                        'fr' => $product->french_name
-                    ],
-                    'description' => [
-                        'en' => $product->description,
-                        'fr' => $product->french_description
-                    ],
-
-                    'gtin' => $product->gtin,
-                    'brand' => $product->brand,
-                    'category' => $product->category?->name,
-                    'countryOfOrigin' => $product->country,
-                    'weight' => [
-                        'gross' => $product->gross_weight,
-                        'net' => $product->net_weight,
-                        'unit' => $product->weight_unit
-                    ],
-                    'company' => [
-                        'companyName' => $product->company?->name,
-                        'companyAddress' => $product->company?->address,
-                        'companyTelephone' => $product->compang?->telephone,
-                        'companyEmail' => $product->company?->email,
-
-                        'owner' => [
-                            'name' => $product->company?->owner?->name,
-                            'mobileNumber' => $product->company?->owner?->mobile,
-                            'email' => $product->company?->owner?->email
-                        ],
-
-                        'contact' => [
-                            'name' => $product->company?->contact?->name,
-                            'mobileNumber' => $product->company?->contact?->mobile,
-                            'email' => $product->company?->contact?->email
-                        ],
-
-
-                    ]
-
-        ]);
-    }
+  
 
 
     public function index()
@@ -178,24 +213,19 @@ class ProductController extends Controller
 
     public function changeImage(Request $req, Product $product)
     {
-        
         $req->validate([
-           
-            'image' => 'required|mimes:jpg,jpeg,jpg,png|max:2048'
+            'image' => 'required|mimes:jpeg,jpg,png,gif,svg|max:2048'
         ]);
-       
-        
-        if($req->hasFile('image'))
-            {
-               
-                $imageName = time() . '.' . $req->file('image')->extension();
-                $req->file('image')->move(public_path('images'), $imageName);
-                $req->merge(['image' => $imageName]);
-                $product->image  = $imageName;
-                $product->save();
-            }
 
-        return redirect()->back()->with('success', 'Image successfully changed');
+        $image = $req->file('image');
+
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images'), $imageName);
+        $product->image = $imageName;
+        $product->save();
+
+        return redirect()->back()->with('success', 'Image successfully Changed!');
+        
     }
 
     public function removeImage(Product $product)
