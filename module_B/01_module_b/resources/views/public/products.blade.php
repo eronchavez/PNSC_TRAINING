@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Public Product Management System</title>
-</head>
-<body>
+<x-user.layout>
+
+    
     <h1>Public Products</h1>
     <p>Filter</p>
     <form action="{{ url('/') }}" method="GET">
@@ -46,5 +40,6 @@
             </tr>
         @endforeach
     </table>
-</body>
-</html>
+
+
+</x-user.layout>

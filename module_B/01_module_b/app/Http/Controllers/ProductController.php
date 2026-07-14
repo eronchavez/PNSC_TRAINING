@@ -32,7 +32,10 @@ class ProductController extends Controller
     public function getProductPublic(Product $product)
     {
         if($product->hidden) abort(404);
-        return view('public.product', compact('product'));
+        $product->load(['reviews.user', 'company', 'category']);
+        $avgRating = $product->reviews->avg('rating');
+        $reviewCount = $product->reviews->count();
+        return view('public.product', compact('product','avgRating', 'reviewCount'));
     }
 
     
@@ -178,6 +181,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+       
         return view('products.show',compact('product'));
     }
 

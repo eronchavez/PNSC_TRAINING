@@ -16,6 +16,13 @@ Route::get('/login', function(){
     return view('auth.login');
 });
 
+
+
+// User 
+Route::get('user/auth', [UserAuthController::class, 'showAuthForm']);
+Route::post('user/register', [UserAuthController::class, 'register']);
+Route::post('user/login', [UserAuthController::class, 'login']);
+
 // Logged in user routes 
 Route::middleware('auth.401')->group(function(){
     Route::post('user/logout', [UserAuthController::class, 'logout']);
