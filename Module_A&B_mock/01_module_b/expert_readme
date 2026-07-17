@@ -1,0 +1,13 @@
+
+password: admin
+go to http://localhost/01_module_b/login
+
+JSON FORMAT URL :
+http://localhost/01_module_b/products.json 
+http://localhost/01_module_b/products/[GTIN].json
+
+
+PUBLIC FACING PAGE
+http://localhost/01_module_b/
+Verify
+http://localhost/01_module_b/verify

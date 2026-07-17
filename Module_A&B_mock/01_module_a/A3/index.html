@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3: Five-Pointed Star in Pure CSS</title>
+    <style>
+       
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0; 
+        }
+
+        .star {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            background-color: transparent;
+            clip-path: polygon(
+                50% 0%, 
+                61.8% 35.9%, 
+                95% 35.9%, 
+                72.9% 57.7%, 
+                82.1% 93.5%, 
+                50% 74.3%, 
+                17.9% 93.5%, 
+                27.1% 57.7%, 
+                4.1% 35.9%, 
+                38.2% 35.9%
+            );
+            background-color: #FCD116; 
+        }
+    </style>
+</head>
+<body>
+    <div class="star"></div>
+    
+</body>
+</html>
