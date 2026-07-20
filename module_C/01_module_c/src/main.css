@@ -1,0 +1,220 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+:root.dark {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.app{
+    display: flex;
+    flex-direction: column;
+    height: 100vh ;
+    padding: 1em;
+    background-color: inherit;
+    color: inherit;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #ccc;
+    border-bottom: 1px solid black;
+    padding: 0.5em;
+    z-index: 10;
+}
+
+:root.dark header {
+    background-color: #222222;
+    border-bottom: 1px solid #444444;
+}
+
+#mainContent{
+    flex: 1;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: inherit;
+    color: inherit;
+}
+
+nav{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #ccc;
+    border-top: 1px solid black;
+    z-index: 10;
+}
+
+:root.dark nav {
+    background-color: #222222;
+    border-top: 1px solid #444444;
+}
+
+.nav-btn{
+    flex: 1;
+    background-color: none;
+    border: none;
+    padding: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+:root.dark .nav-btn {
+    color: #cccccc;
+}
+
+.nav-btn.active{
+    background-color: blue;
+    color: white;
+}
+
+:root.dark .nav-btn.active {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+#backBtn{
+    font-size: 2rem;
+    width: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.carpark-card{
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid black;
+}
+
+:root.dark .carpark-card {
+    border-bottom: 1px solid #444444;
+}
+
+
+.carpark-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.carpark-item-main {
+    flex: 1;
+    cursor: pointer;
+}
+
+.pin-btn {
+    background: none;
+    border: none;
+    opacity: 0.3;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    color: inherit;
+}
+
+.pin-btn-active {
+    opacity: 1;
+    background-color: rgba(59, 130, 246, 0.2);
+    border-radius: 4px;
+}
+
+.state-message {
+    padding: 24px;
+    text-align: center;
+    color: #888;
+}
+
+.settings-section {
+    margin-bottom: 1.5rem;
+}
+
+.settings-divider {
+    border: none;
+    border-top: 1px solid black;
+    margin: 1.5rem 0;
+}
+
+:root.dark .settings-divider {
+    border-top: 1px solid #444444;
+}
+
+.settings-option {
+    display: block;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.settings-input {
+    margin-right: 8px;
+}
+
+.travel-btn{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.travel-dialog{
+    margin: auto;
+}
+
+.weatherContainer{
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: X mandatory;
+}
+
+.weather{
+    display: flex;
+    scroll-snap-align: center;
+    border: 1px solid black;
+    padding: 1em;
+    margin: 1em;
+    text-align: center;
+    justify-content: center;
+}
+
+.weather-card svg{
+    height: 500px;
+    width: 200px;
+    margin: 2em 2em;
+    transition: all 0.2s ease-in;
+}
+
+.weather-card svg:hover{
+    stroke-color: #1c3e60;
+    stroke-width: 1;
+    fill: none;
+    animation:  animation-weather 2s ease;
+}
+
+@keyframes animation-weather {
+  from {
+        stroke-dasharray: 50;
+        stroke-dashoffset: 200;
+  }
+  to {
+        stroke-dasharray: 200;
+        stroke-dashoffset: 0;
+  }
+}
