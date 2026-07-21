@@ -1,0 +1,90 @@
+*
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app
+{
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+header 
+{
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+}
+
+#backBtn 
+{
+  font-size: 1em;
+  padding: 5px 10px;
+}
+
+#viewTitle 
+{
+  flex: 1;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#mainContent 
+{
+  flex: 1;
+  padding: 5em 1em 1em 1em;
+  overflow-y: auto;
+
+}
+
+nav 
+{
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.nav-btn 
+{
+  flex: 1;
+  padding: 0.5em;
+  background-color: none;
+  font-size: 1em;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+}
+
+.nav-btn.active 
+{
+  background-color: blue;
+  color: white;
+}
+
+.carpark-card 
+{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em;
+}
+
+.carpark-card-link
+{
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+}
