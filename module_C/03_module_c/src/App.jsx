@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import Carparks from "./Carparks.jsx"
 import Events from "./Events.jsx"
 import Settings from "./Settings.jsx"
@@ -22,6 +22,29 @@ export default function App()
   const [currentPage, setCurrentPage] = useState("carparks")
   const [focusedCarpark, setFocusedCarpark] = useState(null)
 
+   const [themePreference, setThemePreference] = useState(
+    () => localStorage.getItem("theme-preference") || "system" // Fixed spelling
+  )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+
+    const syncTheme = () => {
+      const shouldBeDark = themePreference === "dark" 
+        || (themePreference === "system" && mediaQuery.matches)
+      
+      document.documentElement.classList.toggle("dark-theme", shouldBeDark)
+    }
+
+    
+    syncTheme()
+    localStorage.setItem("theme-preference", themePreference)
+
+   
+    mediaQuery.addEventListener("change", syncTheme)
+    return () => mediaQuery.removeEventListener("change", syncTheme)
+
+  }, [themePreference])
   const currentPageInfo = pages[currentPage]
   const CurrentView = currentPageInfo.view
 
@@ -45,7 +68,13 @@ export default function App()
       </header>
 
       <main className="content">
-        <CurrentView focused={focusedCarpark} setFocused={setFocusedCarpark}/>
+        <CurrentView 
+          focused={focusedCarpark} 
+          setFocused={setFocusedCarpark}
+          themePreference={themePreference}
+          setThemePreference={setThemePreference}
+
+        />
       </main>
 
       <nav className="navbar">

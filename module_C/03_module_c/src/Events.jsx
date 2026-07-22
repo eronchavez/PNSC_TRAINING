@@ -91,18 +91,23 @@ export default function Events() {
             </div>
 
             <ul className="list">
-                {eventList.map((event) => (
-                    <li key={`${event.title}-${event.date}`}>
-                        <img
-                            src={`http://localhost${event.image}`}
-                            alt={event.title}
-                        />
-                        <div>
-                            <p>{event.title}</p>
-                            <p>{event.date}</p>
-                        </div>
-                    </li>
-                ))}
+                {
+                    eventList.length > 0 
+                    ? (eventList.map((event) => (
+                            <li key={`${event.title}-${event.date}`}>
+                                <img
+                                    src={`http://localhost${event.image}`}
+                                    alt={event.title}
+                                />
+                                <div>
+                                    <p>{event.title}</p>
+                                    <p>{event.date}</p>
+                                </div>
+                            </li>
+                        ))
+                    )
+                : (<p>No events found for the selected date range</p>)
+                }
             </ul>
 
             {loading && <p>Loading more events...</p>}

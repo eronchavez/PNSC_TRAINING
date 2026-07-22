@@ -20,6 +20,7 @@ function deg2rad(deg) {
 }
 
 export default function Carparks({ focused, setFocused }) {
+    
     const [carparkList, setCarparkList] = useState([])
     const [loading, setLoading] = useState(true)
     const [userLocation, setUserLocation] = useState(null)

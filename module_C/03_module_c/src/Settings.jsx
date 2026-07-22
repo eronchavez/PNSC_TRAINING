@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Settings()
+export default function Settings({themePreference, setThemePreference})
 {
     const [sortMethod, setSortMethod] = useState(
         () => localStorage.getItem("sortMethod") || "alphabetical"
@@ -12,9 +12,15 @@ export default function Settings()
         setSortMethod(value)
         localStorage.setItem("sortMethod", value)
     }
+
+    function handleThemeChange(event)
+    {
+        setThemePreference(event.target.value)
+    }
     return (
          <div>
-            <h2>Sort carparks by</h2>
+            <div>
+                <h2>Sort carparks by</h2>
             <label>
                 <input
                     type="radio"
@@ -34,7 +40,42 @@ export default function Settings()
                     onChange={handleChange}
                 />
                 Distance
-            </label>
+            </label> 
+            </div> <br /> 
+
+                        <div>
+                <h2>Theme Settings</h2>
+                <label> 
+                    <input 
+                        type="radio"
+                        name="theme"
+                        value="light"
+                        checked={themePreference === "light"}
+                        onChange={handleThemeChange}
+                    />
+                    Light
+                </label>
+                <label> 
+                    <input 
+                        type="radio"
+                        name="theme"
+                        value="dark"
+                        checked={themePreference === "dark"}
+                        onChange={handleThemeChange}
+                    />
+                    Dark
+                </label>
+                <label> 
+                    <input 
+                        type="radio"
+                        name="theme"
+                        value="system"
+                        checked={themePreference === "system"}
+                        onChange={handleThemeChange}
+                    />
+                    System
+                </label>
+            </div>
         </div>
     )
 }

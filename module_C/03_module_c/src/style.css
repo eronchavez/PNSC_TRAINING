@@ -55,3 +55,78 @@ li
     border-radius: 5px;
 }
 
+
+#weatherContainer 
+{
+    display: flex;
+    min-height: 100%;
+    overflow-x: scroll;
+    scroll-snap-type: X mandatory;
+    padding: 2em 2em;
+}
+
+.weather-card 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 1em;
+    margin: 1em;
+    scroll-snap-align: center;
+}
+
+.weather-card svg 
+{
+    width: 200px;
+    height: 200px;
+    transition: 0.3s;
+}
+
+.weather-card svg:hover{
+  stroke: #1c3e60;
+  stroke-width: 1;
+  fill: none;
+  animation: stroke-animation 2s forwards;
+}
+@keyframes stroke-animation {
+  0% {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 200;
+  }
+  100% {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 0;
+  }
+}
+
+/* Dark theme overrides */
+.dark-theme body, .dark-theme .app {
+    background-color: #222; /* Easy to remember: very dark gray */
+    color: white;
+}
+
+.dark-theme .header, .dark-theme .navbar {
+    background-color: #333; /* Easy to remember: medium-dark gray */
+    border-color: #444;     /* Easy to remember: light-dark gray border */
+    color: white;           /* Makes header text and titles white */
+}
+
+.dark-theme .navbar button {
+    color: gray;            /* Non-active buttons turn gray */
+}
+
+.dark-theme .navbar button.active {
+    color: white;
+    background-color: #444;
+}
+
+.dark-theme li, .dark-theme .weather-card {
+    background-color: #333;
+    border-color: #444;
+}
+
+.dark-theme a {
+    color: white;
+}
