@@ -43,7 +43,7 @@ export default function Settings({themePreference, setThemePreference})
             </label> 
             </div> <br /> 
 
-                        <div>
+            <div>
                 <h2>Theme Settings</h2>
                 <label> 
                     <input 

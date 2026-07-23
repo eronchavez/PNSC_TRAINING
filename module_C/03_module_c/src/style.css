@@ -100,33 +100,205 @@ li
       stroke-dashoffset: 0;
   }
 }
-
-/* Dark theme overrides */
-.dark-theme body, .dark-theme .app {
-    background-color: #222; /* Easy to remember: very dark gray */
-    color: white;
+/* Travel Planner Screen */
+.planner {
+  padding-bottom: 80px;
 }
 
-.dark-theme .header, .dark-theme .navbar {
-    background-color: #333; /* Easy to remember: medium-dark gray */
-    border-color: #444;     /* Easy to remember: light-dark gray border */
-    color: white;           /* Makes header text and titles white */
+.fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: blue;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-date {
+  font-weight: bold;
+  color: black;
+}
+
+.card {
+  display: flex;
+  gap: 10px;
+}
+
+.card img {
+  width: 140px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid black;
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.details-title {
+  font-weight: bold;
+  color: black;
+}
+
+.details-place,
+.details-time {
+  color: gray;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  background-color: rgb(84, 84, 255);
+}
+
+/* Modal Overlay & Form Dialog */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  color: black;
+}
+
+.field {
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.field input {
+  padding: 5px;
+  border: 1px solid gray;
+  background: inherit;
+  color: inherit;
+}
+
+.toggle {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.toggle button {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid gray;
+  background: white;
+  cursor: pointer;
+}
+
+.toggle button.active {
+  background: blue;
+  color: white;
+}
+
+.img-preview {
+  height: 60px;
+  object-fit: cover;
+  margin-top: 4px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.btn-sub {
+  background: blue;
+  color: white;
+}
+
+/* --- Dark Theme Rules --- */
+.dark-theme body, 
+.dark-theme .app {
+  background-color: #222; 
+  color: white;
+}
+
+.dark-theme .header, 
+.dark-theme .navbar {
+  background-color: #333; 
+  border-color: #444;     
+  color: white;           
 }
 
 .dark-theme .navbar button {
-    color: gray;            /* Non-active buttons turn gray */
+  color: gray;         
 }
 
 .dark-theme .navbar button.active {
-    color: white;
-    background-color: #444;
+  color: white;
+  background-color: #444;
 }
 
-.dark-theme li, .dark-theme .weather-card {
-    background-color: #333;
-    border-color: #444;
+.dark-theme li, 
+.dark-theme .weather-card, 
+.dark-theme .modal, 
+.dark-theme .toggle button {
+  background-color: #333;
+  border-color: #444;
+  color: white;
 }
 
+.dark-theme .card-date, 
+.dark-theme .details-title, 
 .dark-theme a {
-    color: white;
+  color: white;
+}
+
+.dark-theme .card img {
+  border-color: white;
 }
