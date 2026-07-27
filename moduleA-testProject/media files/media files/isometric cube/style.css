@@ -1,0 +1,15 @@
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at center, #142838, #071018 58%);
+}
+
+main {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accessible Lap Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="timer-card" aria-labelledby="title">
+            <div class="timer-heading">
+                <div>
+                    <p class="eyebrow">Performance timer</p>
+                    <h1 id="title">Lap Timer</h1>
+                </div>
+                <span id="state" class="state">Ready</span>
+            </div>
+
+            <div
+                id="display"
+                class="display"
+                role="timer"
+                aria-label="Elapsed time"
+                aria-live="off"
+            >00:00.00</div>
+
+            <div class="controls" aria-label="Timer controls">
+                <button id="toggle" class="primary" type="button">Start</button>
+                <button id="lap" type="button" disabled>Lap</button>
+                <button id="reset" type="button" disabled>Reset</button>
+            </div>
+            <p class="shortcuts"><kbd>Space</kbd> start/pause · <kbd>L</kbd> lap · <kbd>R</kbd> reset</p>
+
+            <section class="laps" aria-labelledby="laps-heading">
+                <div class="laps-heading">
+                    <h2 id="laps-heading">Recorded laps</h2>
+                    <span id="lap-count">0 laps</span>
+                </div>
+                <div class="lap-columns" aria-hidden="true">
+                    <span>Lap</span><span>Total</span><span>Split</span>
+                </div>
+                <ol id="lap-list">
+                    <li class="empty">No laps recorded yet.</li>
+                </ol>
+            </section>
+        </section>
+    </main>
+    <script src="timer.js"></script>
+</body>
+</html>

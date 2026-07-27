@@ -1,0 +1,149 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background:
+        radial-gradient(circle at 80% 10%, rgba(244, 201, 93, 0.09), transparent 25rem),
+        #071018;
+}
+main {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 78px 16px 28px;
+}
+
+.runner {
+    width: min(100%, 780px);
+    padding: clamp(22px, 5vw, 44px);
+    background: #101c26;
+    border: 1px solid #293b49;
+    border-radius: 20px;
+}
+h1 {
+    margin: 0;
+    font-size: clamp(2rem, 7vw, 3.25rem);
+    letter-spacing: -0.05em;
+    color: #d8d8d8;
+}
+
+form {
+    margin-top: 36px;
+    color: #d8d8d8;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+}
+
+input,
+button {
+    min-height: 52px;
+    border-radius: 9px;
+    font: inherit;
+}
+
+input {
+    min-width: 0;
+    padding: 10px 14px;
+    color: #f4f8fb;
+    background: #071018;
+    border: 1px solid #3a5263;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.05rem;
+}
+
+button {
+    padding: 0 20px;
+    color: #061116;
+    background: #2de2e6;
+    border: 0;
+    font-weight: 850;
+    cursor: pointer;
+}
+
+.error {
+    min-height: 1.3em;
+    margin: 8px 0 0;
+    color: #ff9b9f;
+    font-size: 0.8rem;
+}
+
+.result {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding: 20px;
+    background: #0a141c;
+    border-left: 4px solid #f4c95d;
+    border-radius: 8px;
+}
+
+.result span {
+    color: #9aabb8;
+}
+
+.result strong {
+    color: #f4c95d;
+    font: 900 2.2rem/1 ui-monospace, monospace;
+}
+
+.samples {
+    margin-top: 34px;
+}
+
+h2 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th,
+td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #293b49;
+    text-align: left;
+}
+
+th {
+    color: #9aabb8;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+td:first-child {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.pass {
+    color: #5ee2a0;
+}
+
+@media (max-width: 580px) {
+    .heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Password Strength Meter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="password-card" aria-labelledby="title">
+            <p class="eyebrow">Security check</p>
+            <h1 id="title">Create a strong password</h1>
+            <p class="hint">Use a mix of character types. Your password stays in this browser.</p>
+
+            <label for="password">Password</label>
+            <div class="input-wrap">
+                <input id="password" type="password" autocomplete="new-password" aria-describedby="strength-label requirements">
+                <button id="toggle-password" class="toggle" type="button" aria-label="Show password" aria-pressed="false">Show</button>
+            </div>
+
+            <div
+                id="strength-meter"
+                class="meter"
+                role="meter"
+                aria-label="Password strength"
+                aria-valuemin="0"
+                aria-valuemax="5"
+                aria-valuenow="0"
+            >
+                <span id="meter-fill" class="meter-fill score-0"></span>
+            </div>
+            <div class="strength-row">
+                <span>Password strength</span>
+                <strong id="strength-label">Weak</strong>
+            </div>
+
+            <ul id="requirements" class="requirements">
+                <li data-rule="length"><span aria-hidden="true"></span>At least 10 characters</li>
+                <li data-rule="upper"><span aria-hidden="true"></span>One uppercase letter</li>
+                <li data-rule="lower"><span aria-hidden="true"></span>One lowercase letter</li>
+                <li data-rule="digit"><span aria-hidden="true"></span>One number</li>
+                <li data-rule="special"><span aria-hidden="true"></span>One special character</li>
+            </ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Balanced Bracket Repair</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="runner" aria-labelledby="title">
+            <div class="heading">
+                <h1 id="title">Balanced Bracket Repair</h1>
+            </div>
+
+            <form id="bracket-form">
+                <label for="brackets">Bracket sequence</label>
+                <div class="input-row">
+                    <input id="brackets" name="brackets" value="([)]" pattern="[()[\]{}]*" autocomplete="off" spellcheck="false">
+                    <button type="submit">Calculate</button>
+                </div>
+                <p id="error" class="error" role="alert"></p>
+            </form>
+
+            <output id="result" class="result" for="brackets">
+                <span>Minimum insertions</span>
+                <strong>2</strong>
+            </output>
+        </section>
+    </main>
+    <script src="solution.js"></script>
+    <script>
+        document.querySelector('#bracket-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const input = document.querySelector('#brackets');
+            const error = document.querySelector('#error');
+            const result = document.querySelector('#result');
+
+            error.textContent = '';
+            result.style.display = 'none';
+
+            if (!/^[()[\]{}]*$/.test(input.value)) {
+                error.textContent = "Use bracket characters only: ( ) [ ] { }";
+                return;
+            }
+
+            result.querySelector('strong').textContent = minimumInsertions(input.value);
+            result.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
