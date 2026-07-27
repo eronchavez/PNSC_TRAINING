@@ -6,7 +6,7 @@ export default function WeatherIcon({status})
 
     useEffect(() => {
         if (status) {
-            fetch(`/images/${status.toLowerCase()}.svg`)
+            fetch(`images/${status.toLowerCase()}.svg`)
                 .then((response) => response.text())
                 .then(setSvg)
         }
@@ -15,9 +15,9 @@ export default function WeatherIcon({status})
     return (
         <div 
             className="weather-icon"
+            role="img"
+            aria-label={`${status} weather icon`}
             dangerouslySetInnerHTML={{__html: svg}}
-        >
-
-        </div>
+        />
     )
 }

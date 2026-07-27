@@ -164,7 +164,7 @@ li
 
 .details-place,
 .details-time {
-  color: gray;
+  color: #595959;
 }
 
 .edit-btn {
@@ -174,7 +174,7 @@ li
   font-weight: bold;
   cursor: pointer;
   padding: 0;
-  background-color: rgb(84, 84, 255);
+  background-color: #1d4ed8;
 }
 
 /* Modal Overlay & Form Dialog */
@@ -276,7 +276,7 @@ li
 }
 
 .dark-theme .navbar button {
-  color: gray;         
+  color: #a6a6a6;         
 }
 
 .dark-theme .navbar button.active {
@@ -301,4 +301,9 @@ li
 
 .dark-theme .card img {
   border-color: white;
+}
+
+.dark-theme .details-place,
+.dark-theme .details-time {
+  color: #a6a6a6;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useMemo } from "react"
 
 export default function Planner() {
   const [plans, setPlans] = useState(() => JSON.parse(localStorage.getItem("travel_plans") || "[]"))
@@ -14,11 +14,13 @@ export default function Planner() {
   }, [form])
 
   
-  const sortedPlans = [...plans].sort((planA, planB) => {
-    const dateA = planA.isMulti ? planA.startDate : planA.date
-    const dateB = planB.isMulti ? planB.startDate : planB.date
-    return dateA.localeCompare(dateB) || planA.time.localeCompare(planB.time)
-  })
+  const sortedPlans = useMemo(() => {
+    return [...plans].sort((planA, planB) => {
+      const dateA = planA.isMulti ? planA.startDate : planA.date
+      const dateB = planB.isMulti ? planB.startDate : planB.date
+      return dateA.localeCompare(dateB) || planA.time.localeCompare(planB.time)
+    })
+  }, [plans])
 
  
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function Planner() {
         }, 150)
       }
     }
-  }, [plans])
+  }, [plans, sortedPlans])
 
   const updateFormField = (fieldName, fieldValue) => {
     setForm((prevForm) => ({ ...prevForm, [fieldName]: fieldValue }))
@@ -87,6 +89,7 @@ export default function Planner() {
       
       <button
         className="fab"
+        aria-label="Add new plan"
         onClick={() =>
           setForm({ id: "", isMulti: false, date: "", startDate: "", endDate: "", todo: "", time: "", place: "", image: "" })
         }
@@ -133,40 +136,40 @@ export default function Planner() {
 
             {!form.isMulti ? (
               <div className="field">
-                <label>Date</label>
-                <input type="date" value={form.date} onChange={(event) => updateFormField("date", event.target.value)} />
+                <label htmlFor="plan-date">Date</label>
+                <input id="plan-date" type="date" value={form.date} onChange={(event) => updateFormField("date", event.target.value)} />
               </div>
             ) : (
               <div className="row">
                 <div className="field" style={{ flex: 1 }}>
-                  <label>Start Date</label>
-                  <input type="date" value={form.startDate} onChange={(event) => updateFormField("startDate", event.target.value)} />
+                  <label htmlFor="plan-start-date">Start Date</label>
+                  <input id="plan-start-date" type="date" value={form.startDate} onChange={(event) => updateFormField("startDate", event.target.value)} />
                 </div>
                 <div className="field" style={{ flex: 1 }}>
-                  <label>End Date</label>
-                  <input type="date" value={form.endDate} onChange={(event) => updateFormField("endDate", event.target.value)} />
+                  <label htmlFor="plan-end-date">End Date</label>
+                  <input id="plan-end-date" type="date" value={form.endDate} onChange={(event) => updateFormField("endDate", event.target.value)} />
                 </div>
               </div>
             )}
 
             <div className="field">
-              <label>To-Do Item</label>
-              <input type="text" value={form.todo} onChange={(event) => updateFormField("todo", event.target.value)} />
+              <label htmlFor="plan-todo">To-Do Item</label>
+              <input id="plan-todo" type="text" value={form.todo} onChange={(event) => updateFormField("todo", event.target.value)} />
             </div>
             
             <div className="field">
-              <label>Time</label>
-              <input type="time" value={form.time} onChange={(event) => updateFormField("time", event.target.value)} />
+              <label htmlFor="plan-time">Time</label>
+              <input id="plan-time" type="time" value={form.time} onChange={(event) => updateFormField("time", event.target.value)} />
             </div>
             
             <div className="field">
-              <label>Place</label>
-              <input type="text" value={form.place} onChange={(event) => updateFormField("place", event.target.value)} />
+              <label htmlFor="plan-place">Place</label>
+              <input id="plan-place" type="text" value={form.place} onChange={(event) => updateFormField("place", event.target.value)} />
             </div>
             
             <div className="field">
-              <label>Image</label>
-              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <label htmlFor="plan-image">Image</label>
+              <input id="plan-image" type="file" accept="image/*" onChange={handleFileChange} />
               {form.image && (
                 <img src={form.image} alt="" className="img-preview" />
               )}

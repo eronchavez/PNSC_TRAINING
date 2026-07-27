@@ -1,15 +1,18 @@
 import { useState } from "react"
 import Carparks from "./Carparks"
-
-export const API = 'http://localhost/module_c_api.php'
+import Settings from "./Settings"
+export const API = "http://localhost/module_c_api.php"
 
 const pages = {
-  carparks: {title: "Carparks", view: Carparks},
-  events: {title: "Events", view: () => <p>Loading Events...</p>},
-  weather: {title: "Weathers", view: () => <p>Loading Weathers...</p>},
-  planner: {title: "Planners", view: () => <p>Loading Planners...</p>},
-  settings: {title: "Settings", view: () => <p>Loading Settings...</p>},
+  carparks: {title: 'Carparks', view: Carparks },
+  events: {title: 'Events', view: () => <p>Loading events...</p>},
+  weather: {title: 'Weather', view: () => <p>Loading weather...</p>},
+  planner: {title: 'Planner', view: () => <p>Loading planner...</p>},
+  settings: {title: 'Settings', view: Settings}
 }
+
+
+
 
 export default function App()
 {
@@ -24,6 +27,7 @@ export default function App()
     setCurrentPage(page)
     setFocusedCarpark(null)
   }
+
   return (
     <div className="app">
       <header className="header">
@@ -31,22 +35,21 @@ export default function App()
           id="backBtn"
           disabled={!focusedCarpark}
           onClick={() => setFocusedCarpark(null)}
-        > 
+        >
           {"<"}
         </button>
         <h1>{focusedCarpark ? "Carpark Details" : currentPageInfo.title}</h1>
       </header>
       <main className="mainContent">
-        <CurrentView focused={focusedCarpark} setFocused={setFocusedCarpark}/>
+        <CurrentView focused={focusedCarpark} setFocused={setFocusedCarpark} />
       </main>
-
       <nav className="navBar">
         {
           Object.keys(pages).map((page) => (
             <button
               key={page}
               className={currentPage === page ? "active" : ""}
-              onClick={() => setCurrentPage(page)}
+              onClick={() => switchPage(page)}
             >
               {pages[page].title}
             </button>

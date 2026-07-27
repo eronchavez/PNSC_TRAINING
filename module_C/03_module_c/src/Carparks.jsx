@@ -125,7 +125,16 @@ export default function Carparks({ focused, setFocused }) {
                 <li
                     key={carpark.id}
                     onClick={() => setFocused(carpark)}
+                    onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
+                            setFocused(carpark)
+                        }
+                    }}
                     style={{ cursor: "pointer" }}
+                    role="button"
+                    tabIndex="0"
+                    aria-label={`View details for ${carpark.name}`}
                 >
                     <h3>{carpark.name}</h3>
                     <p>Available Spaces: {carpark.availableSpaces}</p>

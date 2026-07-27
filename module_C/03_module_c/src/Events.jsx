@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { API } from "./App"
 
 export default function Events() {
@@ -12,7 +12,7 @@ export default function Events() {
     const [endingDate, setEndingDate] = useState(searchParams.get("ending_date") || "")
 
     // Helper function that handles fetching for both initial filters and infinite scroll
-    function fetchEvents(requestUrl, isNextPage = false) {
+    const fetchEvents = useCallback((requestUrl, isNextPage = false) => {
         if (loading) return
         setLoading(true)
 
@@ -28,7 +28,7 @@ export default function Events() {
                 setNextPageUrl(data.pages?.next || null)
             })
             .finally(() => setLoading(false))
-    }
+    }, [loading])
 
     // 1. Fetch initial events or update when dates change
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function Events() {
 
         const initialUrl = `${API}/events.json${queryParams.toString() ? "?" + queryParams : ""}`
         fetchEvents(initialUrl, false)
-    }, [beginningDate, endingDate])
+    }, [beginningDate, endingDate, fetchEvents])
 
     // 2. Add scroll listener for infinite scrolling
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function Events() {
 
         contentContainer?.addEventListener("scroll", handleScroll)
         return () => contentContainer?.removeEventListener("scroll", handleScroll)
-    }, [nextPageUrl, loading])
+    }, [nextPageUrl, loading, fetchEvents])
 
     if (loading && eventList.length === 0) {
         return <p>Loading...</p>
