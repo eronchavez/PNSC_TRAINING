@@ -1,0 +1,139 @@
+*
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body 
+{
+  font-family: sans-serif;
+}
+
+.app 
+{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header
+{
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 1em;
+}
+
+.header h1 
+{
+  flex: 1;
+  text-align: center;
+}
+
+#backBtn 
+{
+  padding: 5px 10px;
+}
+
+
+.mainContent 
+{
+  flex: 1;
+  padding: 1em;
+  overflow-y: auto;
+}
+
+.navBar 
+{
+  display: flex;
+  border-top: 1px solid black;
+}
+
+
+.navBar button 
+{
+  flex: 1;
+  padding: 1em;
+  border: none;
+  background: none
+}
+
+.navBar button.active
+{
+
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+
+}
+
+/* Cards */
+li 
+{
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin: 1em;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 2px 2px 0;
+}
+
+.event-list img 
+{
+  border-radius: 8px;
+  padding: 1em;
+  width: 100%;
+}
+
+.event-list {
+  text-align: center;
+}
+
+/* Weather */
+.weather-card svg 
+{
+  height: 200px;
+  width: 200px;
+}
+#weatherContainer 
+{
+  display: flex;
+  min-height: 100%;
+  scroll-snap-type: X mandatory;
+  overflow-x: scroll;
+}
+
+.weather-card 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+  scroll-snap-align: center;
+}
+
+.weather-card svg:hover 
+{
+  stroke: #1c3e60;
+  stroke-width: 1;
+  fill: none;
+  animation: stroke-animation 2s forwards;
+}
+
+@keyframes stroke-animation {
+    from 
+    {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 200;
+    }
+    to 
+    {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 0;
+    }
+}
+
