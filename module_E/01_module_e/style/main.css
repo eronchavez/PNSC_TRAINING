@@ -1,0 +1,310 @@
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{ font-family:Arial, Helvetica, sans-serif; }
+img, video{ width:100%; height:auto; }
+.container{ width:80%; margin:0 auto; }
+a{ text-decoration:none; }
+li{ list-style-type:none; }
+header, footer{ width:100%; }
+h1{ font-size:1em; }
+h2{ text-align:center; }
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:100;
+  padding:1em 0;
+  background-color:rgba(255,255,255,.5);
+  box-shadow:0 0 3px rgba(0,0,0,.3);
+  backdrop-filter:blur(5px);
+
+  .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    line-height:2em;
+  }
+
+  ul{ display:flex; gap:2em; }
+}
+
+#callToAction{
+  background:url(../images/cover.jpg) center/cover;
+  height:600px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+@media(max-width:759px){
+  #callToAction{ background-image:url(../images/cover-low-res.jpg); }
+}
+
+#cto{
+  position:relative;
+  border:2px solid transparent;
+  background-color:white;
+  padding:1em 2em;
+  border-radius:15px;
+  font-size:1.2em;
+  cursor:pointer;
+}
+
+/* Map Attractions */
+.map{
+  margin-bottom:2em;
+
+  h2{ margin-bottom:2em; }
+
+  .container{ position:relative; }
+
+  .mapAttraction{
+    position:absolute;
+    top:50%; left:1em;
+    transform:translateY(-50%);
+    width:50%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1em;
+
+    .attractionCard{
+      width:45%;
+      padding:0.5em;
+      background-color:white;
+      text-align:center;
+      box-shadow:0 0 5px rgba(0,0,0,.3);
+    }
+  }
+
+  .mapMarkers{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+
+    .marker{
+      position:absolute;
+      height:30px; width:30px;
+      background-color:rgb(255,127,127);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius:50% 50% 50% 0;
+      transform:rotate(-45deg);
+      cursor:pointer;
+      pointer-events:auto;
+
+      span{ display:block; transform:rotate(45deg); }
+    }
+  }
+}
+
+/* Hover Effects */
+.focus, .attractionCard:hover, .eventsCard figure:hover{
+  position:relative;
+  transform:scale(1.05);
+  box-shadow:0 5px 5px rgba(0,0,0,.3);
+  transition:transform .3s ease-in-out;
+  overflow:hidden;
+}
+
+.focus::before, .attractionCard:hover::before, .eventsCard figure:hover::before{
+  content:"";
+  position:absolute;
+  top:-10%; left:-70%;
+  width:50%; height:120%;
+  background:linear-gradient(0deg, transparent, rgba(255,255,255,.9));
+  transform:rotate(15deg);
+  animation:shine .4s ease-in-out;
+}
+
+@keyframes shine{
+  from{ left:-70%; }
+  to{ left:100%; }
+}
+
+
+/* Custom tab */
+.otherInfo h2{
+  text-align:left;
+  font-size:2em;
+  font-weight:800;
+  margin-bottom:1em;
+}
+
+/* Essentials & Events */
+#essentialNevents{
+  display:flex;
+  margin-bottom:2em;
+  padding:4em 0;
+
+  > div{ width:50%; }
+
+  .essentialInfo{
+    display:flex;
+    flex-direction:column;
+    line-height:3em;
+  }
+
+  #readLoud{
+    background-color:rgb(46,46,248);
+    text-align:center;
+    color:white;
+    max-width:200px;
+    padding:0.5em;
+    border-radius:5px;
+  }
+
+  #latestEvents .eventsCard{
+    display:flex;
+    overflow-x:auto;
+    border:2px solid lightgray;
+    border-radius:5px;
+    padding:1em;
+    gap:0.5em;
+  }
+
+  .eventsCard figure{
+    min-width:300px;
+    padding:1em;
+    border:1px solid black;
+    border-radius:5px;
+  }
+}
+
+/* Reviews */
+#reviews{
+  padding:3em 0;
+  margin-bottom:1em;
+
+  #reviewSlides{
+    position:relative;
+    height:220px;
+    margin-top:2em;
+  }
+
+  .reviewCard{
+    position:absolute;
+    top:0; left:50%;
+    width:300px;
+    padding:1.5em;
+    border:1px solid #ccc;
+    border-radius:12px;
+    background:#fff;
+    box-shadow:2px 2px 6px rgba(0,0,0,.1);
+    transition:transform .35s ease, opacity .35s ease;
+  }
+
+  .reviewRating{ text-align:center; font-size:1.3em; margin-bottom:.5em; }
+  .reviewContent{ display:block; font-style:italic; margin-bottom:1em; }
+  .reviewAuthor{ display:block; text-align:right; font-weight:600; opacity:.8; }
+
+  .center{ transform:translateX(-50%) scale(1.1); opacity:1; z-index:2; }
+  .left{ transform:translateX(calc(-50% - 320px)) scale(.85); opacity:.5; z-index:1; }
+  .right{ transform:translateX(calc(-50% + 320px)) scale(.85); opacity:.5; z-index:1; }
+  .hidden{ opacity:0; pointer-events:none; }
+
+  .reviewControls{
+    display:flex;
+    justify-content:center;
+    gap:1em;
+    margin-top:1.5em;
+  }
+
+  .reviewControls button{
+    border:0;
+    background:rgb(174,174,174);
+    padding:.5em 1.25em;
+    border-radius:999px;
+    cursor:pointer;
+  }
+
+  .reviewControls button:disabled{ opacity:.5; cursor:not-allowed; }
+}
+
+/* Coupon Game — minimalist, dashed "ticket" box + 2 tiny animations */
+#couponEvent{
+  text-align:center;
+  max-width:360px;
+  margin:0 auto 2em;
+  padding:2.5em 1.5em;
+  border:2px dashed rgb(46,46,248);
+  border-radius:16px;
+
+  p{ color:#777; margin-bottom:1em; }
+
+  #result{
+    font-size:1.4em;
+    font-weight:bold;
+    min-height:1.6em;
+    margin-bottom:1.2em;
+  }
+
+  #result.active{ animation:pop .4s ease; }
+
+  button{
+    border:0;
+    padding:.6em 1.6em;
+    margin:0 .4em;
+    border-radius:999px;
+    background:rgb(46,46,248);
+    color:white;
+    cursor:pointer;
+  }
+
+  #drawBtn:not(:disabled){ animation:pulse 1.6s ease-in-out infinite; }
+
+  button:disabled{ opacity:.4; cursor:not-allowed; animation:none; }
+
+  #restart.highlight{ background:rgb(255,127,127); }
+}
+
+@keyframes pulse{
+  0%, 100%{ transform:scale(1); }
+  50%{ transform:scale(1.08); }
+}
+
+@keyframes pop{
+  0%{ transform:scale(.5); opacity:0; }
+  70%{ transform:scale(1.15); }
+  100%{ transform:scale(1); opacity:1; }
+}
+
+/* Contact Us */
+#contactForm{
+  h2{
+    position:relative;
+    top:1.2em;
+    margin:auto;
+    background-color:white;
+    border:2px solid gray;
+    padding:1em;
+    max-width:300px;
+  }
+
+  form{
+    border:2px solid gray;
+    display:grid;
+    grid-template-columns:1fr 3fr 1fr 3fr;
+    line-height:2em;
+    padding:4em 2em;
+    gap:5em;
+  }
+}
+
+/* Footer */
+footer{
+  border-top:2px solid gray;
+  margin-top:2em;
+  padding-top:2em;
+  background-color:rgb(209,206,206);
+
+  p{ text-align:center; }
+  a{ color:rgb(61,61,61); }
+
+  nav{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    line-height:2em;
+    padding:2em;
+    margin:2em;
+  }
+}
