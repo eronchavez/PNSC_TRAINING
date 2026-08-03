@@ -1,0 +1,237 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img,video 
+{
+    width: 100%;
+}
+
+.container 
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+li
+{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+h1{
+    font-size: 1em;
+}
+h2{
+    text-align: center;
+}
+
+/* header  */
+header 
+{
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    background-color: 0 0 5px rgba(255,255,255,.5);
+    backdrop-filter: blur(5px);
+    padding: 1em;
+   .container{
+        display: flex;
+        justify-content: space-between;
+        line-height: 2em;
+   }
+   ul 
+   {
+    display: flex;
+    gap: 2em;
+   }
+}
+
+/* Call To Action */
+#callToAction 
+{
+    background: url(../images/cover.jpg) center/cover;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width: 759px)
+{
+    #callToAction{
+        background: url(../images/cover-low-res.jpg);
+    }
+}
+
+#cto 
+{
+    background-color: white;
+    padding: 2em;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+/* Map Attractions  */
+.map
+{
+    h2 
+    {
+        margin-bottom: 2em;
+    }
+
+    .container 
+    {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    .mapAttraction 
+    {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        transform: translateY(-50%);
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+
+        .attractionCard 
+        {
+            width: 45%;
+            background-color: white;
+            padding: 0.5em;
+            text-align: center;
+        }
+    }
+
+    .mapMarkers
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        .marker 
+        {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background-color: rgb(255, 110, 110);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            pointer-events: auto;
+        }
+
+        span 
+        {
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+
+
+
+}
+
+
+
+/* Essential info and events */
+#essentialNevents 
+{
+    padding: 4em 0;
+    display: flex;
+    >div 
+    {
+        width: 50%;
+    }
+    .essentialInfo 
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud 
+    {
+        background-color: rgb(44, 44, 255);
+        color: white;
+        max-width: 300px;
+        text-align: center;
+        border-radius: 5px;
+        border: 5px;
+        padding: 1em;
+    }
+
+    #latestEvents .eventsCard 
+    {
+        display: flex;
+        overflow-x: auto;
+        border: 2px solid lightgray;
+        padding: 1em;
+        gap: 1em;
+    }
+
+    .eventsCard figure 
+    {
+        min-width: 300px;
+        border: 1px solid black;
+        padding: 1em;
+        border-radius: 5px;
+    }
+}
+
+#contactForm 
+{
+    h2{
+        position: relative;
+        top: 1em;
+        margin: auto;
+        background-color: white;
+        border: 2px solid gray;
+        padding: 1em;
+        max-width: 300px;
+    }
+
+    form 
+    {
+        border: 2px solid gray;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        line-height: 2em;
+        padding: 4em 2em;
+        gap: 5em;
+    }
+}
+
+footer 
+{
+    border: 2px solid gray;
+    margin-top: 2em;
+    padding-top: 2em;
+    background-color: rgb(214, 212, 212);
+    a{
+        color: rgb(77, 77, 77);
+    }
+    p{
+        text-align: center;
+    }
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        line-height: 2em;
+        padding: 2em;
+        margin: 2em;
+    }
+}
