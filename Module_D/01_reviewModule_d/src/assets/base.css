@@ -1,0 +1,31 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body 
+{
+    font-family: system-ui, sans-serif;
+}
+
+#main-page 
+{
+    display: flex;
+    height: 100vh;
+    
+}
+
+#slideshow 
+{
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+aside
+{
+    width: 300px;
+    padding: 1em;
+}
