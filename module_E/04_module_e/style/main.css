@@ -1,0 +1,240 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img,video 
+{
+    width: 100%;
+}
+
+.container 
+{
+    width: 80% ;
+    margin: 0 auto;
+}
+
+h1 
+{
+    font-size: 1em;
+}
+h2 
+{
+    text-align: center;
+    margin: 2em;
+}
+
+li 
+{
+    list-style-type: none ;
+}
+a{
+    text-decoration: none;
+}
+
+/* Header */
+header 
+{
+    position: sticky;
+    top: 0;
+    z-index: 10000; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+    padding: 1em;
+
+    .container 
+    {
+        display: flex;
+        justify-content: space-between;
+        line-height: 3em;
+    }
+
+    ul 
+    {
+        display: flex;
+        gap: 2em;
+    }
+}
+
+/* Call To Action  */
+#callToAction 
+{
+    background: url(../images/cover.jpg) center/cover;
+    height: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width: 759px)
+{
+    #callToAction 
+    {
+        background-image: url(../images/cover-low-res.jpg);
+    }
+}
+
+#cto 
+{
+    background-color: white;
+    padding: 2em;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Map Attraction */
+
+.map 
+{
+    .container {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    .mapAttraction 
+    {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        width: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
+       
+
+        .attractionCard 
+        {
+            width: 45%;
+            padding: 0.5em;
+            background-color: white;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+          
+        }
+    }
+
+    .mapMarkers
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        .marker 
+        {
+            position: absolute;
+            pointer-events: auto;
+            background-color: rgb(255, 123, 123);
+            height: 30px;
+            width: 30px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        span 
+        {
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+/* Essentila and Events */
+#essentialNevents 
+{
+    display: flex;
+    >div 
+    {
+        width: 50%;
+    }
+    .essentialInfo 
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud 
+    {
+        background-color: blue;
+        color: white;
+        padding: 1em;
+        max-width: 300px; 
+        text-align: center;
+        border-radius: 5px;
+    }
+    #latestEvents .eventsCard
+    {
+        display: flex;
+        overflow-x: auto;
+        border: 2px solid lightgray;
+        padding: 1em;
+        margin: 1em;
+        gap: 1em;
+    }
+    .eventsCard figure 
+    {
+        min-width: 300px;
+        border: 1px solid black;
+        padding: 1em;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
+/* Contact form */
+#contactForm 
+{
+    h2{
+        position: relative;
+        top: 1.2em;
+        background-color: white;
+        border: 2px solid gray;
+        max-width: 300px;
+        margin: auto;
+        padding: 1em;
+    }
+    form{
+        border: 2px solid gray;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        padding: 4em 2em;
+        gap: 5em;
+        line-height: 2em;
+    }
+}
+
+/* Footer */
+footer 
+{
+    border-top: 2px solid gray;
+    margin-top: 2em;
+    padding-top: 2em;
+    background-color: rgb(224, 224, 224);
+    p{
+        text-align: center;
+    }
+    a 
+    {
+        color: rgb(51, 51, 51);
+    }
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        line-height: 3em;
+        padding: 2em;
+        margin: 2em;
+    }
+
+}
