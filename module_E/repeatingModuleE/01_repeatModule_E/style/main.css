@@ -1,0 +1,266 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img,video 
+{
+    width: 100%;
+    
+}
+
+.container 
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+li{list-style-type: none;}
+a{text-decoration: none;}
+h2{margin: 2em; text-align: center;}
+h1{font-size: 1em;}
+
+/* Header */
+header 
+{
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    padding: 1em;
+
+    .container
+    {
+        display: flex;
+        justify-content: space-between;
+        line-height: 3em;
+    }
+
+    ul 
+    {
+        display: flex;
+        gap: 3em;
+    }
+}
+
+/* Call To Action  */
+#callToAction 
+{
+    background: url(../images/cover.jpg) center/cover;
+    height: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #cto 
+    {
+        background-color: white;
+        padding: 2em;
+        border-radius: 10px;
+        text-align: center;
+    }
+}
+
+@media(max-width: 759px)
+{
+    #callToAction{
+        background-image: url(../images/lyon-map-low-res.jpg);
+    }
+}
+
+/* Map Attractions */
+.map 
+{
+    .container
+    {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    .mapAttraction
+    {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        width: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+
+        .attractionCard 
+        {
+            width: 45%;
+            padding: 0.5em;
+            background-color: white;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+    }
+
+    .mapMarkers
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        .marker 
+        {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background-color: rgb(253, 111, 111);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        span 
+        {
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+/* Hover Effects */
+.focus, .attractionCard:hover, .eventsCard figure:hover 
+{
+    position: relative;
+    transform: scale(1.05);
+    box-shadow: 0 5px 5px rgba(0,0,0,.3);
+    transition: transform .3s ease-in-out;
+    overflow: hidden;
+}
+
+.focus::before, .attractionCard:hover::before, .eventsCard figure:hover::before 
+{
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -70%;
+    width: 50%;
+    height: 120%;
+    transform: rotate(15deg);
+    background: linear-gradient(0deg, transparent, rgba(255,255,255,.9));
+    animation: shine .4s ease-in-out
+}
+
+@keyframes shine {
+    from{
+        left: -70%;
+    }
+    to{
+        left: 100%;
+    }
+}
+
+
+
+
+/* Essential and Events */
+
+#essentialNevents
+{
+    display: flex;
+    >div{
+        width: 50%;
+    }
+    .essentialInfo
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud
+    {
+        background-color: rgb(62, 62, 255);
+        max-width: 300px;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        padding: 1em;
+    }
+
+    #latestEvents .eventsCard
+    {
+        display: flex;
+        overflow-x: auto;
+        border: 2px solid lightgray;
+        padding: 1em;
+        margin: 1em;
+        gap: 1em;
+    }
+
+    .eventsCard figure 
+    {
+        border: 1px solid black;
+        min-width: 300px;
+        padding: 1em;
+        border-radius: 5px;
+        text-align: center;
+    }
+}
+
+
+/* Contact Form */
+#contactForm 
+{
+    h2{
+        position: relative;
+        top: 1.2em;
+        margin: auto;
+        background-color: white;
+        border: 2px solid gray;
+        max-width: 300px;
+        padding: 1em;
+    }
+
+    form 
+    {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        border: 2px solid gray;
+        padding: 4em 2em;
+        line-height: 3em;
+        gap: 5em;
+    }
+}
+
+/* Footer  */
+footer 
+{
+    border-top: 2px solid gray;
+    margin-top: 2em;
+    padding-top: 2em;   
+    background-color: rgb(218, 218, 218);
+
+    p{
+        text-align: center
+    };
+
+    a{
+        color: rgb(39, 38, 38);
+    }
+
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        line-height: 3em;
+        margin: 1em;
+        padding: 1em;
+    }
+}
