@@ -1,0 +1,45 @@
+import { useState } from "react";
+
+export default function Settings()
+{
+    const [sortMethod, setSortMethod] = useState(
+        () => localStorage.getItem("sortMethod") || "alphabetical"
+    )
+
+    function handleMethod(e)
+    {
+        const value = e.target.value 
+        setSortMethod(value)
+        localStorage.setItem("sortMethod", value)
+    }
+
+    return (
+        <div>
+            <h2>Sort Carparks by: </h2>
+            <div>
+                <label>
+                    Alphabetical 
+                    <input
+                        type="radio"
+                        name="sortMethod"
+                        checked={sortMethod === "alphabetical"}
+                        value="alphabetical"
+                        onChange={handleMethod}
+                    />
+                </label>
+            </div>
+            <div>
+                <label>
+                    Distance 
+                    <input
+                        type="radio"
+                        name="sortMethod"
+                        checked={sortMethod === "distance"}
+                        value="distance"
+                        onChange={handleMethod}
+                    />
+                </label>
+            </div>
+        </div>
+    )
+}

@@ -1,0 +1,26 @@
+
+
+import { useState, useEffect } from "react"
+
+export default function WeatherIcon({status})
+{
+    const [svg, setSvg] = useState("")
+
+    useEffect(() => {
+        if(!status) return 
+
+        fetch(`./svg_icons/${status.toLowerCase()}.svg`)
+            .then((response) => response.text())
+            .then(setSvg)
+
+
+    }, [status])
+
+    return(
+        <div
+            dangerouslySetInnerHTML={{__html: svg}}
+        >
+
+        </div>
+    )
+}
