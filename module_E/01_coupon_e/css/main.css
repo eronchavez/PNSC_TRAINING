@@ -1,0 +1,394 @@
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img,video 
+{
+    width: 100%;
+}
+
+.container 
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+li{list-style-type: none;}
+a{text-decoration: none;}
+h2{text-align: center; margin: 2em;}
+h1{font-size: 1em;}
+
+
+/* Header  */
+header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    backdrop-filter: blur(5px);
+    padding: 1em;
+
+    .container 
+    {
+        display: flex;
+        justify-content: space-between;
+        line-height: 3em;
+    }
+
+    ul 
+    {
+        display: flex;
+        gap: 2em;
+    }
+}
+/* Call To Action */
+#callToAction{
+    background: url(/images/cover.jpg) center/cover;
+    height: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #cto
+    {
+        background-color: white;
+        padding: 2em;
+        border-radius: 12px;
+        font-size: 1em;
+        text-align: center;
+    }
+}
+
+@media(max-width: 759px)
+{
+    #callToAction
+    {
+        background-image: url(/images/cover-low-res.jpg);
+    }
+}
+
+/* Map */
+.map
+{
+    h2{font-size: 5em;}
+
+    .container 
+    {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    .mapAttraction
+    {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        width: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
+
+        .attractionCard 
+        {
+            width: 45%;
+            text-align: center;
+            padding: .5em;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+    }
+
+    .mapMarkers 
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        .marker 
+        {
+            position: absolute;
+            pointer-events: auto;
+            background-color: rgb(253, 106, 106);
+            height: 30px;
+            width: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            cursor: pointer;
+        }
+
+        span 
+        {
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+}
+/* Hover  Effect*/
+
+.focus, .attractionCard:hover, .eventCards figure:hover 
+{
+    position: relative;
+    transform: scale(1.05);
+    transition: transform .3s ease-in-out;
+    overflow: hidden;
+}
+
+.focus::before, .attractionCard:hover::before, .eventCards figure:hover::before 
+{
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -70%;
+    width: 50%;
+    height: 120%;
+    transform: rotate(15deg);
+    background: linear-gradient(0deg, transparent, rgba(255,255,255,.9));
+    animation: shine .4s forwards;
+}
+
+@keyframes shine {
+    from 
+    {
+        left: -70%;
+    }
+    to 
+    {
+        left: 110%;
+    }
+}
+
+/* Essential Info and Latest */
+#essentialNevents
+{
+    display: flex;
+    >div 
+    {
+        width: 50%;
+    }
+    .essentialInfo 
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud 
+    {
+        background-color: blue;
+        max-width: 300px;
+        border-radius: 5px;
+        text-align: center;
+        color: white;
+        padding: 1em;
+        cursor: pointer;
+    }
+
+    #latestEvents .eventCards
+    {
+        display: flex;
+        overflow-x: auto;
+        border: 2px solid lightgray;
+        padding: 1em;
+        margin: 1em;
+        gap: 1em;
+
+        figure 
+        {
+            border: 1px solid black;
+            padding: 1em;
+            min-width: 300px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    }
+
+}
+
+/* Coupon */
+
+#couponEvent 
+{
+    text-align: center;
+    max-width: 360px;
+    padding: 1em;
+    border: 2px dashed blue;
+}
+
+#couponEvent p 
+{
+    color: gray;
+    margin-bottom: 2em;
+}
+
+#result {
+    font-size: 1.5em;
+    font-weight: bold;
+    min-height: 1.5em;
+    margin-bottom: 2em;
+}
+
+#couponEvent button 
+{
+    border: none;
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 999px;
+    background-color: royalblue;
+    color: white;
+    cursor: pointer;
+}
+
+#couponEvent button:disabled 
+{
+
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+#result {
+    animation: bounce .8s infinite;
+}
+
+@keyframes bounce {
+    50% { transform: scale(1.05); }
+}
+
+/* Reviews */
+#reviewSlides
+{
+    position: relative;
+    height: 300px;
+    margin-top: 2em;
+}
+
+.reviewCard 
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1.5em;
+    box-shadow: 0 5px 5px rgba(0,0,0,.5);
+    transition: transform .35s ease, opacity .35s ease
+}
+
+.center 
+{
+    transform: translateX(-50%) scale(1.1);
+    z-index: 2;
+    opacity: 1;
+}
+
+.left 
+{
+    transform: translateX(calc(-50% - 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.right 
+{
+    transform: translateX(calc(-50% + 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.hidden 
+{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.reviewControls 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+#prev,#next 
+{
+    border: none;
+    background: none;
+    background-color: green;
+    color: white;
+    padding: 1em;
+    border: 1px solid black;
+    width: 100px;
+    border-radius: 5px;
+}
+
+#prev:hover:not(:disabled), #next:hover:not(:disabled) 
+{
+    background-color: blue;
+}
+
+#prev:active:not(:disabled), #next:active:not(:disabled) 
+{
+    background-color: darkblue;
+}
+
+#prev:disabled, #next:disabled 
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+/* Contact Us */
+#contactForm 
+{
+    h2{
+        position: relative;
+        top: 1.2em;
+        padding: 1em;
+        margin: auto;
+        background-color: #fff;
+        border: 2px solid gray;
+        max-width: 300px;
+    }
+    form 
+    {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        border: 2px solid gray;
+        padding: 4em;
+        gap: 5em;
+        line-height: 3em;
+    }
+}
+
+/* Footer */
+footer 
+{
+    border-top: 2px solid gray;
+    padding-top: 2em;
+    margin-top: 2em;
+    background: rgb(223, 223, 223);
+    a{color: rgb(59, 59, 59)};
+    p{text-align: center;}
+
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        line-height: 3em;
+        padding: 2em;
+        margin: 2em;
+    }
+
+}
