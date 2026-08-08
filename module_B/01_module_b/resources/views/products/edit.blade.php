@@ -1,3 +1,3 @@
 <div>
-    <!-- Be present above all else. - Naval Ravikant -->
+    <!-- It is quality rather than quantity that matters. - Lucius Annaeus Seneca -->
 </div>

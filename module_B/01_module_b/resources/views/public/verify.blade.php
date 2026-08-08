@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Verify GTINs</title>
+    <title>Verify GTIN</title>
 </head>
 <body>
     
-    <h1>Verify GTINs</h1>
-    <p>GTINs (one per line)</p> 
+    <h1>Verify Gtin</h1>
     <form action="{{ url('/verify') }}" method="POST">
-        @csrf
-        <textarea name="gtins" id="gtins" cols="30" rows="10" required></textarea> <br>
-        <input type="submit" value="Verify GTINs">
+        @csrf 
+        <textarea name="gtins" id="gtins" cols="30" rows="10"></textarea><br>
         @error('gtins')
             <p style="color: red">{{$message}}</p>
         @enderror
+        <input type="submit" value="validate GTIN">
     </form>
 
 </body>

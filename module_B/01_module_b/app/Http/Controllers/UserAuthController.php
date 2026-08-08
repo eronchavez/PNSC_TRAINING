@@ -15,72 +15,111 @@ class UserAuthController extends Controller
         return view('users.auth');
     }
 
-   public function register(Request $req)
+    // POST user/register
+    public function register(Request $req)
     {
         $validated = $req->validate([
-            'name' => 'required|string|max:255',
-            'username' => [
-                'required',
-                'string',
-                'min:6',
-                'max:255',
-                'unique:users,username',
-                'alpha_num',
-            ],
-            'password' => 'required|string|min:6',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'name' => 'required|string',
+            'username' => 'required|string|min:6|max:255|alpha_num|unique:users,username',
+            'password' => 'required|string:min:6',
+            'avatar' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg|max:2048'
         ]);
 
-        $avatarPath = null;
         
-        // Check if file is uploaded
-        if ($req->hasFile('avatar')) {
-            $avatar = $req->file('avatar'); // Get the UploadedFile object
-            $avatarName = time() . '.' . $avatar->extension();
-            $avatar->move(public_path('avatars'), $avatarName);
-            $avatarPath = 'avatars/' . $avatarName;
-        }
+        if($req->hasFile('avatar'))
+            {
+                $avatar = $req->file('avatar');
+                $avatarName = time() . "." . $avatar->extension();
+                $avatar->move(public_path('avatars'), $avatarName);
+                $validated['avatar'] = $avatarName;
+            }
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'username' => $validated['username'],
-            'password' => Hash::make($validated['password']),
-            'avatar' => $avatarPath
-        ]);
+        $validated['password'] = Hash::make($validated['password']);
 
-        Auth::login($user);
+        $user = User::create($validated);
+
+        Auth::login($user); // Auto log in after register
         $req->session()->regenerate();
 
         return redirect('/')->with('success', 'Registration successful.');
     }
 
+    // POST user/login
     public function login(Request $req)
     {
         $validated = $req->validate([
-            'username' => 'required|string',
-            'password' => 'required|string'
+            'login_username' => 'required',
+            'login_password' => 'required'
         ]);
 
-        if(!Auth::attempt([
-            'username' => $validated['username'],
-            'password' => $validated['password']
-        ])){
-            return back()->withErrors([
-                'user_login' => "Invalid username or password",
-            ])->withInput();
-        };
+        $credentials  = [
+            'username' => $validated['login_username'],
+            'password' => $validated['login_password']
+        ];
+
+        if(!Auth::attempt($credentials)){
+            return back()->withErrors(['user_login' => 'Invalid username or password']);
+        }
 
         $req->session()->regenerate();
 
         return redirect('/');
     }
 
+    // POST /user/logout 
     public function logout(Request $req)
     {
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
+        
+        return redirect('/');
+    }
 
-        return redirect()->back();
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('users.profile', compact('user'));
+    }
+
+    public function update(Request $req)
+    {
+        $validated = $req->validate([
+            'name' => 'required'
+        ]);
+
+        $user = Auth::user();
+        $user->update($validated);
+
+        return redirect()->back()->with('success', 'Profile successfully updated!');
+    }   
+
+    
+    public function changeAvatar(Request $req)
+    {
+        $req->validate([
+            'avatar' => 'required|mimes:svg,png,jpeg,jpg,gif|max:2048'
+        ]);
+
+        $avatar = $req->file('avatar');
+        $avatarName = time() . '.' . $avatar->extension();
+        $avatar->move(public_path('avatars'), $avatarName);
+    
+
+        $user = Auth::user();
+        $user->avatar = $avatarName;
+        $user->save();
+
+        return redirect()->back()->with('success', 'avatar Successfully Changed!');
+    }
+
+    public function removeAvatar()
+    {
+        $user = Auth::user();
+        $user->avatar = NULL; 
+        $user->save();
+
+        return redirect()->back()->with('success', 'Avatar successfully  removed!');
     }
 }

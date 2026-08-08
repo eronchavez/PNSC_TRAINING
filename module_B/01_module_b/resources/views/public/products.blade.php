@@ -1,35 +1,46 @@
-<x-user.layout>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Public Product Management System</title>
+</head>
+<body>
+    @include('partials.user-nav')
     
-    <h1>Public Products</h1>
-    <p>Filter</p>
-    <form action="{{ url('/') }}" method="GET">
-        <label for="company">By Company</label>
-        <select name="company" id="company">
-            @foreach ($companies as $company)
-                <option value="{{ $company->id }}">{{$company->name}}</option>
-            @endforeach
-            <input type="submit" value="Filter">
-        </select> 
-    </form>
-    <form action="{{ url('/') }}" method="GET">
-        <label for="category">By Category</label>
-        <select name="category" id="category">
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}">{{$category->name}}</option>
-            @endforeach
-            <input type="submit" value="Filter">
-        </select> 
-    </form>
+    <header>
+        <h1>Public Product Management System</h1>
+    </header>
+    <main>
+        <h2>Filter</h2>
+        <form action="{{ url("/") }}" method="GET">
+            <select name="company_id" id="company_id">
+                @foreach ($companies as $company)
+                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                @endforeach
+            </select>
+             <button type="submit">Filter</button>
+        </form> <br> <br>
+        <form action="{{ url("/") }}" method="GET">
+            <select name="category_id" id="category_id">
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+             <button type="submit">Filter</button>
+        </form>
 
-    <table border="1">
-        <tr>
-            <th>GTIN</th>
-            <th>Product Name</th>
-            <th>Company</th>
-            <th>Category</th>
-        </tr>
-        @foreach ($products as $product)
+
+
+        <table border="1">
+            <tr>
+                <th>GTIN</th>
+                <th>Product Name</th>
+                <th>Company</th>
+                <th>Product</th>
+            </tr>
+          @foreach ($products as $product)
             <tr>
                 <td>{{$product->gtin}}</td>
                 <td>
@@ -38,8 +49,11 @@
                 <td>{{$product->company?->name}}</td>
                 <td>{{$product->category?->name}}</td>
             </tr>
-        @endforeach
-    </table>
+          @endforeach
+        </table>
+    </main>
+    
 
 
-</x-user.layout>
+</body>
+</html>

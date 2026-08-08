@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
-    public $timestamps = false;
+    //  
 
     protected $fillable = [
         'name',
@@ -26,6 +25,8 @@ class Product extends Model
         'company_id'
     ];
 
+    public $timestamps = false;
+
     public function company()
     {
         return $this->belongsTo(Company::class);
@@ -33,11 +34,12 @@ class Product extends Model
 
     public function category()
     {
-        return  $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function reviews()
     {
         return $this->hasMany(Review::class);
     }
+
 }
