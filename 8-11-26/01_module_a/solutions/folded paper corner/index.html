@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Folded Paper Corner</title>
+  <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        height: 100vh;
+        display: grid;
+        place-items: center;
+    }
+    .paper-shadow{
+        display: inline-block;
+        transform: rotate(-5deg);
+        filter: drop-shadow(0.25rem 0.25rem 0.15rem rgba(0, 0, 0, 0.15));
+    }
+    .paper{
+        width: 400px;
+        background: rgb(234, 236, 90);
+        position: relative;
+        clip-path: polygon(
+            0 0,
+            calc(100% - 5rem) 0,
+            100% 5rem,
+            100% 100%,
+            0 100%
+        );
+        display: grid;
+        place-items: center;
+        padding: 6.5rem 2rem;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .fold{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 5rem;
+        height: 5rem;
+        background: linear-gradient(
+            225deg,
+            transparent 48.5%,
+            rgba(43, 32, 20, .28) 49.6%,
+            #afa466 52%
+        );
+        filter: drop-shadow(-0.25rem 0.25rem 0.15rem rgba(0, 0, 0, 0.15));
+    }
+  </style>
+</head>
+<body>
+  <div class="paper-shadow">
+    <div class="paper">
+      <span class="fold" aria-hidden="true"></span>
+      <p>
+        The folded corner is created entirely with CSS—no JavaScript and no image assets.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

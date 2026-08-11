@@ -1,0 +1,10 @@
+:root { color-scheme: dark; --paper:#f5ead1; --ink:#153142; --accent:#d55f42; --cut:#07151e; }
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: radial-gradient(circle at top, #183d50, var(--cut) 65%);
+    font-family: Inter, system-ui, sans-serif;
+}
+main { min-height: 100vh; display:grid; place-items:center; padding:5rem 1rem 2rem; }

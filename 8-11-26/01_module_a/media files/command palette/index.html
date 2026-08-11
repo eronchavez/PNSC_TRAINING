@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accessible Command Palette</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="demo" aria-labelledby="page-title">
+            <h1 id="page-title">Command palette</h1>
+            <p>Open the palette, search commands, then navigate without leaving the keyboard.</p>
+            <button id="open-palette" class="open-button">
+                Open commands <kbd>Ctrl</kbd><span>+</span><kbd>K</kbd>
+            </button>
+            <p id="last-action" class="last-action" aria-live="polite">No command selected.</p>
+        </section>
+    </main>
+
+    <dialog id="palette" aria-labelledby="palette-title">
+        <div class="palette-head">
+            <h2 id="palette-title">Run a command</h2>
+            <button id="close-palette" aria-label="Close command palette">×</button>
+        </div>
+        <label class="search">
+            <span class="sr-only">Search commands</span>
+            <input id="command-search" type="search" placeholder="Type a command…" autocomplete="off"
+                   role="combobox" aria-controls="command-list" aria-expanded="true"
+                   aria-autocomplete="list" aria-activedescendant="">
+        </label>
+        <ul id="command-list" role="listbox" aria-label="Commands"></ul>
+        <p id="empty-state" hidden>No commands match your search.</p>
+        <p class="help"><kbd>↑</kbd><kbd>↓</kbd> navigate · <kbd>Enter</kbd> run · <kbd>Esc</kbd> close</p>
+    </dialog>
+    <script src="palette.js"></script>
+</body>
+</html>

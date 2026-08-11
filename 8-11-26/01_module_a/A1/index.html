@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<style>
+
+body 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.paper {
+    width: 340px;
+    height: 200px;
+    padding: 2em;
+    background: rgb(228, 228, 10);
+    position: relative;
+    transform: rotate(-5deg);
+    clip-path: polygon(
+        0 0,
+        calc(100% - 4em) 0,
+        100% 4em,
+        100% 100%,
+        0 100%
+    );
+    display: grid;
+    place-items: center;
+    font-family:  sans-serif;
+    
+    
+}
+
+.fold {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4rem;
+    height: 4rem;
+    background: darkkhaki;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.3);
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="paper">
+    <div class="fold"></div>
+    <p>The folded corner is created entirely with CSS—no JavaScript and no image assets.</p>
+</div>
+
+</body>
+</html>
