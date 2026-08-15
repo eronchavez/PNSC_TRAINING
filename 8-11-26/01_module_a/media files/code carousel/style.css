@@ -1,0 +1,7 @@
+:root { color-scheme:dark; --w:180px; --h:220px; --radius:124px; }
+* { box-sizing:border-box; }
+body {
+    margin:0; min-height:100vh; overflow:hidden; color:#effaff; font-family:Inter,system-ui,sans-serif;
+    background:radial-gradient(circle at 50% 45%, #194961 0, #081a25 58%, #040b10 100%);
+}
+main { min-height:100vh; display:grid; place-items:center; padding:5rem 1rem 2rem; perspective:900px; }

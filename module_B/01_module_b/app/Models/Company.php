@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     //
-    public $timestamps = false;
-
-    public function products() 
+     public $timestamps = false;
+     
+    public function products()
     {
         return $this->hasMany(Product::class);
     }
@@ -18,10 +18,8 @@ class Company extends Model
     {
         return $this->belongsTo(Owner::class);
     }
-
     public function contact()
     {
         return $this->belongsTo(Contact::class);
     }
-
 }

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Longest Stable Window</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section class="runner">
+            <h1>Longest Stable Window</h1>
+            <p>Find the longest contiguous range whose maximum and minimum differ by no more than the limit.</p>
+            <form id="runner-form">
+                <label for="readings">Readings <span>comma-separated numbers</span></label>
+                <input id="readings" value="10, 1, 2, 4, 7, 2">
+                <label for="limit">Limit</label>
+                <input id="limit" type="number" min="0" step="any" value="5">
+                <button>Run function</button>
+            </form>
+            <output id="result" aria-live="polite">Result: 4</output>
+            </div>
+        </section>
+    </main>
+    <script src="solution.js"></script>
+    <script src="runner.js"></script>
+</body>
+</html>

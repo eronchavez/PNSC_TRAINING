@@ -1,0 +1,20 @@
+:root { 
+    --line:#2b6178; 
+    --ok:#3bb459; 
+    --warn:#f5b941; 
+    --limit:#ff6b78; 
+}
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; font-family:Inter,system-ui,sans-serif; }
+main { min-height:100vh; display:grid; place-items:center; padding:5rem 1rem 2rem; }
+.composer { width:min(520px,94vw); padding:clamp(1.3rem,5vw,2.2rem);  }
+label { display:block; margin-bottom:.5rem; font-weight:800; }
+textarea { width:100%; resize:vertical; min-height:150px; padding:1rem; border:2px solid var(--line); border-radius:12px; font:inherit; line-height:1.5;}
+.meta { display:flex; justify-content:space-between; gap:1rem; margin:.7rem 0; font-size:.86rem; }
+#counter { font-weight:900; color:var(--ok)}
+.budget { height:7px; overflow:hidden; border-radius:999px; background:#07151e; }
+.budget span { display:block; width:0; height:100%; border-radius:inherit; background:var(--ok); transition:width 150ms ease,background 150ms ease; }
+.composer.is-warning #counter { color:var(--warn); }
+.composer.is-warning .budget span { background:var(--warn); }
+.composer.is-limit #counter { color:var(--limit); }
+.composer.is-limit .budget span { background:var(--limit); }

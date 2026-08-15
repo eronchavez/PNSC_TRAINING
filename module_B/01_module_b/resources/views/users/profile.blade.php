@@ -1,99 +1,49 @@
-<x-user.layout>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Profile</title>
+</head>
+<body>
+    @include('partials.user-nav')
+
     @if (session('success'))
         <p style="color: green">{{session('success')}}</p>
     @endif
 
-    @if ($errors->any())
-        <div>
-            <strong>Please fix the following: </strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <h1>Edit Profile</h1>
+    <form action="{{ url('profile') }}" method="POST">
+        @csrf 
+        @method('PUT')
 
-    <h1>User Profile</h1>
-    <section>
-        <h2>Edit Profile</h2>   
-        <form action="{{ url('profile') }}" method="POST">
-            @csrf 
-            @method('PUT')
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+        @error('name')
+            <p style="color: red">{{$message}}</p>
+        @enderror
 
-            <div class="field">
-                <label for="name">Name</label>
-                <input 
-                    type="text"
-                    id="name"
-                    name="name"
-                    value="{{ old('name', $user->name) }}"
-                    required
-                >
-                @error('name')
-                    <div>{{$message}}</div>
-                @enderror
-            </div>
+        <button type="submit">Save Changes</button>
+    </form>
 
-            <div class="field">
-                <label for="avatar">Avatar Image</label>
-                <input 
-                    type="text"
-                    id="avatar"
-                    name="avatar"
-                    accept="image/*"
-                >
-                <div id="img-preview"></div>
-                @error('avatar')
-                    <p style="color: red">{{$message}}</p>
-                @enderror
-            </div>
-
-            <div>
-                <button type="submit">Save Changes</button>
-            </div>
+    <h2>Avatar</h2>
+    <img src="{{ $user->avatar ? asset('public/avatars/' . $user->avatar) : asset('public/images/placeholder.jpg') }}" alt="avatar" width="100">
+    <form action="{{ url('/profile/avatar') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <input type="file" name="avatar" required>
+        @error('avatar')
+            <p style="color: red">{{$message}}</p>
+        @enderror
+        <button type="submit">Change Avatar</button>
+    </form>
+    @if ($user->avatar !== NULL)
+        <form action="{{ url('profile/avatar') }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Remove Avatar</button>
         </form>
-
-        <div>
-            <h3>Remove Avatar</h3>
-            <form action="{{ url('profile/avatar') }}" method="POST" onsubmit="return confirm('Remove your Avatar?');">
-                @csrf
-                @method('DELETE')
-                <button type="submit">Remove Avatar</button>
-            </form>
-        </div>
-    </section>
-
-    <script>
-
-        const avatarInput = document.getElementById('avatar');
-        const avatarPreview = document.getElementById('img-preview');
-
-        avatarInput.addEventListener('change', () => {
-            avatarPreview.innerHTML = '';
-            const file = avatarInput.files[0];
-
-            if(!file) return 
-
-            const img = document.createElement('img');
-            const cancelBtn = document.createElement('button');
-
-            img.src = URL.createObjectURL('file');
-            img.style.width = '200px';
-
-            cancelBtn.type = 'button';
-            cancelBtn.textContent = 'Cancel';
-
-            cancelBtn.onclick = () => {
-                avatarInput.value = '';
-                avatarPreview.innerHTML = '';
-            }
-
-            avatarPreview.append(img, cancelBtn);
-
-        });
-
-    </script>
-
-</x-user.layout>
+    @endif
+</body>
+</html>

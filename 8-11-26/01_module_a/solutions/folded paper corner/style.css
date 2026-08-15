@@ -1,0 +1,98 @@
+:root {
+    color-scheme: dark;
+    --ink: #eaf7ff;
+    --muted: #9eb8c7;
+    --panel: #102938;
+    --line: #27799a;
+    --accent: #64d8ff;
+    --fold: 54px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: radial-gradient(circle at 50% 30%, #163e51, #07151e 60%);
+    color: var(--ink);
+    font-family: Inter, system-ui, sans-serif;
+}
+
+main {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 5rem 1rem 2rem;
+}
+
+.alert-card {
+    position: relative;
+    width: min(360px, 90vw);
+    min-height: 220px;
+    padding: 2rem 2.2rem;
+    overflow: hidden;
+    border: 2px solid var(--line);
+    border-radius: 16px 4px 16px 16px;
+    background: linear-gradient(145deg, #153849, var(--panel));
+    box-shadow: 0 22px 55px rgb(0 0 0 / 35%);
+    transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.alert-card::before,
+.alert-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--fold);
+    height: var(--fold);
+}
+
+.alert-card::before {
+    background: linear-gradient(225deg, #07151e 49%, transparent 50%);
+    z-index: 2;
+}
+
+.alert-card::after {
+    background: linear-gradient(45deg, #27799a 49%, #66dcff 50%);
+    box-shadow: -5px 5px 14px rgb(0 0 0 / 32%);
+}
+
+.alert-card:hover,
+.alert-card:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 28px 65px rgb(0 0 0 / 44%), 0 0 0 4px rgb(100 216 255 / 12%);
+    outline: none;
+}
+
+.alert-card__icon {
+    display: grid;
+    width: 42px;
+    aspect-ratio: 1;
+    place-items: center;
+    margin-bottom: 1rem;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 900;
+}
+
+.alert-card__eyebrow {
+    margin: 0 0 .35rem;
+    color: var(--accent);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.alert-card h1 { margin: 0 0 .65rem; font-size: clamp(1.5rem, 6vw, 2rem); }
+.alert-card p:not(.alert-card__eyebrow) { margin: 0 0 1.25rem; color: var(--muted); line-height: 1.55; }
+.alert-card a { color: var(--ink); font-weight: 800; text-underline-offset: .25em; }
+
+@media (prefers-reduced-motion: reduce) {
+    .alert-card { transition: none; }
+}

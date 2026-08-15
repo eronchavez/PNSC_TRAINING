@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     //
-
     public function index()
     {
         $categories = Category::all();
+
         return view('categories.index',compact('categories'));
     }
 
@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function store(Request $req)
     {
         $validated = $req->validate([
-            'name' => 'required|unique:categories,name'
+            'name' => 'required'
         ]);
 
         Category::create($validated);
@@ -36,27 +36,27 @@ class CategoryController extends Controller
         return view('categories.edit',compact('category'));
     }
 
-    public function update(Request $req, Category $category)
+    public function update(Category $category, Request $req)
     {
         $validated = $req->validate([
-            'name' => 'required|unique:categories,name,' . $category->name
+            'name' => 'required'
         ]);
 
-        $category->update($validated);
+        $category->name = $validated['name'];
+        $category->save();
 
-        return redirect('/categories')->with('success', 'Category Updated Successfully!');
+        return redirect('/categories')->with('success', 'Category successfully updated!');
     }
 
     public function destroy(Category $category)
     {
+
         if($category->products()->count() > 0)
             {
-                return redirect()->back()->with('warning', 'This category is associated with another product.');
+                return redirect()->back()->with('warning', 'This category is associated with other product. This cannot be deleted');
             }
         $category->delete();
 
-        return redirect('/categories')->with('success', 'Category successfully deleted!');
+        return redirect('/categories')->with('success', 'Category Successfully deleted');
     }
-
-   
 }

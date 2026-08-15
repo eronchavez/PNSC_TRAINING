@@ -1,14 +1,12 @@
 <x-layout>
 
-
-    <h2>Create new Category: </h2>
+    <h1>Create new Category</h1>
     <form action="{{ url('/categories') }}" method="POST">
-        @csrf 
-        <input type="text" name="name" id="name">
+        @csrf
+        <input type="text" name="name">
         @error('name')
             <p style="color: red">{{$message}}</p>
         @enderror
-        <input type="submit">
+        <input type="submit" value="create">
     </form>
-
 </x-layout>
