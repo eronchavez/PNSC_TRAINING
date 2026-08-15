@@ -1,3 +1,25 @@
-<div>
-    <!-- Happiness is not something readymade. It comes from your own actions. - Dalai Lama -->
-</div>
+<x-layout>
+
+    <h1>Category List: </h1>
+    @if (session('success'))
+        <p style="color: green">{{session('success')}}</p>
+    @endif
+
+       @if (session('error'))
+        <p style="color: yellow; background-color: black">{{session('error')}}</p>
+    @endif
+    <a href="{{ url('/categories/new') }}">Create new Category</a>
+
+    @foreach ($categories as $category)
+        <h2>{{$category->name}}</h2>
+        <a href="{{ url('/categories/' . $category->id . '/edit') }}">edit</a>
+        <form action="{{ url('/categories/' . $category->id) }}" method="POST">
+            @csrf 
+            @method('DELETE')
+            <input type="submit" value="Delete Category">
+          
+        </form>
+    @endforeach 
+ 
+
+</x-layout>

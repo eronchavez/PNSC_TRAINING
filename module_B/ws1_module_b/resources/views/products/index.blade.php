@@ -1,6 +1,7 @@
 <x-layout>
 
     <h1>Product List</h1>
+    <a href="{{ url('/products/new') }}">Create new Product</a>
     @if(session('success'))
         <p style="color: green">{{session('success')}}</p>
     @endif
@@ -11,6 +12,7 @@
         <p>{{$product->gtin}}</p>
         <p>{{$product->description}}</p>
         <p>{{$product->french_description}}</p>
+        <p>{{$product->brand}}</p>
         <p>{{$product->category?->name}}</p>
         <p>{{$product->country}}</p>
         <p>{{$product->gross_weight}} {{$product->weight_unit}}</p>

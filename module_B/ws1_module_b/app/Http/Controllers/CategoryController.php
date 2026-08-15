@@ -2,9 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     //
+    public function index()
+    {
+        $categories = Category::all();
+
+        return view('categories.index', compact('categories'));
+    }
+
+    public function create()
+    {
+        return view('categories.create');
+    }
+
+    public function store(Request $req)
+    {
+        $validated = $req->validate([
+            'name' => 'required|unique:categories,name'
+        ]);
+
+        Category::create($validated);
+
+        return redirect('/categories')->with('success', 'Category Successfully Created!');
+    }
+    public function edit(Category $category)
+    {
+        return view('categories.edit',compact('category'));
+    }
+    public function update(Request $req, Category $category)
+    {
+         $validated = $req->validate([
+            'name' => 'required|unique:categories,name'
+        ]);
+
+        $category->update($validated);
+        $category->save();
+
+        return redirect('/categories')->with('success', 'Category Successfully Updated!');
+    }
+
+    public function destroy(Category $category)
+    {
+        if($category->products()->count() > 0)
+            {
+                return redirect()->back()->with('error', 'This Category is Associated with another Product, This Cannot be deleted.');
+            }
+
+        $category->delete();
+
+        return redirect('/categories')->with('success', 'Category Successfully Deleted.');
+    }
 }

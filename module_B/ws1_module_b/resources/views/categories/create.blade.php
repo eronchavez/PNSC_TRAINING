@@ -1,12 +1,11 @@
 <x-layout>
-    <h1>Update Category</h1>
-    <form action="{{ url('/categories/' . $category->id . '/update') }}" method="POST">
+    <h1>Create new Category</h1>
+    <form action="{{ url('/categories') }}" method="POST">
         @csrf 
-        @method('PUT')
         <input type="text" name="name" id="name"">
         @error('name')
             <p style="color: red">{{$message}}</p> 
         @enderror
-        <input type="submit" value="update">
+        <input type="submit" value="Create">
     </form>
 </x-layout>
