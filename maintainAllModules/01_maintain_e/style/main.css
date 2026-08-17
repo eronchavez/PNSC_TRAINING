@@ -1,0 +1,332 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img,video 
+{
+    width: 100%;
+}
+
+.container 
+{
+    width: 80%;
+    margin: 0 auto;
+}
+
+li{list-style-type: none;}
+a{text-decoration: none;}
+h2{margin: 2em; text-align: center;}
+h1{font-size: 1em;}
+
+/* Header  */
+header 
+{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    padding: 1em;
+
+    .container 
+    {
+        display: flex;
+        justify-content: space-between;
+        line-height: 3em;
+    }
+
+    ul 
+    {
+        display: flex;
+        gap: 2em;
+    }
+}
+
+/* Call To Action */
+#callToAction
+{
+    background: url("/images/cover.jpg") center/cover;
+    height: 1100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #cto 
+    {
+        background-color: white;
+        border-radius: 10px;
+        padding: 2em;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+}
+
+.map 
+{
+    h2{font-size: 3em; font-weight: bolder;}
+    .container {
+        position: relative;
+        margin-bottom: 2em;
+    }
+    .mapAttraction{
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        width: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2em;
+
+        .attractionCard 
+        {
+            width: 45%;
+            text-align: center;
+            padding: 0.5em;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+    }
+
+    .mapMarkers 
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+   
+
+        .marker 
+        {
+            position: absolute;
+            pointer-events: auto;
+            cursor: pointer;
+            background-color: rgb(245, 102, 102);
+            height: 30px;
+            width: 30px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        span 
+        {
+            display: block;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+/* Hover Effects */
+.focus, .attractionCard:hover, .eventCards figure:hover 
+{
+    position: relative;
+    transform: scale(1.05);
+    transition: transform .3s ease-in-out;
+    overflow: hidden;
+}
+
+.focus::before, .attractionCard:hover::before, .eventCards figure:hover::before 
+{
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -70%;
+    width: 50%;
+    height: 120%;
+    transform: rotate(15deg);
+    background: linear-gradient(0deg, transparent, rgba(255,255,255,.9));
+    animation: shine .4s forwards;
+}
+
+@keyframes shine {
+    from{
+        left: -70%;
+    }to{
+        left: 110%
+    }
+}
+
+
+
+/* Map Attraction */
+#essentialNevents 
+{
+    display: flex;
+    >div 
+    {
+        width: 50%;
+    }
+    .essentialInfo
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud
+    {
+        background-color: rgb(59, 59, 243);
+        max-width: 300px;
+        color: white;
+        border-radius: 5px;
+        padding: 1em;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #latestEvents .eventCards 
+    {
+        display: flex;
+        overflow-x: auto;
+        border: 2px solid gray;
+        padding: 1em;
+        gap: 1em;
+    }
+
+    .eventCards figure 
+    {
+        min-width: 300px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 1em;
+        border-radius: 5px;
+    }
+}
+
+/* Reviews */
+#reviewSlides
+{
+    position: relative;
+    height: 300px;
+    margin-top: 2em;
+}
+
+.reviewCard 
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1.5em;
+    transition: transform .35s ease, opacity .35s ease
+}
+
+.center 
+{
+    transform: translateX(-50%) scale(1.1);
+    z-index: 2;
+    opacity: 1;
+}
+
+.left 
+{
+    transform: translateX(calc(-50% - 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.right 
+{
+    transform: translateX(calc(-50% + 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.hidden 
+{
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.reviewControls 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+#prev,#next
+{
+    border: none;
+    background: none;
+    width: 100px;
+    height: 50px;
+    background-color: green;
+    border-radius: 12px;
+    color: white;
+    border: 1px solid black;
+}
+
+#prev:hover:not(:disabled),#next:hover:not(:disabled){
+    background-color: royalblue;
+}
+
+#prev:active:not(:disabled),#next:active:not(:disabled){
+    background-color: darkblue;
+}
+#prev:disabled, #next:disabled 
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+
+/* Contact Us */
+#contactForm 
+{
+    h2{
+        position: relative;
+        top: 1.2em;
+        background-color: white;
+        border: 2px solid gray;
+        margin: auto;
+        max-width: 300px;
+        padding: 1em;
+    }
+    form{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        border: 2px solid gray;
+        padding:  4em;
+        line-height: 2em;
+        gap: 5em;
+
+    }
+}
+
+/* Footer */
+footer 
+{
+    border-top: 2px solid gray;
+    margin-top: 2em;
+    padding-top: 2em;
+    background-color: rgb(184, 184, 184);
+    p{text-align: center;}
+    a{color: rgb(63, 63, 63);}
+
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        padding: 2em;
+        line-height: 3em;
+        gap: 2em;
+        margin: 2em;
+    }
+}
