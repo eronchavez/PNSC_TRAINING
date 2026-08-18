@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Management || Log In</title>
+</head>
+<body>
+    
+    <header>
+        <h1>Log In</h1>
+    </header>
+
+    <form action="{{ url('/login') }}" method="POST">
+        @csrf 
+        <label for="passphrase">Enter Passphrase: </label>
+        <input type="password" name="passphrase" id="passphrase">
+        @error('error')
+            <p style="color: red">{{$message}}</p>
+        @enderror
+        <input type="submit" value="Log In">
+    </form>
+</body>
+</html>
