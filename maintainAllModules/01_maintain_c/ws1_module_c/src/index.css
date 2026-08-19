@@ -1,0 +1,132 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body 
+{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#app 
+{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header 
+{
+  display: flex;
+  padding: 1em;
+  line-height: 3em;
+  border-bottom: 1px solid #ccc;
+}
+
+.header h1 
+{
+  flex: 1;
+  text-align: center;
+}
+
+#backBtn 
+{
+  padding: 5px 15px;
+}
+
+#main-page 
+{
+  flex: 1;
+  padding: 1em;
+  overflow-y: auto;
+}
+
+
+.btn button 
+{
+  flex: 1;
+  padding: 1em;
+  border: none;
+  background: none;
+  border-top: 1px solid #ccc;
+}
+
+.btn button.active 
+{
+  color: white;
+  background-color: blue;
+}
+
+/* li */
+.list li 
+{
+  border: 1px solid black;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.event-list 
+{
+  text-align: center;
+}
+
+.event-list img 
+{
+  border-radius: 5px;
+}
+
+/* weathers */
+.weatherCard svg 
+{
+  width: 200px;
+  height: 200px;
+}
+#weatherContainer 
+{
+  display: flex;
+  overflow-x: scroll;
+  min-height: 100%;
+  scroll-snap-type: X mandatory;
+  width: 100%;
+}
+
+.weatherCard 
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  margin: 1em;
+  padding: 1em;
+  scroll-snap-align: center;
+}
+
+.weatherCard svg:hover 
+{
+  stroke: #1c3e60;
+  stroke-width: 1;
+  fill: none;
+  animation: stroke-animation 2s forwards
+}
+
+@keyframes stroke-animation {
+  from 
+  {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 200;
+  }
+  to 
+  {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 0;
+  }
+}
+
