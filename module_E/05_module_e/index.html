@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review and Practice Module E </title>
+    <link rel="stylesheet" href="main/style.css">
+</head>
+<body>
+
+    <header>
+       <div class="container">
+         <h1>WELCOME LYON</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+        </nav>
+       </div>
+    </header>
+
+    <div id="callToAction">
+        <div id="cto">Call to Action</div>
+    </div>
+
+    <div id="mapAttraction">
+        <h2>Map Attraction</h2>
+        <div class="container">
+            <picture>
+                <source srcset="/images/lyon-map-low-res.jpg" media="(max-width: 759px)">
+                <img src="/images/lyon-map.jpg" alt="LYON MAP">
+            </picture>
+
+
+            <div class="attractions">
+                <figure class="attractionCard">
+                    <source srcset="/images/attraction-a-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/images/attraction-a.jpg" alt="Parc de la Tete">
+                    <figcaption>Parc de la Tete</figcaption>
+                </figure>
+                <figure class="attractionCard">
+                    <source srcset="/images/attraction-b-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/images/attraction-b.jpg" alt="Street">
+                    <figcaption>Street</figcaption>
+                </figure>
+                <figure class="attractionCard">
+                    <source srcset="/images/attraction-c-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/images/attraction-c.jpg" alt="River">
+                    <figcaption>River</figcaption>
+                </figure>
+                <figure class="attractionCard">
+                    <source srcset="/images/all-attractions-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/images/all-attractions.jpg" alt="All Attractions">
+                    <figcaption>All Attractions</figcaption>
+                </figure>
+            </div>
+
+            <div class="mapMarkers">
+                <div class="marker" style="left: 50%; top: 60%"><span>A</span></div>
+                <div class="marker" style="left: 70%; top: 90%"><span>B</span></div>
+                <div class="marker" style="left: 90%; top: 40%"><span>C</span></div>
+            </div>
+
+        </div>
+    </div>
+
+    <video src="videos/lyon.mp4" controls></video>
+
+    <div id="essentialNevents" class="container">
+        <div class="essentialInfo">
+            <h2>Essential Information</h2>
+            <address>
+                <p>Contact: 04 72 10 30 30</p>
+                <p>Address: Mairie de Lyon, 69205 Lyon cedex 01</p>
+            </address>
+            <div id="readLoud">Read it Loud</div>
+        </div>
+        <div id="latestEvents" tabindex="0">
+            <h2>Latest Events</h2>
+            <div class="eventCards">
+                <figure>
+                    <source srcset="/latest-events-images/worldskills-2024-p-low-res.png" media="(max-width: 759px)">
+                    <img src="/latest-events-images/worldskills-2024-p.jpg" alt="Lyon accueille la finale mondiale des Worldskills 2024">
+                    <figcaption>Lyon accueille la finale mondiale des Worldskills 2024</figcaption>
+                </figure>
+                <figure>
+                    <source srcset="/latest-events-images/fda-p-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/latest-events-images/fda-p.jpg" alt="Forum des associations 2024">
+                    <figcaption>Forum des associations 2024</figcaption>
+                </figure>
+                <figure>
+                    <source srcset="/latest-events-images/lyon-kayak-p-0-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/latest-events-images/lyon-kayak-p-0.jpg" alt="Lyon Kayak">
+                    <figcaption>Lyon Kayak</figcaption>
+                </figure>
+                <figure>
+                    <source srcset="/latest-events-images/semaine-bleue-2024-p-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/latest-events-images/semaine-bleue-2024-p.jpg" alt="La semaine bleue 2024">
+                    <figcaption>La semaine bleue 2024</figcaption>
+                </figure>
+                <figure>
+                    <source srcset="/latest-events-images/village-des-metiers-p-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/latest-events-images/village-des-metiers-p.jpg" alt="Le Village des Métiers">
+                    <figcaption>Le Village des Métiers</figcaption>
+                </figure>
+                <figure>
+                    <source srcset="/latest-events-images/journees_portes_ouvertes_entreprises_2023_p-low-res.jpg" media="(max-width: 759px)">
+                    <img src="/latest-events-images/journees_portes_ouvertes_entreprises_2023_p.jpg" alt="Les Journées Portes Ouvertes des Entreprises">
+                    <figcaption>Les Journées Portes Ouvertes des Entreprises</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div id="couponGame" class="container">
+        <h2>Coupon Game</h2>
+        <p>Win Discount with this game</p>
+        <div id="result"></div>
+        <div class="buttons">
+            <button id="draw">Draw</button>
+            <button disabled id="restart">Restart</button>
+        </div>
+    </div>
+
+    <div id="reviews" class="container">
+        <h2>Reviews</h2>
+        <div id="reviewContainer"></div>
+        <div class="controls">
+            <button disabled id="prev">Prev</button>
+            <button id="next">Next</button>
+        </div>
+    </div>
+
+    <div id="otherInformation" class="container">
+        <h2>Other Information</h2>
+        <div>Tab1</div>
+        <div>Tab1</div>
+        <div>Tab1</div>
+        <p>This is the content for Tab 1</p>
+    </div>
+
+    <div id="contactForm" class="container">
+        <h2>Contact Us</h2>
+        <form action="">
+            <label for="firstname">First name</label>
+            <input type="text" name="firstname" id="firstname">
+
+            <label for="lastname">Last name</label>
+            <input type="text" name="lastname" id="lastname">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+
+            <label for="phone">Phone</label>
+            <input type="number" name="phone" id="phone">
+        </form>
+    </div>
+
+    <footer>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Getting Here</a></li>
+                    <li><a href="#">FAQS</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Places to Stay</a></li>
+                    <li><a href="#">Things to Do</a></li>
+                    <li><a href="#">Events Calendar</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Restaurants</a></li>
+                    <li><a href="#">Nightlife</a></li>
+                    <li><a href="#">Shopping</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Plan Your Trip</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Newsletter Signup</a></li>
+                </ul>
+            </nav>
+            <p>&copy; 2024, All Rights Reserved</p>
+        </div>
+    </footer>
+
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
