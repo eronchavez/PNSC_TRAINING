@@ -42,23 +42,31 @@ if(video)
 
 
 
+function CouponGame()
+{
+    const result = document.getElementById("result");
+    const drawBtn = document.getElementById("drawBtn");
+    const restart = document.getElementById("restart");
+
+    const prizes = ["No Coupon", "10% Coupon", "100% Coupont Discount!!"];
+
+    drawBtn.onclick = () => {
+        const random = Math.floor(Math.random() * prizes.length);
+        result.textContent = prizes[random];
+        result.classList.add("active");
+        drawBtn.disabled = true;
+        restart.disabled = false;
+    }
+
+    restart.onclick = () => {
+        result.textContent = "";
+        result.classList.remove("active");
+        drawBtn.disabled = false;
+        restart.disabled = true;
+    }
+}
 
 
-// Reviews 
-// async function loadReviews()
-// {
-//     const slides = document.getElementById("reviewSlides");
-//     const res = await fetch("review.json");
-//     const {reviews} = await res.json();
-
-//     slides.innerHTML = reviews.map(({author, content, rating}) => `
-//         <div class="reviewCard"> 
-//             <p>${"⭐".repeat(rating)}</p>
-//             <p>${content}</p>
-//             <p>${author}</p>
-//         </div>
-//     `).join("");
-// }
 
 async function loadReviews()
 {
@@ -119,6 +127,7 @@ document.getElementById("next").addEventListener("click", () => {
 
 
 loadReviews();
+CouponGame();
 
 
 

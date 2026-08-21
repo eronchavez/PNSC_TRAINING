@@ -88,3 +88,191 @@ header ul
         background-image: url(/images/cover-low-res.jpg);
     }
 }
+
+/* Map attraction*/
+#mapAttraction 
+{
+    h2 
+    {
+        font-size: 5em;
+        margin: 1em;
+    }
+    .container 
+    {
+        position: relative;
+    }
+    .attractions
+    {
+        position: absolute;
+        top: 50%;
+        left: 1em;
+        transform: translateY(-50%);
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;   
+
+        .attractionCard 
+        {
+            width: 45%;
+            padding: 0.5em;
+            text-align: center;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+    }
+
+    .mapMarkers 
+    {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        .marker 
+        {
+            position: absolute;
+            background-color: rgb(253, 142, 142);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5em;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            pointer-events: auto;
+            cursor: pointer;
+            height: 30px;
+            width: 30px;
+
+            span 
+            {
+                display: block;
+                transform: rotate(45deg);
+            }
+        }
+    }
+}
+
+#essentialNevents 
+{
+    display: flex;
+    >div 
+    {
+        width: 50%;
+    }
+    .essentialInfo 
+    {
+        display: flex;
+        flex-direction: column;
+        line-height: 3em;
+    }
+    #readLoud 
+    {
+        background-color: blue;
+        max-width: 200px;
+        text-align: center;
+        color: white;
+        border-radius: 5px;
+        padding: 1em;
+        cursor: pointer;
+    }
+
+    #latestEvents .eventCards
+    {
+        display: flex;
+        border: 2px solid gray;
+        overflow-x: scroll;
+        padding: 1em;
+        margin: 1em;
+        gap: 1em;
+
+        figure 
+        {
+            min-width: 300px;
+            padding: 0.5em;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0,0,0,.3);
+        }
+    }    
+}
+
+/* hover effects */
+.focus, .attractionCard:hover, .eventCards figure:hover
+{
+    position: relative;
+    transform: scale(1.05);
+    overflow: hidden;
+    transition: transform .3s ease-in-out;
+}
+
+.focus::before, .attractionCard:hover::before, .eventCards figure:hover::before 
+{
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -70%;
+    height: 120%;
+    width: 50%;
+    transform: rotate(15deg);
+    background: linear-gradient(0, transparent, rgba(255,255,255,.9));
+    animation: shine .4s forwards;
+}
+
+@keyframes shine {
+    from{left: -70%}
+    to{left: 110%}
+}
+
+/* Contact Form */
+#contactForm 
+{
+    h2 
+    {
+        position: relative;
+        top: 1.2em;
+        margin: auto;
+        border: 2px solid #ccc;
+        background-color: white;
+        max-width: 300px;
+        padding: 1em;
+    }
+
+    form 
+    {
+        border: 2px solid #ccc;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr 3fr;
+        padding: 4em;
+        line-height: 3em;
+        gap: 5em;
+    }
+}
+
+/* footer */
+
+footer 
+{
+    border-top: 2px solid #ccc;
+    margin-top: 2em;
+    padding-top: 2em;
+    background-color: rgb(233, 233, 233);
+    a 
+    {
+        color: rgb(51, 51, 51);
+    }
+    p 
+    {
+        text-align: center;
+    }
+
+    nav 
+    {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        line-height: 3em;
+        align-items: center;
+        padding: 1em;
+        margin: 1em;
+    }
+}

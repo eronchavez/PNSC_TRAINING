@@ -203,7 +203,62 @@ header
         border-radius: 5px;
     }
 }
+/* Coupon game */
+#couponEvent 
+{
+    text-align: center;
+    max-width: 360px;
+    margin: auto;
+    margin-top: 1em;
+    padding: 2em;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+}
+#couponEvent p 
+{
+    color: #777;
+    margin-bottom: 2em;
+}
 
+#result 
+{
+    font-size: 2em;
+    font-weight: bold;
+    min-height: 3em;
+    margin-bottom: 1em;
+}
+
+#couponEvent button 
+{
+    border: none;
+    padding: 1em;
+    border-radius: 999px;
+    color: white;
+    background-color: rgba(46,46,248);
+    cursor: pointer;
+}
+
+#couponEvent button:disabled 
+{
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+#drawBtn:not(:disabled) {
+    transform: scale(1.2);
+    margin-right: 2px;
+}
+
+#result.active {
+  animation: pop .3s ease;
+}
+
+
+
+@keyframes pop {
+  from { transform: scale(.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
 /* Reviews */
 #reviewSlides
 {
