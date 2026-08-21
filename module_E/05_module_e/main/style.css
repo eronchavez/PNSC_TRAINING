@@ -197,8 +197,8 @@ header ul
     }    
 }
 
-/* hover effects */
-.focus, .attractionCard:hover, .eventCards figure:hover
+/* Hover effect */
+.focus, .attractionCard:hover, .eventCards figure:hover 
 {
     position: relative;
     transform: scale(1.05);
@@ -207,15 +207,15 @@ header ul
 }
 
 .focus::before, .attractionCard:hover::before, .eventCards figure:hover::before 
-{
+{   
     content: "";
     position: absolute;
     top: -10%;
     left: -70%;
     height: 120%;
     width: 50%;
-    transform: rotate(15deg);
     background: linear-gradient(0, transparent, rgba(255,255,255,.9));
+    transform: rotate(15deg);
     animation: shine .4s forwards;
 }
 
@@ -223,6 +223,91 @@ header ul
     from{left: -70%}
     to{left: 110%}
 }
+
+
+/* Reviews */
+#reviewSlides
+{
+    position: relative;
+    height: 300px;
+    margin-top: 2em;
+}
+
+.reviewCard 
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1.5em;
+    transition: transform .35s ease, opacity .35s ease
+}
+
+.center 
+{
+    transform: translateX(-50%) scale(1.1);
+    z-index: 2;
+    opacity: 1;
+}
+
+.left 
+{
+    transform: translateX(calc(-50% - 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.right 
+{
+    transform: translateX(calc(-50% + 320px)) scale(.85);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.hidden 
+{
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.reviewControls 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+#prev,#next
+{
+    border: none;
+    background: none;
+    width: 100px;
+    height: 50px;
+    background-color: green;
+    border-radius: 12px;
+    color: white;
+    border: 1px solid black;
+}
+
+#prev:hover:not(:disabled),#next:hover:not(:disabled){
+    background-color: royalblue;
+}
+
+#prev:active:not(:disabled),#next:active:not(:disabled){
+    background-color: darkblue;
+}
+#prev:disabled, #next:disabled 
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+
 
 /* Contact Form */
 #contactForm 
